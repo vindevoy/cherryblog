@@ -36,6 +36,20 @@ class Application(metaclass=Singleton):
 
         return rendered
 
+    @cherrypy.expose
+    def print_post(self):
+        template = TemplateLoader('src/theme/default').get_template('print_post.html')
+        rendered = template.render(data=DataLoader().get_data())
+
+        return rendered
+
+    @cherrypy.expose
+    def print_page(self):
+        template = TemplateLoader('src/theme/default').get_template('print_page.html')
+        rendered = template.render(data=DataLoader().get_data())
+
+        return rendered
+
 
 if __name__ == '__main__':
     cherrypy.quickstart(Application(), config=Settings().server_config)
