@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% include 'elements/common/head.html' %}
+
+        <!-- Custom styles for this template -->
+        <link href="/static/css/blog-page.css" rel="stylesheet">
+    </head>
+
+    <body>
+        {% include 'elements/common/navigation.html' %}
+
+        <!-- Page  -->
+        <div class="container">
+            <div class="row">
+                <!-- Post Content Column -->
+                <div class="col-lg-8">
+                    {% include 'elements/page/title.html' %}
+                    {% include 'elements/page/content.html' %}
+                </div>
+
+                <!-- Sidebar Widgets Column -->
+                <div class="col-md-4">
+                    {% include 'elements/widget/search.html' %}
+                    {% include 'elements/widget/categories.html' %}
+                    {% include 'elements/widget/misc.html' %}
+                </div>
+            </div>
+        </div>
+
+        {% include 'elements/common/footer.html' %}
+        {% include 'elements/common/bootstrap.html' %}
+    </body>
+</html>
