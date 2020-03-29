@@ -4,24 +4,19 @@
         {% include 'elements/common/head.html' %}
 
         <!-- Custom styles for this template -->
-        <link href="/static/css/blog-home.css" rel="stylesheet">
+        <link href="/static/css/blog-page.css" rel="stylesheet">
     </head>
 
     <body>
         {% include 'elements/common/navigation.html' %}
 
-        <!-- Page -->
+        <!-- Page  -->
         <div class="container">
             <div class="row">
-                <!-- Blog Entries Column -->
-                <div class="col-md-8">
-                    {% include 'elements/home/title.html' %}
-
-                    {% include 'elements/home/post.html' %}
-                    {% include 'elements/home/post.html' %}
-                    {% include 'elements/home/post.html' %}
-
-                    {% include 'elements/home/pagination.html' %}
+                <!-- Post Content Column -->
+                <div class="col-lg-8">
+                    {% include 'elements/page/title.html' %}
+                    {% include 'elements/page/content.html' %}
                 </div>
 
                 <!-- Sidebar Widgets Column -->
