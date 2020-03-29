@@ -22,6 +22,10 @@ class Settings(metaclass=Singleton):
                 'server.thread_pool': 8,
 
                 'engine.autoreload.on': True,
+            },
+            '/static': {
+                'tools.staticdir.on': True,
+                'tools.staticdir.dir': os.path.join(self.root_dir, 'src', 'theme', 'default', 'static')
             }
         }
 
