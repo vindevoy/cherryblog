@@ -6,3 +6,22 @@
 body {
   padding-top: 56px;
 }
+
+a, a:visited {
+  color: red;
+}
+
+a:hover, a:active, a:hover {
+  color: darkred;
+}
+
+.btn-primary, .btn-primary:visited {
+  color: white;
+  background-color: red !important;
+  border-color: red !important;
+}
+
+.btn-primary:hover, .btn-primary:active {
+  background-color: darkred !important;
+  border-color: darkred !important;
+}
