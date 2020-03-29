@@ -16,6 +16,8 @@ setup:
 	@mkdir -p ./src/theme/default
 	@mkdir -p ./src/data/pages
 	@mkdir -p ./src/data/blog
+	@mkdir -p ./src/data/site
+	@touch ./src/data/site/settings.yml
 	@echo "[OK] Setup has created the /src directory and sub-directories"
 
 download: clean

@@ -8,6 +8,7 @@
 
 import cherrypy
 
+from dataloader import DataLoader
 from settings import Settings
 from singleton import Singleton
 from templateloader import TemplateLoader
@@ -17,7 +18,7 @@ class Application(metaclass=Singleton):
     @cherrypy.expose
     def index(self):
         template = TemplateLoader('src/theme/default').get_template('index.html')
-        rendered = template.render()
+        rendered = template.render(data=DataLoader().get_data())
 
         return rendered
 
