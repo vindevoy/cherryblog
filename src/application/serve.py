@@ -18,35 +18,37 @@ class Application(metaclass=Singleton):
     @cherrypy.expose
     def index(self):
         template = TemplateLoader('src/theme/default').get_template('index.html')
-        rendered = template.render(data=DataLoader().get_data())
+        rendered = template.render(data=DataLoader().get_index_data())
 
         return rendered
 
     @cherrypy.expose
-    def page(self):
+    def pages(self, page):
+        # page on the URL: http://www.yoursite.ext/pages/page
+
         template = TemplateLoader('src/theme/default').get_template('page.html')
-        rendered = template.render(data=DataLoader().get_data())
+        rendered = template.render(data=DataLoader().get_page_data(page))
 
         return rendered
 
     @cherrypy.expose
     def post(self):
         template = TemplateLoader('src/theme/default').get_template('post.html')
-        rendered = template.render(data=DataLoader().get_data())
+        rendered = template.render(data=DataLoader().get_post_data())
+
+        return rendered
+
+    @cherrypy.expose
+    def print_page(self, page):
+        template = TemplateLoader('src/theme/default').get_template('print_page.html')
+        rendered = template.render(data=DataLoader().get_page_data(page))
 
         return rendered
 
     @cherrypy.expose
     def print_post(self):
         template = TemplateLoader('src/theme/default').get_template('print_post.html')
-        rendered = template.render(data=DataLoader().get_data())
-
-        return rendered
-
-    @cherrypy.expose
-    def print_page(self):
-        template = TemplateLoader('src/theme/default').get_template('print_page.html')
-        rendered = template.render(data=DataLoader().get_data())
+        rendered = template.render(data=DataLoader().get_post_data())
 
         return rendered
 
