@@ -32,6 +32,7 @@ download: clean
 dependencies:
 	@pip3 install cherrypy
 	@pip3 install jinja2
+	@pip3 install pyyaml
 	@echo "[OK] Dependencies in Python installed"
 
 

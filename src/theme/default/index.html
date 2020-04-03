@@ -12,19 +12,18 @@
             <div class="row">
                 <!-- Blog Entries Column -->
                 <div class="col-md-8">
-                    {% include 'elements/home/title.html' %}
+                    {% include 'elements/index/title.html' %}
 
-                    {% include 'elements/home/post.html' %}
-                    {% include 'elements/home/post.html' %}
-                    {% include 'elements/home/post.html' %}
+                    {% for post in data.posts %}
+                        {% with post = post %}
+                            {% include 'elements/index/post.html' %}
+                        {% endwith %}
+                    {% endfor %}
 
-                    {% include 'elements/home/pagination.html' %}
                 </div>
 
                 <!-- Sidebar Widgets Column -->
                 <div class="col-md-4">
-                    {% include 'elements/widget/search.html' %}
-                    {% include 'elements/widget/categories.html' %}
                     {% include 'elements/widget/misc.html' %}
                 </div>
             </div>

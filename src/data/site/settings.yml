@@ -2,3 +2,8 @@
 
 blog:
   title: "CherryBlog"
+  copyright: "Copyright &copy; Your Website 2019"
+
+index:
+  primary_title: "Latest news"
+  secondary_title: "about CherryBlog"
