@@ -26,6 +26,10 @@ class Settings(metaclass=Singleton):
             '/static': {
                 'tools.staticdir.on': True,
                 'tools.staticdir.dir': os.path.join(self.root_dir, 'src', 'theme', 'default', 'static')
+            },
+            '/images': {
+                'tools.staticdir.on': True,
+                'tools.staticdir.dir': os.path.join(self.root_dir, 'src', 'data', 'images')
             }
         }
 
@@ -36,3 +40,7 @@ class Settings(metaclass=Singleton):
     @property
     def root_dir(self):
         return os.getcwd()
+
+    @property
+    def index_max_posts(self):
+        return 2
