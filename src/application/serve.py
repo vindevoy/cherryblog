@@ -32,7 +32,7 @@ class Application(metaclass=Singleton):
         return rendered
 
     @cherrypy.expose
-    def post(self, post):
+    def posts(self, post):
         template = TemplateLoader('src/theme/default').get_template('post.html')
         rendered = template.render(data=DataLoader().get_post_data(post))
 
