@@ -7,3 +7,6 @@ blog:
 index:
   primary_title: "Latest news"
   secondary_title: "about CherryBlog"
+
+navigation:
+  read_more_label: "Read More &rarr;"
