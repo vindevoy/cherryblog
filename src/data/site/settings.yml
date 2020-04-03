@@ -9,4 +9,5 @@ index:
   secondary_title: "about CherryBlog"
 
 navigation:
+  home_label: "Home"
   read_more_label: "Read More &rarr;"
