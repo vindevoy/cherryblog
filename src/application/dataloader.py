@@ -28,7 +28,7 @@ class DataLoader(metaclass=Singleton):
     def get_index_data(self):
         data = {'settings': self.get_settings()}
 
-        posts_dir = os.path.join(Settings().root_dir, 'src', 'data', 'blog')
+        posts_dir = os.path.join(Settings().root_dir, 'src', 'data', 'posts')
 
         data['posts'] = []
 
@@ -71,7 +71,7 @@ class DataLoader(metaclass=Singleton):
     def get_post_data(self, post):
         data = {'settings': self.get_settings()}
 
-        posts_dir = os.path.join(Settings().root_dir, 'src', 'data', 'blog')
+        posts_dir = os.path.join(Settings().root_dir, 'src', 'data', 'posts')
         file = open(os.path.join(posts_dir, '{0}.yml'.format(post)), 'r')
 
         post_data = yaml.load(file, Loader=yaml.SafeLoader)
