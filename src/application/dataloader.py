@@ -25,8 +25,17 @@ class DataLoader(metaclass=Singleton):
 
         return settings
 
+    @staticmethod
+    def get_main_menu():
+        config_dir = os.path.join(Settings().root_dir, 'src', 'data', 'site')
+        file = open(os.path.join(config_dir, 'main_menu.yml'), 'r')
+
+        menu = yaml.load(file, Loader=yaml.SafeLoader)
+
+        return menu
+
     def get_index_data(self):
-        data = {'settings': self.get_settings()}
+        data = {'settings': self.get_settings(), 'main_menu': self.get_main_menu()}
 
         posts_dir = os.path.join(Settings().root_dir, 'src', 'data', 'posts')
 
@@ -55,7 +64,7 @@ class DataLoader(metaclass=Singleton):
         return data
 
     def get_page_data(self, page):
-        data = {'settings': self.get_settings()}
+        data = {'settings': self.get_settings(), 'main_menu': self.get_main_menu()}
 
         pages_dir = os.path.join(Settings().root_dir, 'src', 'data', 'pages')
         file = open(os.path.join(pages_dir, '{0}.yml'.format(page)), 'r')
@@ -67,7 +76,7 @@ class DataLoader(metaclass=Singleton):
         return data
 
     def get_post_data(self, post):
-        data = {'settings': self.get_settings()}
+        data = {'settings': self.get_settings(), 'main_menu': self.get_main_menu()}
 
         posts_dir = os.path.join(Settings().root_dir, 'src', 'data', 'posts')
         file = open(os.path.join(posts_dir, '{0}.yml'.format(post)), 'r')
