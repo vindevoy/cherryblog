@@ -1,0 +1,14 @@
+<!-- Blog Post -->
+<div class="card mb-4">
+    <img class="card-img-top" src="/images/{{ post.image_index }}">
+
+    <div class="card-body">
+        <h2 class="card-title">{{ post.title }}</h2>
+        <p class="card-text">{{ post.summary}}</p>
+        <a href="/post/{{ post.url }}" class="btn btn-primary">Read More &rarr;</a>
+    </div>
+
+    <div class="card-footer text-muted">
+        Posted on {{ post.date }} by {{ post.author }}
+    </div>
+</div>

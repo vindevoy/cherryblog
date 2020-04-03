@@ -32,9 +32,9 @@ class Application(metaclass=Singleton):
         return rendered
 
     @cherrypy.expose
-    def post(self):
+    def post(self, post):
         template = TemplateLoader('src/theme/default').get_template('post.html')
-        rendered = template.render(data=DataLoader().get_post_data())
+        rendered = template.render(data=DataLoader().get_post_data(post))
 
         return rendered
 
@@ -46,9 +46,9 @@ class Application(metaclass=Singleton):
         return rendered
 
     @cherrypy.expose
-    def print_post(self):
+    def print_post(self, post):
         template = TemplateLoader('src/theme/default').get_template('print_post.html')
-        rendered = template.render(data=DataLoader().get_post_data())
+        rendered = template.render(data=DataLoader().get_post_data(post))
 
         return rendered
 
