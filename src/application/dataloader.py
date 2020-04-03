@@ -52,8 +52,6 @@ class DataLoader(metaclass=Singleton):
             if count_entries == max_entries:
                 break
 
-        print (data)
-
         return data
 
     def get_page_data(self, page):
