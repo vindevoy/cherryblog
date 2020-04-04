@@ -18,7 +18,7 @@ class Settings(metaclass=Singleton):
         self.__config = {
             'global': {
                 'server.socket_host': '127.0.0.1',
-                'server.socket_port': 8080,
+                'server.socket_port': 80,
                 'server.thread_pool': 8,
 
                 'engine.autoreload.on': True,
