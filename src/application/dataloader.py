@@ -132,6 +132,8 @@ class DataLoader(metaclass=Singleton):
 
                     continue
 
+        data['category'] = {'name': string.capwords(category.replace('-', ' '))}
+
         return data
 
     def get_page_data(self, page):
