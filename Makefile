@@ -33,6 +33,7 @@ dependencies:
 	@pip3 install cherrypy
 	@pip3 install jinja2
 	@pip3 install pyyaml
+	@pip3 install markdown
 	@echo "[OK] Dependencies in Python installed"
 
 

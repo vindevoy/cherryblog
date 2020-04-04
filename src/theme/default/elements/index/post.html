@@ -5,7 +5,7 @@
     <div class="card-body">
         <h2 class="card-title">{{ post.title }}</h2>
         <p class="card-text">{{ post.summary}}</p>
-        <a href="/post/{{ post.url }}" class="btn btn-primary">Read More &rarr;</a>
+        <a href="/posts/{{ post.url }}" class="btn btn-primary">{{ data.settings.navigation.read_more_label }}</a>
     </div>
 
     <div class="card-footer text-muted">

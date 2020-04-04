@@ -6,6 +6,7 @@
 #
 ###
 
+import markdown
 import yaml
 import os
 
@@ -25,10 +26,19 @@ class DataLoader(metaclass=Singleton):
 
         return settings
 
-    def get_index_data(self):
-        data = {'settings': self.get_settings()}
+    @staticmethod
+    def get_main_menu():
+        config_dir = os.path.join(Settings().root_dir, 'src', 'data', 'site')
+        file = open(os.path.join(config_dir, 'main_menu.yml'), 'r')
 
-        posts_dir = os.path.join(Settings().root_dir, 'src', 'data', 'blog')
+        menu = yaml.load(file, Loader=yaml.SafeLoader)
+
+        return menu
+
+    def get_index_data(self):
+        data = {'settings': self.get_settings(), 'main_menu': self.get_main_menu()}
+
+        posts_dir = os.path.join(Settings().root_dir, 'src', 'data', 'posts')
 
         data['posts'] = []
 
@@ -43,39 +53,50 @@ class DataLoader(metaclass=Singleton):
             count_entries += 1
 
             file = open(os.path.join(posts_dir, file), 'r')
-            post_data = yaml.load(file, Loader=yaml.SafeLoader)
-            stem = Path(file.name).stem
-            post_data['url'] = stem
 
-            data['posts'].append(post_data)
+            post, post['content'] = self.__split_file(file.read())
+
+            stem = Path(file.name).stem
+            post['url'] = stem
+
+            data['posts'].append(post)
 
             if count_entries == max_entries:
                 break
 
-        print (data)
-
         return data
 
     def get_page_data(self, page):
-        data = {'settings': self.get_settings()}
+        data = {'settings': self.get_settings(), 'main_menu': self.get_main_menu()}
 
         pages_dir = os.path.join(Settings().root_dir, 'src', 'data', 'pages')
-        file = open(os.path.join(pages_dir, '{0}.yml'.format(page)), 'r')
+        file = open(os.path.join(pages_dir, '{0}.md'.format(page)), 'r')
 
-        page_data = yaml.load(file, Loader=yaml.SafeLoader)
-
-        data['page'] = page_data
+        data['page'], data['page']['content'] = self.__split_file(file.read())
 
         return data
 
     def get_post_data(self, post):
-        data = {'settings': self.get_settings()}
+        data = {'settings': self.get_settings(), 'main_menu': self.get_main_menu()}
 
-        posts_dir = os.path.join(Settings().root_dir, 'src', 'data', 'blog')
-        file = open(os.path.join(posts_dir, '{0}.yml'.format(post)), 'r')
+        posts_dir = os.path.join(Settings().root_dir, 'src', 'data', 'posts')
+        file = open(os.path.join(posts_dir, '{0}.md'.format(post)), 'r')
 
-        post_data = yaml.load(file, Loader=yaml.SafeLoader)
-
-        data['post'] = post_data
+        data['post'], data['post']['content'] = self.__split_file(file.read())
 
         return data
+
+    @staticmethod
+    def __split_file(data):
+        split = data.split('-' * 10)
+
+        meta = split[0]
+        content = ""
+
+        if len(split) == 2:
+            content = split[1]
+
+        meta_data = yaml.load(meta, Loader=yaml.SafeLoader)
+        content_html = markdown.markdown(content)
+
+        return meta_data, content_html

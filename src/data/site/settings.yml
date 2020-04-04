@@ -2,8 +2,12 @@
 
 blog:
   title: "CherryBlog"
-  copyright: "Copyright &copy; Your Website 2019"
+  copyright: "CherryBlog is licensed under the MIT license"
 
 index:
   primary_title: "Latest news"
   secondary_title: "about CherryBlog"
+
+navigation:
+  home_label: "Home"
+  read_more_label: "Read More &rarr;"
