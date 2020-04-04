@@ -10,6 +10,9 @@ image_post: "cherry1_900_300.jpg"
 
 summary: "CherryBlog is brand new blogging software written in Python and using the CherryPy framework, hence it's name."
 
+categories:
+    - CherryBlog
+    
 ----------
 
 CherryBlog is brand new blogging software written in Python and using the CherryPy framework, hence it's name.
