@@ -39,6 +39,13 @@ class Application(metaclass=Singleton):
         return rendered
 
     @cherrypy.expose
+    def categories(self, post):
+        template = TemplateLoader('src/theme/default').get_template('category.html')
+        rendered = template.render(data=DataLoader().get_category_data(post))
+
+        return rendered
+
+    @cherrypy.expose
     def print_page(self, page):
         template = TemplateLoader('src/theme/default').get_template('print_page.html')
         rendered = template.render(data=DataLoader().get_page_data(page))
