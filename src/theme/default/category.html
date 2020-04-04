@@ -12,11 +12,11 @@
             <div class="row">
                 <!-- Blog Entries Column -->
                 <div class="col-md-8">
-                    {% include 'elements/index/title.html' %}
+                    {% include 'elements/category/title.html' %}
 
                     {% for post in data.posts %}
                         {% with post = post %}
-                            {% include 'elements/index/post.html' %}
+                            {% include 'elements/category/post.html' %}
                         {% endwith %}
                     {% endfor %}
 
