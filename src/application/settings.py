@@ -7,6 +7,7 @@
 ###
 
 import os
+import socket
 
 from singleton import Singleton
 
@@ -18,7 +19,7 @@ class Settings(metaclass=Singleton):
         self.__config = {
             'global': {
                 'server.socket_host': '127.0.0.1',
-                'server.socket_port': 80,
+                'server.socket_port': 8080,
                 'server.thread_pool': 8,
 
                 'engine.autoreload.on': True,
@@ -43,4 +44,12 @@ class Settings(metaclass=Singleton):
 
     @property
     def index_max_posts(self):
+        return 4
+
+    @property
+    def index_spotlight_posts(self):
+        return 1
+
+    @property
+    def index_highlight_posts(self):
         return 2

@@ -107,12 +107,17 @@ class DataLoader(metaclass=Singleton):
         posts_dir = os.path.join(Settings().root_dir, 'src', 'data', 'posts')
 
         data['posts'] = []
+        data['spotlight_posts'] = []
+        data['highlight_posts'] = []
 
         # For now we take the list of files in reversed sort order
         # (newest should get a newer entry at the end of the list, like post1, ..., postx)
         # I will sort this out later
 
         max_entries = Settings().index_max_posts
+        spotlight_entries = Settings().index_spotlight_posts
+        highlight_entries = Settings().index_highlight_posts
+
         count_entries = 0
         skip_entries = (int(page_index) - 1) * max_entries
 
@@ -130,7 +135,18 @@ class DataLoader(metaclass=Singleton):
             stem = Path(file.name).stem
             post['url'] = stem
 
-            data['posts'].append(post)
+            if page_index == 1:
+                if count_entries <= spotlight_entries:
+                    data['spotlight_posts'].append(post)
+
+                if spotlight_entries < count_entries <= (spotlight_entries + highlight_entries):
+                    data['highlight_posts'].append(post)
+
+                if count_entries > (spotlight_entries + highlight_entries):
+                    data['posts'].append(post)
+
+            else:
+                data['posts'].append(post)
 
             if count_entries == (max_entries + skip_entries):
                 break
@@ -138,7 +154,11 @@ class DataLoader(metaclass=Singleton):
         total_posts = self.__count_posts()
         total_index_pages = math.ceil(total_posts / max_entries)
 
-        data['pagination'] = {'current_page': int(page_index), 'total_pages': total_index_pages}
+        data['pagination'] = {'current_page': int(page_index),
+                              'total_pages': total_index_pages,
+                              'spotlight_posts': len(data['spotlight_posts']),
+                              'highlight_posts': len(data['highlight_posts']),
+                              'posts': len(data['posts'])}
 
         return data
 
