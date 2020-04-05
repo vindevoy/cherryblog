@@ -1,5 +1,4 @@
 <!-- Page Content -->
-
-<div class="mt-4">
-    {{ data.page.content }}
-</div>
+{% with content = data.page.content %}
+    {% include 'elements/common/content.html' %}
+{% endwith %}

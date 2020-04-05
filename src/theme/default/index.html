@@ -11,8 +11,20 @@
         <div class="container">
             <div class="row">
                 <!-- Blog Entries Column -->
-                <div class="col-md-8">
+                <div class="col-12 col-md-8">
                     {% include 'elements/index/title.html' %}
+
+                    {% for post in data.spotlight_posts %}
+                        {% with post = post %}
+                            {% include 'elements/index/post.html' %}
+                        {% endwith %}
+                    {% endfor %}
+
+                    {% for post in data.highlight_posts %}
+                        {% with post = post %}
+                            {% include 'elements/index/post.html' %}
+                        {% endwith %}
+                    {% endfor %}
 
                     {% for post in data.posts %}
                         {% with post = post %}
@@ -24,7 +36,7 @@
                 </div>
 
                 <!-- Sidebar Widgets Column -->
-                <div class="col-md-4">
+                <div class="d-none d-md-block col-md-4">
                     {% include 'elements/widget/categories.html' %}
                 </div>
             </div>

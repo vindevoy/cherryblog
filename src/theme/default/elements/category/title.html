@@ -1,2 +1,6 @@
-<h1 class="my-4">{{ data.category.name }} <small> posts</small>
-</h1>
+<!-- Title -->
+{% with primary_text = data.category.name,
+        secondary_text = 'posts' %}
+
+    {% include 'elements/common/title.html' %}
+{% endwith %}

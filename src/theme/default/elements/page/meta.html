@@ -1,3 +1,5 @@
 <!-- Meta -->
-
-<p style="font-size: small">Authored by {{ data.page.author }} on {{ data.page.date }}</p>
+{% with author = data.page.author,
+        date = data.page.date %}
+    {% include 'elements/common/meta.html' %}
+{% endwith %}

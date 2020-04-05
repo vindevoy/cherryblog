@@ -1,2 +1,6 @@
-<h1 class="my-4">{{ data.settings.index.primary_title}} <small>{{ data.settings.index.secondary_title}}</small>
-</h1>
+<!-- Title -->
+{% with primary_text = data.settings.index.primary_title,
+        secondary_text = data.settings.index.secondary_title %}
+
+    {% include 'elements/common/title.html' %}
+{% endwith %}

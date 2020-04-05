@@ -1,15 +1,18 @@
 
 <!-- Post Image -->
-<img class="img-fluid rounded" src="/images/{{ data.post.image_post }}">
+{% with source = '/images/' + data.post.image %}
+    {% include 'elements/common/page_image.html' %}
+{% endwith %}
 
 <!-- Title -->
-<h1 class="mt-4">{{ data.post.title }}</h1>
+{% with primary_text = data.post.title,
+        secondary_text = '' %}
 
-<!-- Author -->
-<p class="lead">
-  by {{ data.post.author }}
-</p>
+    {% include 'elements/common/title.html' %}
+{% endwith %}
 
-<!-- Date/Time -->
-<p>Posted on {{ data.post.date }}</p>
-
+<!-- Meta -->
+{% with author = data.post.author,
+        date = data.post.date %}
+    {% include 'elements/common/meta.html' %}
+{% endwith %}
