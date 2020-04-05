@@ -1,6 +1,6 @@
 ---
 
-title: "Cherry Blossom"
+title: "Cherry Blossom (wikipedia)"
 
 author: "Yves Vindevogel"
 date: "2020-04-04"
