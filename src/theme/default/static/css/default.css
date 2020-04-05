@@ -25,3 +25,11 @@ a:hover, a:active, a:hover {
   background-color: darkred !important;
   border-color: darkred !important;
 }
+
+.page-link, .page-link:visited {
+  color: red;
+}
+
+.page-link:hover, .page-link:active {
+  color: red;
+}

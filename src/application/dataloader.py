@@ -7,6 +7,7 @@
 ###
 
 import markdown
+import math
 import yaml
 import os
 import string
@@ -72,7 +73,35 @@ class DataLoader(metaclass=Singleton):
                 'categories': self.__get_categories(),
                 'main_menu': self.__get_main_menu()}
 
-    def get_index_data(self):
+    @staticmethod
+    def __count_pages():
+        pages_dir = os.path.join(Settings().root_dir, 'src', 'data', 'pages')
+
+        return len(os.listdir(pages_dir))
+
+    @staticmethod
+    def __count_posts():
+        posts_dir = os.path.join(Settings().root_dir, 'src', 'data', 'posts')
+
+        return len(os.listdir(posts_dir))
+
+    def __count_category_posts(self, category):
+        posts_dir = os.path.join(Settings().root_dir, 'src', 'data', 'posts')
+
+        count_entries = 0
+
+        for file in os.listdir(posts_dir):
+            file = open(os.path.join(posts_dir, file), 'r')
+
+            post, _ = self.__split_file(file.read())
+
+            for cat_raw in post['categories']:
+                if self.__category_label(cat_raw) == category:
+                    count_entries += 1
+
+        return count_entries
+
+    def get_index_data(self, page_index):
         data = self.__get_common()
 
         posts_dir = os.path.join(Settings().root_dir, 'src', 'data', 'posts')
@@ -85,9 +114,14 @@ class DataLoader(metaclass=Singleton):
 
         max_entries = Settings().index_max_posts
         count_entries = 0
+        skip_entries = (int(page_index) - 1) * max_entries
 
         for file in sorted(os.listdir(posts_dir), reverse=True):
             count_entries += 1
+
+            # We count the entries, but for pages 2 and more, you don't show them
+            if skip_entries >= count_entries:
+                continue
 
             file = open(os.path.join(posts_dir, file), 'r')
 
@@ -98,12 +132,17 @@ class DataLoader(metaclass=Singleton):
 
             data['posts'].append(post)
 
-            if count_entries == max_entries:
+            if count_entries == (max_entries + skip_entries):
                 break
+
+        total_posts = self.__count_posts()
+        total_index_pages = math.ceil(total_posts / max_entries)
+
+        data['pagination'] = {'current_page': int(page_index), 'total_pages': total_index_pages}
 
         return data
 
-    def get_category_data(self, category):
+    def get_category_data(self, category, page_index):
         data = self.__get_common()
 
         posts_dir = os.path.join(Settings().root_dir, 'src', 'data', 'posts')
@@ -112,27 +151,41 @@ class DataLoader(metaclass=Singleton):
 
         max_entries = Settings().index_max_posts
         count_entries = 0
+        skip_entries = (int(page_index) - 1) * max_entries
 
         for file in sorted(os.listdir(posts_dir), reverse=True):
-            count_entries += 1
-
             file = open(os.path.join(posts_dir, file), 'r')
 
             post, post['content'] = self.__split_file(file.read())
 
+            must_include = False
+
             for cat_raw in post['categories']:
                 if self.__category_label(cat_raw) == category:
-                    stem = Path(file.name).stem
-                    post['url'] = stem
+                    must_include = True
+                    break
 
-                    data['posts'].append(post)
+            if must_include:
+                count_entries += 1
 
-                    if count_entries == max_entries:
-                        break
-
+                # We count the entries, but for pages 2 and more, you don't show them
+                if skip_entries >= count_entries:
                     continue
 
-        data['category'] = {'name': string.capwords(category.replace('-', ' '))}
+                stem = Path(file.name).stem
+                post['url'] = stem
+
+                data['posts'].append(post)
+
+                if count_entries == max_entries:
+                    break
+
+        data['category'] = {'name': string.capwords(category.replace('-', ' ')), 'path': category}
+
+        total_posts = self.__count_category_posts(category)
+        total_index_pages = math.ceil(total_posts / max_entries)
+
+        data['pagination'] = {'current_page': int(page_index), 'total_pages': total_index_pages}
 
         return data
 
@@ -155,7 +208,10 @@ class DataLoader(metaclass=Singleton):
         posts_dir = os.path.join(Settings().root_dir, 'src', 'data', 'posts')
         file = open(os.path.join(posts_dir, '{0}.md'.format(post)), 'r')
 
-        data['post'], data['post']['content'] = self.__split_file(file.read())
+        meta, content = self.__split_file(file.read())
+
+        meta['content'] = content
+        data['post'] = meta
 
         return data
 
