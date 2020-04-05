@@ -1,5 +1,4 @@
 <!-- Post Content -->
-
-<div class="mt-4">
-    {{ data.post.content }}
-</div>
+{% with content = data.post.content %}
+    {% include 'elements/common/content.html' %}
+{% endwith %}
