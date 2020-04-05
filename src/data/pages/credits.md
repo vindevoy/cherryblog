@@ -2,7 +2,7 @@
 
 title: "Credits"
 
-image: "blossom3_900_300.jpg"
+image: "blossom3.jpg"
 
 author: "Yves Vindevogel"
 date: "2020-04-03"

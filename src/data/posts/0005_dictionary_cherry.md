@@ -5,8 +5,7 @@ title: "Cherry (dictionary)"
 author: "Yves Vindevogel"
 date: "2020-04-05"
 
-image_index: "cherry1_750_300.jpg"
-image_post: "cherry1_900_300.jpg"
+image: "cherry1.jpg"
 
 summary: "cherry: noun." 
 
