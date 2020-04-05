@@ -5,8 +5,7 @@ title: "Cherry Blossom (wikipedia)"
 author: "Yves Vindevogel"
 date: "2020-04-04"
 
-image_index: "blossom1_750_300.jpg"
-image_post: "blossom1_900_300.jpg"
+image: "blossom1.jpg"
 
 summary: A cherry blossom is a flower of many trees of genus Prunus. The most well-known species is the Japanese cherry, Prunus serrulata, which is commonly called sakura.
 

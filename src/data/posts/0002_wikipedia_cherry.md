@@ -5,8 +5,7 @@ title: "Cherry (wikipedia)"
 author: "Yves Vindevogel"
 date: "2020-04-04"
 
-image_index: "cherry2_750_300.jpg"
-image_post: "cherry2_900_300.jpg"
+image: "cherry2.jpg"
 
 summary: A cherry is the fruit of many plants of the genus Prunus, and is a fleshy drupe (stone fruit).
 

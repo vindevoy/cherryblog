@@ -5,8 +5,7 @@ title: "Introduction"
 author: "Yves Vindevogel"
 date: "2020-04-04"
 
-image_index: "cherry1_750_300.jpg"
-image_post: "cherry1_900_300.jpg"
+image: "cherry1.jpg"
 
 summary: "CherryBlog is brand new blogging software written in Python and using the CherryPy framework, hence it's name."
 
