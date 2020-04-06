@@ -1,4 +1,5 @@
-<!-- Blog Post with Category -->
+<!-- Highlight Blog Post (column with 2) -->
+
 {% with image = '/images/' + post.image,
         title = post.title,
         summary = post.summary,
@@ -8,5 +9,5 @@
         date = post.date
         %}
 
-    {% include 'elements/common/standard_post.html' %}
+    {% include 'elements/common/highlight_post.html' %}
 {% endwith %}

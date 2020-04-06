@@ -9,14 +9,34 @@
 
         <!-- Page -->
         <div class="container">
-            <div class="row">
+            <div class="row p-0 m-0">
                 <!-- Blog Entries Column -->
-                <div class="col-md-8">
+                <div class="col-xs-12 col-md-8 m-0 p-0">
                     {% include 'elements/index/title.html' %}
+
+                    {% if data.pagination.current_page == 1 %}
+                        {% for post in data.spotlight_posts %}
+                            <div class="row mb-3 m-0 p-0">
+                                {% with post = post %}
+                                    {% include 'elements/index/spotlight_post.html' %}
+                                {% endwith %}
+                            </div>
+                        {% endfor %}
+
+                        <div class="row mb-3 m-0 p-0">
+                            {% for post in data.highlight_posts %}
+                                {% with post = post %}
+                                    {% include 'elements/index/highlight_post.html' %}
+                                {% endwith %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
 
                     {% for post in data.posts %}
                         {% with post = post %}
-                            {% include 'elements/index/post.html' %}
+                            <div class="row mb-3 m-0 p-0">
+                                {% include 'elements/index/standard_post.html' %}
+                            </div>
                         {% endwith %}
                     {% endfor %}
 
@@ -24,7 +44,7 @@
                 </div>
 
                 <!-- Sidebar Widgets Column -->
-                <div class="col-md-4">
+                <div class="d-none d-md-block col-md-4 m-0 pl-3 mt-3 p-0">
                     {% include 'elements/widget/categories.html' %}
                 </div>
             </div>

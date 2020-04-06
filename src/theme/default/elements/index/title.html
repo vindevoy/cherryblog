@@ -1,2 +1,15 @@
-<h1 class="my-4">{{ data.settings.index.primary_title}} <small>{{ data.settings.index.secondary_title}}</small>
-</h1>
+<!-- Title -->
+{% if data.pagination.current_page == 1 %}
+    {% with primary_text = data.settings.index.primary_title,
+            secondary_text = data.settings.index.secondary_title %}
+
+        {% include 'elements/common/title.html' %}
+    {% endwith %}
+{% endif %}
+{% if data.pagination.current_page > 1 %}
+    {% with primary_text = 'News archive',
+            secondary_text = 'page ' + data.pagination.current_page|string + ' of ' + data.pagination.total_pages|string %}
+
+        {% include 'elements/common/title.html' %}
+    {% endwith %}
+{% endif %}

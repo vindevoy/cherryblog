@@ -22,12 +22,18 @@ setup:
 
 download: clean
 	@mkdir -p ./tmp
-	@wget -O ./tmp/startbootstrap-blog-home.zip https://github.com/BlackrockDigital/startbootstrap-blog-home/archive/gh-pages.zip
-	@wget -O ./tmp/startbootstrap-blog-post.zip https://github.com/BlackrockDigital/startbootstrap-blog-post/archive/gh-pages.zip
+	@wget -O ./tmp/startbootstrap-blog-home.zip         https://github.com/BlackrockDigital/startbootstrap-blog-home/archive/gh-pages.zip
+	@wget -O ./tmp/startbootstrap-blog-post.zip         https://github.com/BlackrockDigital/startbootstrap-blog-post/archive/gh-pages.zip
+	@wget -O ./tmp/startbootstrap-shop-home.zip         https://github.com/BlackrockDigital/startbootstrap-shop-homepage/archive/gh-pages.zip
+	@wget -O ./tmp/startbootstrap-heroic-features.zip   https://github.com/BlackrockDigital/startbootstrap-heroic-features/archive/gh-pages.zip
+
 	@mkdir -p ./download
-	@unzip -o ./tmp/startbootstrap-blog-home.zip -d ./download
-	@unzip -o ./tmp/startbootstrap-blog-post.zip -d ./download
-	@rm -rf ./tmp
+	@unzip -o ./tmp/startbootstrap-blog-home.zip        -d ./download
+	@unzip -o ./tmp/startbootstrap-blog-post.zip        -d ./download
+	@unzip -o ./tmp/startbootstrap-shop-home.zip        -d ./download
+	@unzip -o ./tmp/startbootstrap-heroic-features.zip  -d ./download
+
+	#@rm -rf ./tmp
 
 dependencies:
 	@pip3 install cherrypy

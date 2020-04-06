@@ -1,0 +1,17 @@
+<div class="m-0 px-2 py-0 w-100">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">{{ title }}</h3>
+            <p class="card-text">{{ summary}}</p>
+            <a href="{{ url }}" class="btn btn-primary">{{ button_label }}</a>
+        </div>
+
+        <div class="card-footer text-muted">
+            {% with author = author,
+                    date = date
+                    %}
+                {% include 'elements/common/meta.html' %}
+            {% endwith %}
+        </div>
+    </div>
+</div>

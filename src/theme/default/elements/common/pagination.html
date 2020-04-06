@@ -1,0 +1,33 @@
+<!-- Pagination -->
+{% if total_pages > 1 %}
+    <div class="row justify-content-center">
+        <ul class="pagination">
+            {% if current_page == 1 %}
+                <li class="page-item disabled">
+                    <a class="page-link">{{ label_previous_page }}</a>
+                </li>
+            {% endif %}
+            {% if current_page == 2 %}
+                <li class="page-item">
+                    <a class="page-link" href="/{{ home_path }}">{{ label_previous_page }}</a>
+                </li>
+            {% endif %}
+            {% if current_page > 2 %}
+                <li class="page-item">
+                    <a class="page-link" href="/{{ base_path }}/{{ current_page - 1 }}">{{ label_previous_page }}</a>
+                </li>
+            {% endif %}
+
+            {% if current_page == total_pages %}
+                <li class="page-item disabled">
+                    <a class="page-link">{{ label_next_page }}</a>
+                </li>
+            {% endif %}
+            {% if current_page != total_pages %}
+                <li class="page-item">
+                    <a class="page-link" href="/{{ base_path }}/{{ data.pagination.current_page + 1 }}">{{ label_next_page }}</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+{% endif %}

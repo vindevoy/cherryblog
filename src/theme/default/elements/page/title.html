@@ -1,5 +1,11 @@
 <!-- Title -->
-<h1 class="mt-4">{{ data.page.title }}</h1>
+{% with primary_text = data.page.title,
+        secondary_text = '' %}
+
+    {% include 'elements/common/title.html' %}
+{% endwith %}
 
 <!-- Page Image -->
-<img class="img-fluid rounded" src="/images/{{ data.page.image }}">
+{% with source = '/images/' + data.page.image %}
+    {% include 'elements/common/page_image.html' %}
+{% endwith %}

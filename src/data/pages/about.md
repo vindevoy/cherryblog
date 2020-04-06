@@ -2,7 +2,7 @@
 
 title: "About CherryBlog"
 
-image: "blossom1_900_300.jpg"
+image: "blossom1.jpg"
 
 author: "Yves Vindevogel"
 date: "2020-04-03"
