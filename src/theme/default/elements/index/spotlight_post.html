@@ -1,5 +1,4 @@
 <!-- Spotlight Blog Post (most important, 1 per column) -->
-
 {% with image = '/images/' + post.image,
         title = post.title,
         summary = post.summary,
@@ -9,5 +8,5 @@
         date = post.date
         %}
 
-    {% include 'elements/common/spotlight_post.html' %}
+    {% include 'elements/_html/spotlight_post.html' %}
 {% endwith %}

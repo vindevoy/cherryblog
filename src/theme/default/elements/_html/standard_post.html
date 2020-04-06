@@ -1,7 +1,5 @@
-<div class="mx-0 px-2">
+<div class="m-0 px-2 py-0 w-100">
     <div class="card">
-        <img class="card-img-top" src="{{ image }}">
-
         <div class="card-body">
             <h3 class="card-title">{{ title }}</h3>
             <p class="card-text">{{ summary}}</p>
@@ -12,7 +10,7 @@
             {% with author = author,
                     date = date
                     %}
-                {% include 'elements/common/meta.html' %}
+                {% include 'elements/_html/meta.html' %}
             {% endwith %}
         </div>
     </div>
