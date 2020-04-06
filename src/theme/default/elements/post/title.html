@@ -5,13 +5,13 @@
     {% include 'elements/common/title.html' %}
 {% endwith %}
 
+<!-- Preview Image -->
+{% with source = '/images/' + data.post.image %}
+    {% include 'elements/common/page_image.html' %}
+{% endwith %}
+
 <!-- Meta -->
 {% with author = data.post.author,
         date = data.post.date %}
     {% include 'elements/common/meta.html' %}
-{% endwith %}
-
-<!-- Preview Image -->
-{% with source = '/images/' + data.post.image %}
-    {% include 'elements/common/page_image.html' %}
 {% endwith %}
