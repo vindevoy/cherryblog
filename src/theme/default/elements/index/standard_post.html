@@ -1,5 +1,4 @@
 <!-- Standard Blog Post (small line) -->
-
 {% with image = '/images/' + post.image,
         title = post.title,
         summary = post.summary,
@@ -9,5 +8,5 @@
         date = post.date
         %}
 
-    {% include 'elements/common/standard_post.html' %}
+    {% include 'elements/_html/standard_post.html' %}
 {% endwith %}

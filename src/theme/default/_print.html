@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% include 'elements/_common/print_head.html' %}
+    </head>
+
+    <body>
+        <!-- Page -->
+        <div class="container">
+            <div class="row p-0 m-0">
+                <div class="col-12 m-0">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+
+        {% include 'elements/_html/bootstrap.html' %}
+    </body>
+</html>

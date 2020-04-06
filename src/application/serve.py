@@ -17,7 +17,7 @@ from templateloader import TemplateLoader
 class Application(metaclass=Singleton):
     @cherrypy.expose
     def index(self, page_index=1):
-        template = TemplateLoader('src/theme/default').get_template('index.html')
+        template = TemplateLoader('src/theme/default').get_template('screen_index.html')
         rendered = template.render(data=DataLoader().get_index_data(page_index))
 
         return rendered
@@ -26,21 +26,21 @@ class Application(metaclass=Singleton):
     def pages(self, page):
         # page on the URL: http://www.yoursite.ext/pages/page
 
-        template = TemplateLoader('src/theme/default').get_template('page.html')
+        template = TemplateLoader('src/theme/default').get_template('screen_page.html')
         rendered = template.render(data=DataLoader().get_page_data(page))
 
         return rendered
 
     @cherrypy.expose
     def posts(self, post):
-        template = TemplateLoader('src/theme/default').get_template('post.html')
+        template = TemplateLoader('src/theme/default').get_template('screen_post.html')
         rendered = template.render(data=DataLoader().get_post_data(post))
 
         return rendered
 
     @cherrypy.expose
     def categories(self, category, page_index=1):
-        template = TemplateLoader('src/theme/default').get_template('category.html')
+        template = TemplateLoader('src/theme/default').get_template('screen_category.html')
         rendered = template.render(data=DataLoader().get_category_data(category, page_index))
 
         return rendered

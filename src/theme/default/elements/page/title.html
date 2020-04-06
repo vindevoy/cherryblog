@@ -2,16 +2,16 @@
 {% with primary_text = data.page.title,
         secondary_text = '' %}
 
-    {% include 'elements/common/title.html' %}
+    {% include 'elements/_html/title.html' %}
 {% endwith %}
 
 <!-- Page Image -->
 {% with source = '/images/' + data.page.image %}
-    {% include 'elements/common/page_image.html' %}
+    {% include 'elements/_html/page_image.html' %}
 {% endwith %}
 
 <!-- Meta -->
 {% with author = data.page.author,
         date = data.page.date %}
-    {% include 'elements/common/meta.html' %}
+    {% include 'elements/_html/meta.html' %}
 {% endwith %}
