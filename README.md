@@ -20,7 +20,7 @@ As a developer, I want to share things with the world and run a blog. Finding th
 - Easy to write content in for instance MarkDown.
 - Extensible with themes, features, ...
 
-Note: No database if the site is very small. If there would be a need for a higher performance on features like searching, it can be included.
+_Note: No database if the site is very small. If there would be a need for a higher performance on features like searching, it can be included._
 
 #### Inspiration
 
@@ -37,6 +37,7 @@ For now, I will not create a static website (like JBake and Pelican do), but I w
 The project is written in Python 3 and uses the CherryPy framework as backend. Hence the name of the project: CherryBlog.  
 
 Python libraries included:
+
 - cherrypy
 - jinja2
 - pyyaml
@@ -44,6 +45,7 @@ Python libraries included:
 
 ### Content
 The content of the blog is written in MarkDown. On top of each content file, there's a meta data section containing:
+
 - author
 - date written
 - image on top of the page
@@ -59,6 +61,7 @@ The settings (or configuration) are done in YAML files.  Multiple environments c
 ### Theme 
 
 The default theme is based on two themes found on https://startbootstrap.com/templates/
+
 - https://startbootstrap.com/templates/blog-post/
 - https://startbootstrap.com/templates/blog-home/
 
@@ -69,6 +72,7 @@ The theme is implemented in Jinja2 templates.
 ### License
 
 The project is open sourced under the MIT license and the sources can be found on Github:   
+
 https://github.com/vindevoy/cherryblog
 
 At this moment, I (vindevoy) am the only contributor.  I started the project just end of March 2020.
@@ -87,6 +91,7 @@ A set of issues have been logged in Github.  They are all in backlog for now as 
 Each "sprint", a number of issues will be moved from the backend to the new release.
 
 The major release number will be bumped when a major new feature is introduced.  For instance:
+
 - Implementation of the the mongodb backend
 - Static site generation
 
@@ -161,11 +166,14 @@ Many thanks to everybody who wrote software that I'm using.  Thanks also to the 
 
 ## Language
 
-- CherryBlog is written in Python 3: https://www.python.org/ 
+CherryBlog is written in Python 3: 
+
+- https://www.python.org/ 
 
 ## Python libraries
 
 CherryBlog uses the following Python libraries:
+
 - cherrypy: https://cherrypy.org/
 - markdown: https://pypi.org/project/Markdown/
 - pyyaml: https://pyyaml.org/

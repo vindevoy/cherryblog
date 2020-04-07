@@ -5,7 +5,7 @@ title: "Credits"
 image: "blossom3.jpg"
 
 author: "Yves Vindevogel"
-date: "2020-04-03"
+date: "2020-04-07"
 
 ----------
 
@@ -13,11 +13,14 @@ Many thanks to everybody who wrote software that I'm using.  Thanks also to the 
 
 ## Language
 
-- CherryBlog is written in Python 3: https://www.python.org/ 
+CherryBlog is written in Python 3: 
+
+- https://www.python.org/ 
 
 ## Python libraries
 
 CherryBlog uses the following Python libraries:
+
 - cherrypy: https://cherrypy.org/
 - markdown: https://pypi.org/project/Markdown/
 - pyyaml: https://pyyaml.org/
