@@ -7,7 +7,7 @@
                 <ul class="list-unstyled mb-0">
                     {% for category in data.categories %}
                         <li>
-                            <a href="/categories/{{ category.label }}">{{ category.text }}</a><span> ({{ category.count }})</span>
+                            <a href="/categories/{{ category.label }}">{{ category.text }}</a><span class="text-muted small"> ({{ category.count }})</span>
                         </li>
                     {% endfor %}
                 </ul>
@@ -21,7 +21,7 @@
                     {% for category in data.categories %}
                         {% if count.value % 2 == 0 %}
                             <li>
-                                <a href="/categories/{{ category.label }}">{{ category.text }}</a><span> ({{ category.count }})</span>
+                                <a href="/categories/{{ category.label }}">{{ category.text }}</a><span class="text-muted small"> ({{ category.count }})</span>
                             </li>
                         {% endif %}
 
@@ -38,7 +38,7 @@
                     {% for category in data.categories %}
                         {% if count.value % 2 == 1 %}
                             <li>
-                                <a href="/categories/{{ category.label }}">{{ category.text }}</a><span> ({{ category.count }})</span>
+                                <a href="/categories/{{ category.label }}">{{ category.text }}</a><span class="text-muted small"> ({{ category.count }})</span>
                             </li>
                         {% endif %}
 
