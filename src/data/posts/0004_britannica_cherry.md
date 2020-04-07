@@ -5,7 +5,7 @@ title: "Cherry(britannica)"
 author: "Yves Vindevogel"
 date: "2020-04-05"
 
-image: "cherry4.jpg"
+image: "cherry3.jpg"
 
 summary: Cherry, any of various trees belonging to the genus Prunus and their edible fruits. 
 

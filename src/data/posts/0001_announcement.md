@@ -1,6 +1,6 @@
 ---
 
-title: "Introduction"
+title: "Announcing CherryBlog"
 
 author: "Yves Vindevogel"
 date: "2020-04-02"

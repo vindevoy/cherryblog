@@ -18,7 +18,7 @@ setup:
 	@mkdir -p ./src/data/blog
 	@mkdir -p ./src/data/site
 	@touch ./src/data/site/settings.yml
-	@echo "[OK] Setup has created the /src directory and sub-directories"
+	@echo '[OK] Setup has created the /src directory and sub-directories'
 
 download: clean
 	@mkdir -p ./tmp
@@ -40,20 +40,26 @@ dependencies:
 	@pip3 install jinja2
 	@pip3 install pyyaml
 	@pip3 install markdown
-	@echo "[OK] Dependencies in Python installed"
+	@echo '[OK] Dependencies in Python installed'
 
 readme:
-	@echo "# ABOUT CherryBlog"                              >   ./README.md
-	@echo ""                                                >>  ./README.md
+	@echo '# ABOUT CherryBlog'                              >   ./README.md
+	@echo ''                                                >>  ./README.md
 	@sed -e '1,/----------/d' ./src/data/pages/about.md     >>  ./README.md
-	@echo ""                                                >>  ./README.md
-	@echo "# DOCUMENTATION"                                 >>  ./README.md
-	@echo ""                                                >>  ./README.md
+	@echo ''                                                >>  ./README.md
+	@echo '# DOCUMENTATION'                                 >>  ./README.md
+	@echo ''                                                >>  ./README.md
 	@sed -e '1,/----------/d' ./src/data/pages/docs.md      >>  ./README.md
-	@echo ""                                                >>  ./README.md
-	@echo "# CREDITS"                                       >>  ./README.md
-	@echo ""                                                >>  ./README.md
+	@echo ''                                                >>  ./README.md
+	@echo '# CREDITS'                                       >>  ./README.md
+	@echo ''                                                >>  ./README.md
 	@sed -e '1,/----------/d' ./src/data/pages/credits.md   >>  ./README.md
+
+history:
+	@echo '# VERSION 1.0.0'                                                 >   ./HISTORY.md
+	@echo ''                                                                >>  ./HISTORY.md
+	@grep -A 10000000 '##' ./src/data/posts/0006_version_1_0_0.md           >>  ./HISTORY.md
+	@echo ''                                                                >>  ./HISTORY.md
 
 develop:
 	@python3 ./src/application/serve.py
