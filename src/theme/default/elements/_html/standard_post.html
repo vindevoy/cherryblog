@@ -8,7 +8,11 @@
 
         <div class="card-footer text-muted">
             {% with author = author,
-                    date = date
+                    date = date,
+                    author_prefix = data.settings.meta.author_prefix,
+                    author_postfix = data.settings.meta.author_postfix,
+                    date_prefix = data.settings.meta.date_prefix,
+                    date_postfix = data.settings.meta.date_postfix
                     %}
                 {% include 'elements/_html/meta.html' %}
             {% endwith %}

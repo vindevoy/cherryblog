@@ -9,9 +9,3 @@
 {% with source = '/images/' + data.post.image %}
     {% include 'elements/_html/page_image.html' %}
 {% endwith %}
-
-<!-- Meta -->
-{% with author = data.post.author,
-        date = data.post.date %}
-    {% include 'elements/_html/meta.html' %}
-{% endwith %}
