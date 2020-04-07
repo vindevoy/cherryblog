@@ -33,7 +33,7 @@ download: clean
 	@unzip -o ./tmp/startbootstrap-shop-home.zip        -d ./download
 	@unzip -o ./tmp/startbootstrap-heroic-features.zip  -d ./download
 
-	#@rm -rf ./tmp
+	@rm -rf ./tmp
 
 dependencies:
 	@pip3 install cherrypy
@@ -43,5 +43,8 @@ dependencies:
 	@echo "[OK] Dependencies in Python installed"
 
 
-serve:
+develop:
 	@python3 ./src/application/serve.py
+
+production:
+	@python3 ./src/application/serve.py --env production &
