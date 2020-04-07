@@ -7,9 +7,11 @@
 ###
 
 import cherrypy
+import getopt
+import sys
 
 from dataloader import DataLoader
-from settings import Settings
+from settingsloader import SettingsLoader
 from singleton import Singleton
 from templateloader import TemplateLoader
 
@@ -61,4 +63,14 @@ class Application(metaclass=Singleton):
 
 
 if __name__ == '__main__':
-    cherrypy.quickstart(Application(), config=Settings().server_config)
+    environment = 'localhost'
+
+    opts, args = getopt.getopt(sys.argv[1:], "e:", ["env="])
+
+    for opt, arg in opts:
+        if opt in ['-e', '--env']:
+            environment = arg
+
+    settings = SettingsLoader(environment).parse()
+
+    cherrypy.quickstart(Application(), config=settings)

@@ -1,0 +1,18 @@
+---
+
+engine:
+  autoreload: True
+
+server:
+  socket_host: '127.0.0.1'
+  socket_port: 8080
+  thread_pool: 8
+
+tools:
+  staticdirs:
+    - url: '/static'
+      absolute: False
+      path: 'src/theme/default/static'
+    - url: '/images'
+      absolute: False
+      path: 'src/data/images'
