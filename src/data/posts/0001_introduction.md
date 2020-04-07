@@ -14,9 +14,13 @@ categories:
     
 ----------
 
-CherryBlog is brand new blogging software written in Python and using the CherryPy framework, hence it's name.
+## Kicking off a new project
 
-The templates used in the first release are the free templates found on startbootstrap.com.  The purpose of using these templates is of course that the site should easily accessible on smart devices. And they basically look very good out-of-the-box.
+I (vindevoy) have started a new project, named CherryBlog.
+
+CherryBlog is brand new blogging software written in Python and using the CherryPy framework, hence its name.
+
+The templates used are the free templates found on startbootstrap.com.  The purpose of using these templates is of course that the site should easily accessible on smart devices. And they basically look very good out-of-the-box.
 
 ## Inspiration
 

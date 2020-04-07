@@ -42,6 +42,18 @@ dependencies:
 	@pip3 install markdown
 	@echo "[OK] Dependencies in Python installed"
 
+readme:
+	@echo "# ABOUT CherryBlog"                              >   ./README.md
+	@echo ""                                                >>  ./README.md
+	@sed -e '1,/----------/d' ./src/data/pages/about.md     >>  ./README.md
+	@echo ""                                                >>  ./README.md
+	@echo "# DOCUMENTATION"                                 >>  ./README.md
+	@echo ""                                                >>  ./README.md
+	@sed -e '1,/----------/d' ./src/data/pages/docs.md      >>  ./README.md
+	@echo ""                                                >>  ./README.md
+	@echo "# CREDITS"                                       >>  ./README.md
+	@echo ""                                                >>  ./README.md
+	@sed -e '1,/----------/d' ./src/data/pages/credits.md   >>  ./README.md
 
 develop:
 	@python3 ./src/application/serve.py
