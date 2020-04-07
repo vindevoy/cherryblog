@@ -3,8 +3,8 @@
         total_pages = data.pagination.total_pages,
         home_path = 'categories/' + data.category.path,
         base_path = 'categories/' + data.category.path,
-        label_previous_page = '&larr; Newer',
-        label_next_page = 'Older &rarr;'
+        label_previous_page = data.settings.navigation.previous_page_label,
+        label_next_page = data.settings.navigation.next_page_label
         %}
 
         {% include 'elements/_html/pagination.html' %}

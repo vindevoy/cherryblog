@@ -7,7 +7,29 @@ blog:
 index:
   primary_title: "Latest news"
   secondary_title: "about CherryBlog"
+  primary_title_archive: 'News archive'
+
+post:
+
+page:
+
+category:
+  secondary_title: 'posts'
+
+meta:
+  author_prefix: 'Written by '
+  author_postfix: ''
+  date_prefix: ' on '
+  date_postfix: ''
 
 navigation:
   home_label: "Home"
   read_more_label: "Read More &rarr;"
+  previous_page_label: '&larr; Newer'
+  next_page_label: 'Older &rarr;'
+  page_of_page: 'page'
+  page_of_of: 'of'
+
+widget:
+  category:
+    title: 'Categories'
