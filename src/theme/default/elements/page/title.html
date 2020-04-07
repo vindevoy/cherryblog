@@ -1,0 +1,11 @@
+<!-- Title -->
+{% with primary_text = data.page.title,
+        secondary_text = '' %}
+
+    {% include 'elements/_html/title.html' %}
+{% endwith %}
+
+<!-- Page Image -->
+{% with source = '/images/' + data.page.image %}
+    {% include 'elements/_html/page_image.html' %}
+{% endwith %}

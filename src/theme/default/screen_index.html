@@ -1,0 +1,32 @@
+{% extends "_screen.html" %}
+{% block content %}
+    {% include 'elements/index/title.html' %}
+
+    {% if data.pagination.current_page == 1 %}
+        {% for post in data.spotlight_posts %}
+            <div class="row mb-3 m-0 p-0">
+                {% with post = post %}
+                    {% include 'elements/index/spotlight_post.html' %}
+                {% endwith %}
+            </div>
+        {% endfor %}
+
+        <div class="row mb-3 m-0 p-0">
+            {% for post in data.highlight_posts %}
+                {% with post = post %}
+                    {% include 'elements/index/highlight_post.html' %}
+                {% endwith %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% for post in data.posts %}
+        {% with post = post %}
+            <div class="row mb-3 m-0 p-0">
+                {% include 'elements/index/standard_post.html' %}
+            </div>
+        {% endwith %}
+    {% endfor %}
+
+    {% include 'elements/index/pagination.html' %}
+ {% endblock %}

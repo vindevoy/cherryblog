@@ -1,0 +1,11 @@
+<!-- Pagination -->
+{% with current_page = data.pagination.current_page,
+        total_pages = data.pagination.total_pages,
+        home_path = 'categories/' + data.category.path,
+        base_path = 'categories/' + data.category.path,
+        label_previous_page = data.settings.navigation.previous_page_label,
+        label_next_page = data.settings.navigation.next_page_label
+        %}
+
+        {% include 'elements/_html/pagination.html' %}
+{% endwith %}

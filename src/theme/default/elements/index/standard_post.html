@@ -1,0 +1,12 @@
+<!-- Standard Blog Post (small line) -->
+{% with image = '/images/' + post.image,
+        title = post.title,
+        summary = post.summary,
+        url = '/posts/' + post.url,
+        button_label = data.settings.navigation.read_more_label,
+        author = post.author,
+        date = post.date
+        %}
+
+    {% include 'elements/_html/standard_post.html' %}
+{% endwith %}

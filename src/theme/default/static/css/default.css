@@ -1,0 +1,43 @@
+/*!
+ * Start Bootstrap - Blog Home (https://startbootstrap.com/template-overviews/blog-home)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-blog-home/blob/master/LICENSE)
+ */
+body {
+  padding-top: 64px;
+}
+
+h1 {font-size:2rem;}
+h2 {font-size:1.8rem;}
+h3 {font-size:1.6rem;}
+h4 {font-size:1.4rem}
+h5 {font-size:1.2rem}
+h6 {font-size:1rem}
+p {font-size:1rem}
+
+a, a:visited {
+  color: red;
+}
+
+a:hover, a:active, a:hover {
+  color: darkred;
+}
+
+.btn-primary, .btn-primary:visited, .btn-secondary, .btn-secondary:visited {
+  color: white;
+  background-color: red !important;
+  border-color: red !important;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-secondary:hover, .btn-secondary.active {
+  background-color: darkred !important;
+  border-color: darkred !important;
+}
+
+.page-link, .page-link:visited {
+  color: red;
+}
+
+.page-link:hover, .page-link:active {
+  color: red;
+}

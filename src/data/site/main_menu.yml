@@ -1,0 +1,11 @@
+---
+
+- label: "About"
+  ref: "/pages/about"
+
+- label: "Documentation"
+  ref: "/pages/docs"
+
+- label: "Credits"
+  ref: "/pages/credits"
+

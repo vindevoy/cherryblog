@@ -1,0 +1,12 @@
+<!-- Spotlight Blog Post (most important, 1 per column) -->
+{% with image = '/images/' + post.image,
+        title = post.title,
+        summary = post.summary,
+        url = '/posts/' + post.url,
+        button_label = data.settings.navigation.read_more_label,
+        author = post.author,
+        date = post.date
+        %}
+
+    {% include 'elements/_html/spotlight_post.html' %}
+{% endwith %}

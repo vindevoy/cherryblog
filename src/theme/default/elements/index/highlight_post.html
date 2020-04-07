@@ -1,0 +1,13 @@
+<!-- Highlight Blog Post (column with 2) -->
+
+{% with image = '/images/' + post.image,
+        title = post.title,
+        summary = post.summary,
+        url = '/posts/' + post.url,
+        button_label = data.settings.navigation.read_more_label,
+        author = post.author,
+        date = post.date
+        %}
+
+    {% include 'elements/_html/highlight_post.html' %}
+{% endwith %}

@@ -1,0 +1,15 @@
+{% extends "_screen.html" %}
+{% block content %}
+    {% include 'elements/category/title.html' %}
+
+
+    {% for post in data.posts %}
+        {% with post = post %}
+            <div class="row mb-3 p-0 m-0">
+                {% include 'elements/category/post.html' %}
+            </div>
+        {% endwith %}
+    {% endfor %}
+
+    {% include 'elements/category/pagination.html' %}
+{% endblock %}
