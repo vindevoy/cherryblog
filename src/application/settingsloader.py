@@ -4,6 +4,8 @@
 #   Date: 2020-04-08
 #   Author: Yves Vindevogel (vindevoy)
 #
+#   Full history: see below
+#
 #   Fixes:
 #       - Used os.path.join in parse. It has a slash in it and formats.
 #

@@ -27,6 +27,9 @@ p {
 a, li, lu, span {
   font-size: 0.9rem
 }
+a.nav-link {
+  font-size: 1rem
+}
 
 a, a:visited {
   color: red;
@@ -76,4 +79,13 @@ a:hover, a:active, a:hover {
 
 .card-header {
   padding: 0.25rem 0.75rem;
+}
+
+code {
+  margin: 1rem 0rem;
+  padding: 1rem 1rem;
+  font-size: 100%;
+  color: black;
+  word-break: break-word;
+  background-color: lightgrey;
 }

@@ -22,8 +22,8 @@ from singleton import Singleton
 class DataLoader(metaclass=Singleton):
     @staticmethod
     def __get_settings():
-        settings_dir = os.path.join(Settings().root_dir, 'src', 'data', 'site')
-        file = open(os.path.join(settings_dir, 'settings.yml'), 'r')
+        settings_dir = os.path.join(Settings().root_dir, 'src', 'data', 'settings')
+        file = open(os.path.join(settings_dir, 'global.yml'), 'r')
 
         settings = yaml.load(file, Loader=yaml.SafeLoader)
 
@@ -61,7 +61,7 @@ class DataLoader(metaclass=Singleton):
 
     @staticmethod
     def __get_main_menu():
-        config_dir = os.path.join(Settings().root_dir, 'src', 'data', 'site')
+        config_dir = os.path.join(Settings().root_dir, 'src', 'data', 'settings')
         file = open(os.path.join(config_dir, 'main_menu.yml'), 'r')
 
         menu = yaml.load(file, Loader=yaml.SafeLoader)

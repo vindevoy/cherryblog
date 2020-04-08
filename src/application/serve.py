@@ -4,6 +4,8 @@
 #   Date: 2020-04-08
 #   Author: Yves Vindevogel (vindevoy)
 #
+#   Full history: see below
+#
 #   Fixes:
 #       - Added **_ to each of the exposed links. Facebook sends shit on the URL when you copy paste the blog's
 #         address: ?fbclid=IwAR0qgVcdKo1bgunAT5wFYolJkt3YPT8ANxFNgIiNfTiWzcv4a72j3LPujRI
