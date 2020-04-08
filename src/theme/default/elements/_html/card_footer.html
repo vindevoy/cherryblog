@@ -1,0 +1,11 @@
+<div class="card-footer text-muted">
+    {% with author = author,
+            date = date,
+            author_prefix = author_prefix,
+            author_postfix = author_postfix,
+            date_prefix = date_prefix,
+            date_postfix = date_postfix
+            %}
+        {% include 'elements/_html/card_meta.html' %}
+    {% endwith %}
+</div>

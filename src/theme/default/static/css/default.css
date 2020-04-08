@@ -3,17 +3,30 @@
  * Copyright 2013-2019 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-blog-home/blob/master/LICENSE)
  */
+
 body {
   padding-top: 64px;
 }
 
 h1 {font-size:2rem;}
+
 h2 {font-size:1.8rem;}
+
 h3 {font-size:1.6rem;}
+
 h4 {font-size:1.4rem}
+
 h5 {font-size:1.2rem}
+
 h6 {font-size:1rem}
-p {font-size:1rem}
+
+p {
+  font-size: 0.9rem
+}
+
+a, li, lu, span {
+  font-size: 0.9rem
+}
 
 a, a:visited {
   color: red;
@@ -21,6 +34,11 @@ a, a:visited {
 
 a:hover, a:active, a:hover {
   color: darkred;
+}
+
+.btn {
+  padding: 0rem 0.25rem;
+  font-size: 0.85rem;
 }
 
 .btn-primary, .btn-primary:visited, .btn-secondary, .btn-secondary:visited {
@@ -34,10 +52,28 @@ a:hover, a:active, a:hover {
   border-color: darkred !important;
 }
 
-.page-link, .page-link:visited {
+.page-link {
+  color: red;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.85rem;
+}
+
+.page-link:visited {
   color: red;
 }
 
 .page-link:hover, .page-link:active {
   color: red;
+}
+
+.card-body {
+  padding: 0.5rem 0.75rem;
+}
+
+.card-footer {
+  padding: 0rem 0.75rem;
+}
+
+.card-header {
+  padding: 0.25rem 0.75rem;
 }

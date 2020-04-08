@@ -5,7 +5,7 @@ title: "About CherryBlog"
 image: "blossom1.jpg"
 
 author: "Yves Vindevogel"
-date: "2020-04-07"
+date: "2020-04-08"
 
 ----------
 
@@ -70,8 +70,8 @@ The settings (or configuration) are done in YAML files.  Multiple environments c
 
 The default theme is based on two themes found on https://startbootstrap.com/templates/
 
-- https://startbootstrap.com/templates/blog-post/
-- https://startbootstrap.com/templates/blog-home/
+- [https://startbootstrap.com/templates/blog-post/](https://startbootstrap.com/templates/blog-post/)
+- [https://startbootstrap.com/templates/blog-home/](https://startbootstrap.com/templates/blog-home/)
 
 The theme is implemented in Jinja2 templates.
 
@@ -81,7 +81,7 @@ The theme is implemented in Jinja2 templates.
 
 The project is open sourced under the MIT license and the sources can be found on Github:   
 
-https://github.com/vindevoy/cherryblog
+[https://github.com/vindevoy/cherryblog](https://github.com/vindevoy/cherryblog)
 
 At this moment, I (vindevoy) am the only contributor.  I started the project just end of March 2020.
 

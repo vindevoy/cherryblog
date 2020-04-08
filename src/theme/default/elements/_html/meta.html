@@ -1,3 +1,11 @@
-<div class="row mb-2 mx-0 px-2">
-    <span class="small">{{ author_prefix }}{{ author }}{{ author_postfix }}{{ date_prefix }}{{ date }}{{ date_postfix }}</span>
+<div class="row m-0 mb-2 p-0 px-2">
+    {% with author = author,
+                    date = date,
+                    author_prefix = author_prefix,
+                    author_postfix = author_postfix,
+                    date_prefix = date_prefix,
+                    date_postfix = date_postfix
+                    %}
+        {% include 'elements/_html/card_meta.html' %}
+    {% endwith %}
 </div>

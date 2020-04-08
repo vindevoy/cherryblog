@@ -5,17 +5,17 @@ title: "Documentation"
 image: "blossom2.jpg"
 
 author: "Yves Vindevogel"
-date: "2020-04-07"
+date: "2020-04-08"
 
 ----------
 
 ## WARNING
 
-**This project is brand new and is only in version 1.0.0. Consider this release to be an announcement release. Hence the documentation is very short.  It is provided for people who really want to dig into the project.**
+**This project is brand new and is only in version 1.0.1. Consider this release to be an announcement release. Hence the documentation is very short.  It is provided for people who really want to dig into the project.**
 
 ## Installation
 
-For now, the only way to install the software is to clone the Git repository: https://github.com/vindevoy/cherryblog
+For now, the only way to install the software is to clone the Git repository: [https://github.com/vindevoy/cherryblog](https://github.com/vindevoy/cherryblog)
 
 ### Requirements
 

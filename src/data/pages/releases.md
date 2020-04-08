@@ -1,3 +1,14 @@
+---
+
+title: "Release notes"
+
+image: "blossom4.jpg"
+
+author: "Yves Vindevogel"
+date: "2020-04-08"
+
+----------
+
 
 # VERSION 1.0.1
 
@@ -56,4 +67,5 @@ Base architecture:
 For more information on this release, see the issues for this milestone:
 
 - [https://github.com/vindevoy/cherryblog/milestone/1](https://github.com/vindevoy/cherryblog/milestone/1)
+
 

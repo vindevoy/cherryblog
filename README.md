@@ -62,8 +62,8 @@ The settings (or configuration) are done in YAML files.  Multiple environments c
 
 The default theme is based on two themes found on https://startbootstrap.com/templates/
 
-- https://startbootstrap.com/templates/blog-post/
-- https://startbootstrap.com/templates/blog-home/
+- [https://startbootstrap.com/templates/blog-post/](https://startbootstrap.com/templates/blog-post/)
+- [https://startbootstrap.com/templates/blog-home/](https://startbootstrap.com/templates/blog-home/)
 
 The theme is implemented in Jinja2 templates.
 
@@ -73,7 +73,7 @@ The theme is implemented in Jinja2 templates.
 
 The project is open sourced under the MIT license and the sources can be found on Github:   
 
-https://github.com/vindevoy/cherryblog
+[https://github.com/vindevoy/cherryblog](https://github.com/vindevoy/cherryblog)
 
 At this moment, I (vindevoy) am the only contributor.  I started the project just end of March 2020.
 
@@ -101,11 +101,11 @@ The major release number will be bumped when a major new feature is introduced. 
 
 ## WARNING
 
-**This project is brand new and is only in version 1.0.0. Consider this release to be an announcement release. Hence the documentation is very short.  It is provided for people who really want to dig into the project.**
+**This project is brand new and is only in version 1.0.1. Consider this release to be an announcement release. Hence the documentation is very short.  It is provided for people who really want to dig into the project.**
 
 ## Installation
 
-For now, the only way to install the software is to clone the Git repository: https://github.com/vindevoy/cherryblog
+For now, the only way to install the software is to clone the Git repository: [https://github.com/vindevoy/cherryblog](https://github.com/vindevoy/cherryblog)
 
 ### Requirements
 
@@ -168,27 +168,27 @@ Many thanks to everybody who wrote software that I'm using.  Thanks also to the 
 
 CherryBlog is written in Python 3: 
 
-- https://www.python.org/ 
+- [https://www.python.org/](https://www.python.org/) 
 
 ## Python libraries
 
 CherryBlog uses the following Python libraries:
 
-- cherrypy: https://cherrypy.org/
-- markdown: https://pypi.org/project/Markdown/
-- pyyaml: https://pyyaml.org/
-- jinja2: https://pypi.org/project/Jinja2/
+- cherrypy: [https://cherrypy.org/](https://cherrypy.org/)
+- markdown: [https://pypi.org/project/Markdown/](https://pypi.org/project/Markdown/)
+- pyyaml: [https://pyyaml.org/](https://pyyaml.org/)
+- jinja2: [https://pypi.org/project/Jinja2/](https://pypi.org/project/Jinja2/)
 
 # Templating engine
 
-- Jinja2: https://jinja.palletsprojects.com/en/2.11.x/
+- Jinja2: [https://jinja.palletsprojects.com/en/2.11.x/](https://jinja.palletsprojects.com/en/2.11.x/)
 
 ## Bootstrap template
 
 The default template is based on the startbootstrap.com templates downloaded from:
 
-- https://startbootstrap.com/templates/blog-home/
-- https://startbootstrap.com/templates/blog-post/
+- [https://startbootstrap.com/templates/blog-home/](https://startbootstrap.com/templates/blog-home/)
+- [https://startbootstrap.com/templates/blog-post/](https://startbootstrap.com/templates/blog-post/)
 
 ## Images
 
@@ -201,8 +201,9 @@ Images downloaded:
 - <a href="https://pixabay.com/users/Hans-2/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=324175">Hans Braxmeier</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=324175">Pixabay</a>
 - <a href="https://pixabay.com/users/Hans-2/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1260641">Hans Braxmeier</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1260641">Pixabay</a>
 - <a href="https://pixabay.com/users/webandi-1460261/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3308735">Andreas Lischka</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3308735">Pixabay</a>
+- <a href="https://pixabay.com/users/gayulo-3585927/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3238564">gayulo</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3238564">Pixabay</a>
 
 ## Inspiration
 
-- JBake: https://jbake.org/
-- Pelican: https://blog.getpelican.com/
+- JBake: [https://jbake.org/](https://jbake.org/)
+- Pelican: [https://blog.getpelican.com/](https://blog.getpelican.com/)
