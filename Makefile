@@ -58,7 +58,12 @@ readme:
 	@echo '[OK] README.md created'
 
 history:
-	@echo '# VERSION 1.0.0'                                                 >   ./HISTORY.md
+	@echo ''                                                                >   ./HISTORY.md
+	@echo '# VERSION 1.0.1'                                                 >>  ./HISTORY.md
+	@echo ''                                                                >>  ./HISTORY.md
+	@sed -n '/##/,$$p' ./src/data/posts/0007_version_1_0_1.md               >>  ./HISTORY.md
+	@echo ''                                                                >>  ./HISTORY.md
+	@echo '# VERSION 1.0.0'                                                 >>  ./HISTORY.md
 	@echo ''                                                                >>  ./HISTORY.md
 	@sed -n '/##/,$$p' ./src/data/posts/0006_version_1_0_0.md               >>  ./HISTORY.md
 	@echo ''                                                                >>  ./HISTORY.md
