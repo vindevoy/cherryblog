@@ -1,8 +1,11 @@
 ###
 #
-#   Version: 1.0.0
-#   Date: 2020-04-07
+#   Version: 1.0.1
+#   Date: 2020-04-08
 #   Author: Yves Vindevogel (vindevoy)
+#
+#   Fixes:
+#       - Used os.path.join in parse. It has a slash in it and formats.
 #
 ###
 
@@ -49,3 +52,13 @@ class SettingsLoader(metaclass=Singleton):
             settings[url] = {'tools.staticdir.on': True,
                              'tools.staticdir.dir': path}
         return settings
+
+###
+#
+#   Version: 1.0.0
+#   Date: 2020-04-07
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Original version
+#
+###
