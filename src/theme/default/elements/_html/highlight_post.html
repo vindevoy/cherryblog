@@ -1,4 +1,4 @@
-<div class="col-md-6 mx-0 px-2 ">
+<div class="col-md-6 m-0 mb-3 p-0 px-2">
     <div class="card h-100">
         <img class="card-img-top" src="{{ image }}">
 
@@ -8,16 +8,14 @@
             <a href="{{ url }}" class="btn btn-primary mt-auto">{{ button_label }}</a>
         </div>
 
-        <div class="card-footer text-muted">
-            {% with author = author,
-                    date = date,
-                    author_prefix = data.settings.meta.author_prefix,
-                    author_postfix = data.settings.meta.author_postfix,
-                    date_prefix = data.settings.meta.date_prefix,
-                    date_postfix = data.settings.meta.date_postfix
-                    %}
-                {% include 'elements/_html/meta.html' %}
-            {% endwith %}
-        </div>
+        {% with author = author,
+                date = date,
+                author_prefix = data.settings.meta.author_prefix,
+                author_postfix = data.settings.meta.author_postfix,
+                date_prefix = data.settings.meta.date_prefix,
+                date_postfix = data.settings.meta.date_postfix
+                %}
+            {% include 'elements/_html/card_footer.html' %}
+        {% endwith %}
     </div>
 </div>
