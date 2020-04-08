@@ -27,6 +27,9 @@ p {
 a, li, lu, span {
   font-size: 0.9rem
 }
+a.nav-link {
+  font-size: 1rem
+}
 
 a, a:visited {
   color: red;
