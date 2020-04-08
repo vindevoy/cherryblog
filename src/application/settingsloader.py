@@ -44,7 +44,7 @@ class SettingsLoader(metaclass=Singleton):
             path = staticdir['path']
 
             if not absolute:
-                path = '{0}/{1}'.format(Settings().root_dir, path)
+                path = os.path.join(Settings().root_dir, path)
 
             settings[url] = {'tools.staticdir.on': True,
                              'tools.staticdir.dir': path}
