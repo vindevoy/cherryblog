@@ -21,7 +21,7 @@ class Settings(metaclass=Singleton):
     __index_settings = None
 
     def __init__(self):
-        settings_dir = os.path.join(self.root_dir, 'src', 'data', 'site')
+        settings_dir = os.path.join(self.root_dir, 'src', 'data', 'settings')
         file = open(os.path.join(settings_dir, 'index.yml'), 'r')
 
         self.__index_settings = yaml.load(file, Loader=yaml.SafeLoader)
