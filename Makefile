@@ -55,11 +55,32 @@ readme:
 	@echo ''                                                >>  ./README.md
 	@sed -e '1,/----------/d' ./src/data/pages/credits.md   >>  ./README.md
 
+	@echo '[OK] README.md created'
+
 history:
 	@echo '# VERSION 1.0.0'                                                 >   ./HISTORY.md
 	@echo ''                                                                >>  ./HISTORY.md
-	@grep -A 10000000 '##' ./src/data/posts/0006_version_1_0_0.md           >>  ./HISTORY.md
+	@sed -n '/##/,$$p' ./src/data/posts/0006_version_1_0_0.md               >>  ./HISTORY.md
 	@echo ''                                                                >>  ./HISTORY.md
+
+	@echo '[OK] HISTORY.md created'
+
+	@rm -f ./src/data/pages/releases.md
+	@echo '---'                                             >   ./src/data/pages/releases.md
+	@echo ''                                                >>  ./src/data/pages/releases.md
+	@echo 'title: "Release notes"'                          >>  ./src/data/pages/releases.md
+	@echo ''                                                >>  ./src/data/pages/releases.md
+	@echo 'image: "blossom4.jpg"'                           >>  ./src/data/pages/releases.md
+	@echo ''                                                >>  ./src/data/pages/releases.md
+	@echo 'author: "Yves Vindevogel"'                       >>  ./src/data/pages/releases.md
+	@date +"date: \"%Y-%m-%d\""                             >>  ./src/data/pages/releases.md
+	@echo ''                                                >>  ./src/data/pages/releases.md
+	@echo '----------'                                      >>  ./src/data/pages/releases.md
+	@echo ''                                                >>  ./src/data/pages/releases.md
+	@cat ./HISTORY.md                                       >>  ./src/data/pages/releases.md
+	@echo ''                                                >>  ./src/data/pages/releases.md
+
+	@echo '[OK] history copied to pages'
 
 develop:
 	@python3 ./src/application/serve.py
