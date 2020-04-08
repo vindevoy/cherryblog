@@ -5,7 +5,7 @@ title: "Credits"
 image: "blossom3.jpg"
 
 author: "Yves Vindevogel"
-date: "2020-04-07"
+date: "2020-04-08"
 
 ----------
 
@@ -15,27 +15,27 @@ Many thanks to everybody who wrote software that I'm using.  Thanks also to the 
 
 CherryBlog is written in Python 3: 
 
-- https://www.python.org/ 
+- [https://www.python.org/](https://www.python.org/) 
 
 ## Python libraries
 
 CherryBlog uses the following Python libraries:
 
-- cherrypy: https://cherrypy.org/
-- markdown: https://pypi.org/project/Markdown/
-- pyyaml: https://pyyaml.org/
-- jinja2: https://pypi.org/project/Jinja2/
+- cherrypy: [https://cherrypy.org/](https://cherrypy.org/)
+- markdown: [https://pypi.org/project/Markdown/](https://pypi.org/project/Markdown/)
+- pyyaml: [https://pyyaml.org/](https://pyyaml.org/)
+- jinja2: [https://pypi.org/project/Jinja2/](https://pypi.org/project/Jinja2/)
 
 # Templating engine
 
-- Jinja2: https://jinja.palletsprojects.com/en/2.11.x/
+- Jinja2: [https://jinja.palletsprojects.com/en/2.11.x/](https://jinja.palletsprojects.com/en/2.11.x/)
 
 ## Bootstrap template
 
 The default template is based on the startbootstrap.com templates downloaded from:
 
-- https://startbootstrap.com/templates/blog-home/
-- https://startbootstrap.com/templates/blog-post/
+- [https://startbootstrap.com/templates/blog-home/](https://startbootstrap.com/templates/blog-home/)
+- [https://startbootstrap.com/templates/blog-post/](https://startbootstrap.com/templates/blog-post/)
 
 ## Images
 
@@ -52,5 +52,5 @@ Images downloaded:
 
 ## Inspiration
 
-- JBake: https://jbake.org/
-- Pelican: https://blog.getpelican.com/
+- JBake: [https://jbake.org/](https://jbake.org/)
+- Pelican: [https://blog.getpelican.com/](https://blog.getpelican.com/)

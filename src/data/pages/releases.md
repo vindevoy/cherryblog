@@ -42,6 +42,6 @@ Base architecture:
 
 For more information on this release, see the issues for this milestone:
 
-- https://github.com/vindevoy/cherryblog/milestone/1
+- [https://github.com/vindevoy/cherryblog/milestone/1](https://github.com/vindevoy/cherryblog/milestone/1)
 
 
