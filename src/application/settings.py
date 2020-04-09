@@ -9,6 +9,7 @@
 #   Features:
 #       - Uses a dynamic root directory where to retrieve the settings
 #       - Dynamic paths to themes and data
+#       - Path for index.yml updated and renamed to settings.yml
 #
 ###
 
@@ -23,8 +24,8 @@ class Settings(metaclass=Singleton):
     __index_settings = None
 
     def __init__(self):
-        settings_dir = os.path.join(OptionsLoader().data_dir, 'settings')
-        file = open(os.path.join(settings_dir, 'index.yml'), 'r')
+        settings_dir = os.path.join(OptionsLoader().data_dir, 'index')
+        file = open(os.path.join(settings_dir, 'settings.yml'), 'r')
 
         self.__index_settings = yaml.load(file, Loader=yaml.SafeLoader)
 

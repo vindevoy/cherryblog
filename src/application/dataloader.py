@@ -10,6 +10,7 @@
 #       - Renaming categories to tags
 #       - Added introduction to the index page
 #       - Dynamic paths to themes and data
+#       - Updated the path of the main menu settings file
 #
 ###
 
@@ -69,8 +70,8 @@ class DataLoader(metaclass=Singleton):
 
     @staticmethod
     def __get_main_menu():
-        config_dir = os.path.join(OptionsLoader().data_dir, 'settings')
-        file = open(os.path.join(config_dir, 'main_menu.yml'), 'r')
+        config_dir = os.path.join(OptionsLoader().data_dir, 'main_menu')
+        file = open(os.path.join(config_dir, 'settings.yml'), 'r')
 
         menu = yaml.load(file, Loader=yaml.SafeLoader)
 
