@@ -1,15 +1,18 @@
 ###
 #
-#   Version: 1.0.0
-#   Date: 2020-03-29
+#   Version: 1.0.1
+#   Date: 2020-04-09
 #   Author: Yves Vindevogel (vindevoy)
+#
+#   Cleaned some commands
 #
 ###
 
 clean:
-	@rm -rf ./__pycache__
-	@rm -rf ./src/application/__pycache__
-	@rm -rf ./tmp
+	@find . -name '__pycache__' -type d -delete
+	@find . -name 'tmp' -type d -delete
+
+	@echo '[OK] Cleaned'
 
 setup:
 	@mkdir -p ./src/application
@@ -18,6 +21,7 @@ setup:
 	@mkdir -p ./src/data/blog
 	@mkdir -p ./src/data/site
 	@touch ./src/data/site/settings.yml
+
 	@echo '[OK] Setup has created the /src directory and sub-directories'
 
 download: clean
@@ -35,11 +39,14 @@ download: clean
 
 	@rm -rf ./tmp
 
+	@echo '[OK] Download done'
+
 dependencies:
 	@pip3 install cherrypy
 	@pip3 install jinja2
 	@pip3 install pyyaml
 	@pip3 install markdown
+
 	@echo '[OK] Dependencies in Python installed'
 
 readme:
@@ -96,3 +103,13 @@ develop:
 
 production:
 	@python3 ./src/application/serve.py --env production &
+
+###
+#
+#   Version: 1.0.0
+#   Date: 2020-03-29
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Original file
+#
+###
