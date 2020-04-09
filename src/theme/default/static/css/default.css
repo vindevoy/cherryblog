@@ -8,25 +8,44 @@ body {
   padding-top: 64px;
 }
 
-h1 {font-size:2rem;}
-
-h2 {font-size:1.8rem;}
-
-h3 {font-size:1.6rem;}
-
-h4 {font-size:1.4rem}
-
-h5 {font-size:1.2rem}
-
-h6 {font-size:1rem}
-
-p {
-  font-size: 0.9rem
+h1 {
+  font-size:2rem;
+  color: #000000;
 }
 
-a, li, lu, span {
-  font-size: 0.9rem
+h2 {
+  font-size:1.8rem;
+  color: #333333;
 }
+
+h3 {
+  font-size:1.6rem;
+  color: #666666;
+}
+
+h4 {
+  font-size:1.4rem;
+  color: #7F7F7F;
+}
+
+h5 {
+  font-size:1.2rem;
+  color: #999999;
+}
+
+h5.card-header {
+  color: #333333;
+}
+
+h6 {
+  font-size:1rem;
+  color: #B2B2B2;}
+
+p, a, li, lu, span {
+  font-size: 0.9rem;
+  color: #4C4C4C;
+}
+
 a.nav-link {
   font-size: 1rem
 }
