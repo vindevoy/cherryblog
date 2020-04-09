@@ -53,6 +53,12 @@ class SettingsLoader(metaclass=Singleton):
 
             settings[url] = {'tools.staticdir.on': True,
                              'tools.staticdir.dir': path}
+
+        settings['/favicon.ico'] = {
+            'tools.staticfile.on': True,
+            'tools.staticfile.filename': os.path.join(OptionsLoader().data_dir, 'images', 'favicon.ico')
+        }
+
         return settings
 
 ###
