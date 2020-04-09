@@ -11,6 +11,7 @@
 #       - Added introduction to the index page
 #       - Dynamic paths to themes and data
 #       - Updated the path of the main menu settings file
+#       - Data for important_news and version widget
 #
 ###
 
@@ -77,10 +78,31 @@ class DataLoader(metaclass=Singleton):
 
         return menu
 
+    @staticmethod
+    def __get_important_news():
+        config_dir = os.path.join(OptionsLoader().data_dir, 'important_news_widget')
+        file = open(os.path.join(config_dir, 'settings.yml'), 'r')
+
+        news = yaml.load(file, Loader=yaml.SafeLoader)
+
+        return news
+
+    @staticmethod
+    def __get_version():
+        config_dir = os.path.join(OptionsLoader().data_dir, 'version_widget')
+        file = open(os.path.join(config_dir, 'settings.yml'), 'r')
+
+        versions = yaml.load(file, Loader=yaml.SafeLoader)
+
+        return versions
+
     def __get_common(self):
         return {'settings': self.__get_settings(),
                 'tags': self.__get_tags(),
-                'main_menu': self.__get_main_menu()}
+                'main_menu': self.__get_main_menu(),
+                'important_news': self.__get_important_news(),
+                'version': self.__get_version()
+                }
 
     @staticmethod
     def __count_pages():

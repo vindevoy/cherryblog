@@ -35,3 +35,12 @@ navigation:
 widget:
   tag:
     title: 'Tags'
+  important_news:
+    title: 'IMPORTANT NEWS'
+    title_color: '#FF0000'
+    title_weight: 'normal'
+    text_color: '#000000'
+    text_weight: 'normal'
+
+  version:
+    title: 'Latest version'

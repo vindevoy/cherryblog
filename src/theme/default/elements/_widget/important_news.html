@@ -1,51 +1,15 @@
-<!-- Tags Widget -->
-<div class="card m-0 mr-1 p-0 ">
-    <h5 class="card-header text-left">{{ data.settings.widget.tag.title }}</h5>
+<!-- Versions Widget -->
+<div class="card m-0 mr-1 mb-3 p-0 ">
+    <h5 class="card-header text-left" style="color: {{ data.settings.widget.important_news.title_color }};
+                    font-weight: {{ data.settings.widget.important_news.title_weight }}">
+        {{ data.settings.widget.important_news.title }}
+    </h5>
     <div class="card-body">
-        <div class="row">
-            <div class="d-none d-md-block d-lg-none">
-                <ul class="list-unstyled mb-0">
-                    {% for tag in data.tags %}
-                        <li>
-                            <a href="/tags/{{ tag.label }}">{{ tag.text }}</a><span class="text-muted small"> ({{ tag.count }})</span>
-                        </li>
-                    {% endfor %}
-                </ul>
+            <div class="d-none d-lg-block">
+
+                <span style="color:{{ data.settings.widget.important_news.text_color }};
+                        font-weight:{{ data.settings.widget.important_news.text_weight }}">{{ data.important_news.text }}
+                </span>
             </div>
-
-            <!-- even entries -->
-            <div class="d-none d-lg-block col-lg-6">
-                <ul class="list-unstyled mb-0">
-                    {% set count = namespace(value=0) %}
-
-                    {% for tag in data.tags %}
-                        {% if count.value % 2 == 0 %}
-                            <li>
-                                <a href="/tags/{{ tag.label }}">{{ tag.text }}</a><span class="text-muted small"> ({{ tag.count }})</span>
-                            </li>
-                        {% endif %}
-
-                        {% set count.value = count.value + 1 %}
-                    {% endfor %}
-                </ul>
-            </div>
-
-            <!-- odd entries -->
-            <div class="d-none d-lg-block col-lg-6">
-                <ul class="list-unstyled mb-0">
-                    {% set count = namespace(value=0) %}
-
-                    {% for tag in data.tags %}
-                        {% if count.value % 2 == 1 %}
-                            <li>
-                                <a href="/tags/{{ tag.label }}">{{ tag.text }}</a><span class="text-muted small"> ({{ tag.count }})</span>
-                            </li>
-                        {% endif %}
-
-                        {% set count.value = count.value + 1 %}
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
     </div>
 </div>
