@@ -1,18 +1,24 @@
 ###
 #
+#   Full history: see below
+#
 #   Version: 1.1.0
 #   Date: 2020-04-09
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Renaming categories to tags
+#   Features:
+#       - Renaming categories to tags
+#       - Dynamic paths to themes and data
 #
 ###
 
 import cherrypy
 import getopt
+import os
 import sys
 
 from dataloader import DataLoader
+from optionsloader import OptionsLoader
 from settingsloader import SettingsLoader
 from singleton import Singleton
 from templateloader import TemplateLoader
@@ -24,7 +30,7 @@ class Application(metaclass=Singleton):
         data = DataLoader().get_index_data(page_index)
         data['url'] = '/index/{0}'.format(page_index)
 
-        template = TemplateLoader('src/theme/default').get_template('screen_index.html')
+        template = TemplateLoader().get_template('screen_index.html')
         rendered = template.render(data=data)
 
         return rendered
@@ -35,7 +41,7 @@ class Application(metaclass=Singleton):
         data = DataLoader().get_page_data(page)
         data['url'] = '/pages/{0}'.format(page)
 
-        template = TemplateLoader('src/theme/default').get_template('screen_page.html')
+        template = TemplateLoader().get_template('screen_page.html')
         rendered = template.render(data=data)
 
         return rendered
@@ -45,7 +51,7 @@ class Application(metaclass=Singleton):
         data = DataLoader().get_post_data(post)
         data['url'] = '/posts/{0}'.format(post)
 
-        template = TemplateLoader('src/theme/default').get_template('screen_post.html')
+        template = TemplateLoader().get_template('screen_post.html')
         rendered = template.render(data=data)
 
         return rendered
@@ -55,7 +61,7 @@ class Application(metaclass=Singleton):
         data = DataLoader().get_tag_data(tag, page_index)
         data['url'] = '/tags/{0}/{1}'.format(tag, page_index)
 
-        template = TemplateLoader('src/theme/default').get_template('screen_tag.html')
+        template = TemplateLoader().get_template('screen_tag.html')
         rendered = template.render(data=data)
 
         return rendered
@@ -65,7 +71,7 @@ class Application(metaclass=Singleton):
         data = DataLoader().get_page_data(page)
         data['url'] = '/print_page/{0}'.format(page)
 
-        template = TemplateLoader('src/theme/default').get_template('print_page.html')
+        template = TemplateLoader().get_template('print_page.html')
         rendered = template.render(data=data)
 
         return rendered
@@ -75,7 +81,7 @@ class Application(metaclass=Singleton):
         data = DataLoader().get_post_data(post)
         data['url'] = '/print_post/{0}'.format(post)
 
-        template = TemplateLoader('src/theme/default').get_template('print_post.html')
+        template = TemplateLoader().get_template('print_post.html')
         rendered = template.render(data=data)
 
         return rendered
@@ -83,12 +89,28 @@ class Application(metaclass=Singleton):
 
 if __name__ == '__main__':
     environment = 'localhost'
+    data_dir = ""
+    theme_dir = ""
 
-    opts, args = getopt.getopt(sys.argv[1:], "e:", ["env="])
+    opts, args = getopt.getopt(sys.argv[1:], 'd:e:t:', ['env=', 'data=', 'theme='])
 
     for opt, arg in opts:
+        if opt in ['-d', '--data']:
+            data_dir = arg
         if opt in ['-e', '--env']:
             environment = arg
+        if opt in ['-t', '--theme']:
+            theme_dir = arg
+
+    if data_dir == '':
+        data_dir = os.path.join(os.getcwd(), 'src', 'data')
+
+    if theme_dir == '':
+        theme_dir = os.path.join(os.getcwd(), 'src', 'theme', 'default')
+
+    OptionsLoader().environment = environment
+    OptionsLoader().data_dir = data_dir
+    OptionsLoader().theme_dir = theme_dir
 
     settings = SettingsLoader(environment).parse()
 
@@ -99,8 +121,6 @@ if __name__ == '__main__':
 #   Version: 1.0.1
 #   Date: 2020-04-08
 #   Author: Yves Vindevogel (vindevoy)
-#
-#   Full history: see below
 #
 #   Fixes:
 #       - Added **_ to each of the exposed links. Facebook sends shit on the URL when you copy paste the blog's
@@ -114,6 +134,6 @@ if __name__ == '__main__':
 #   Date: 2020-04-07
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Original version
+#   Original code
 #
 ###
