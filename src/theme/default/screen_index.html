@@ -1,6 +1,24 @@
 {% extends "_screen.html" %}
 {% block content %}
-    {% include 'elements/index/title.html' %}
+    {% if data.pagination.current_page == 1 %}
+        {% with primary_text = data.settings.index.primary_title,
+                secondary_text = data.settings.index.secondary_title %}
+
+            {% include 'elements/index/introduction_title.html' %}
+        {% endwith %}
+
+        <div class="m-0 mb-3 p-0 px-2">
+            <div class="card">
+                <img class="card-img-top" src="/images/{{ data.index.image }}">
+
+                <div class="card-body pb-0">
+                    {{ data.index.introduction }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% include 'elements/index/posts_title.html' %}
 
     {% if data.pagination.current_page == 1 %}
         {% for post in data.spotlight_posts %}

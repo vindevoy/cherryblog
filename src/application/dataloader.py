@@ -5,6 +5,7 @@
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Renaming categories to tags
+#   Added introduction to the index page
 #
 ###
 
@@ -105,6 +106,17 @@ class DataLoader(metaclass=Singleton):
 
     def get_index_data(self, page_index):
         data = self.__get_common()
+
+        data_index = {}
+
+        intro_dir = os.path.join(Settings().root_dir, 'src', 'data', 'index')
+        intro_file = open(os.path.join(intro_dir, 'introduction.md'), 'r')
+
+        intro_meta, data_index['introduction'] = self.__split_file(intro_file.read())
+
+        data_index['image'] = intro_meta['image']
+
+        data['index'] = data_index
 
         posts_dir = os.path.join(Settings().root_dir, 'src', 'data', 'posts')
 
