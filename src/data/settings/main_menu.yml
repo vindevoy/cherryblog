@@ -9,6 +9,9 @@
 - label: "Documentation"
   ref: "/pages/docs"
 
+- label: "Sources"
+  ref: "https://github.com/vindevoy/cherryblog"
+
 - label: "Credits"
   ref: "/pages/credits"
 
