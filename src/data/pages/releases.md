@@ -5,7 +5,7 @@ title: "Release notes"
 image: "blossom4.jpg"
 
 author: "Yves Vindevogel"
-date: "2020-04-08"
+date: "2020-04-09"
 
 ----------
 

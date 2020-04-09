@@ -1,8 +1,10 @@
 ###
 #
-#   Version: 1.0.0
-#   Date: 2020-04-07
+#   Version: 1.1.0
+#   Date: 2020-04-09
 #   Author: Yves Vindevogel (vindevoy)
+#
+#   Renaming categories to tags
 #
 ###
 
@@ -29,35 +31,35 @@ class DataLoader(metaclass=Singleton):
 
         return settings
 
-    def __get_categories(self):
+    def __get_tags(self):
         posts_dir = os.path.join(Settings().root_dir, 'src', 'data', 'posts')
 
-        # Starting with a dictionary as this is the easiest to find existing categories
-        categories = {}
+        # Starting with a dictionary as this is the easiest to find existing tags
+        tags = {}
 
         for file in os.listdir(posts_dir):
             file = open(os.path.join(posts_dir, file), 'r')
 
             meta, _ = self.__split_file(file.read())  # No need to catch the content
 
-            for category in meta['categories']:
-                label = self.__category_label(category)
+            for tag in meta['tags']:
+                label = self.__tag_label(tag)
 
-                if label in categories.keys():
-                    current_count = categories[label]['count']
+                if label in tags.keys():
+                    current_count = tags[label]['count']
 
-                    categories[label]['count'] = current_count + 1
+                    tags[label]['count'] = current_count + 1
                 else:
-                    data = {'label': label, 'count': 1, 'text': string.capwords(category)}
-                    categories[label] = data
+                    data = {'label': label, 'count': 1, 'text': string.capwords(tag)}
+                    tags[label] = data
 
         # Pushing this into a simple array for Jinja2
-        categories_array = []
+        tags_array = []
 
-        for _, value in categories.items():  # Only need the value
-            categories_array.append(value)
+        for _, value in tags.items():  # Only need the value
+            tags_array.append(value)
 
-        return sorted(categories_array, key=itemgetter('count'), reverse=True)
+        return sorted(tags_array, key=itemgetter('count'), reverse=True)
 
     @staticmethod
     def __get_main_menu():
@@ -70,7 +72,7 @@ class DataLoader(metaclass=Singleton):
 
     def __get_common(self):
         return {'settings': self.__get_settings(),
-                'categories': self.__get_categories(),
+                'tags': self.__get_tags(),
                 'main_menu': self.__get_main_menu()}
 
     @staticmethod
@@ -85,7 +87,7 @@ class DataLoader(metaclass=Singleton):
 
         return len(os.listdir(posts_dir))
 
-    def __count_category_posts(self, category):
+    def __count_tag_posts(self, tag):
         posts_dir = os.path.join(Settings().root_dir, 'src', 'data', 'posts')
 
         count_entries = 0
@@ -95,8 +97,8 @@ class DataLoader(metaclass=Singleton):
 
             post, _ = self.__split_file(file.read())
 
-            for cat_raw in post['categories']:
-                if self.__category_label(cat_raw) == category:
+            for tag_raw in post['tags']:
+                if self.__tag_label(tag_raw) == tag:
                     count_entries += 1
 
         return count_entries
@@ -162,7 +164,7 @@ class DataLoader(metaclass=Singleton):
 
         return data
 
-    def get_category_data(self, category, page_index):
+    def get_tag_data(self, tag, page_index):
         data = self.__get_common()
 
         posts_dir = os.path.join(Settings().root_dir, 'src', 'data', 'posts')
@@ -180,8 +182,8 @@ class DataLoader(metaclass=Singleton):
 
             must_include = False
 
-            for cat_raw in post['categories']:
-                if self.__category_label(cat_raw) == category:
+            for tag_raw in post['tags']:
+                if self.__tag_label(tag_raw) == tag:
                     must_include = True
                     break
 
@@ -200,9 +202,9 @@ class DataLoader(metaclass=Singleton):
                 if count_entries == max_entries:
                     break
 
-        data['category'] = {'name': string.capwords(category.replace('-', ' ')), 'path': category}
+        data['tag'] = {'name': string.capwords(tag.replace('-', ' ')), 'path': tag}
 
-        total_posts = self.__count_category_posts(category)
+        total_posts = self.__count_tag_posts(tag)
         total_index_pages = math.ceil(total_posts / max_entries)
 
         data['pagination'] = {'current_page': int(page_index), 'total_pages': total_index_pages}
@@ -251,5 +253,15 @@ class DataLoader(metaclass=Singleton):
         return meta_data, content_html
 
     @staticmethod
-    def __category_label(category):
-        return category.lower().replace(' ', '-')
+    def __tag_label(tag):
+        return tag.lower().replace(' ', '-')
+
+###
+#
+#   Version: 1.0.0
+#   Date: 2020-04-07
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Original version
+#
+###

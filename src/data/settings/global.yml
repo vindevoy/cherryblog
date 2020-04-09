@@ -13,7 +13,7 @@ post:
 
 page:
 
-category:
+tag:
   secondary_title: 'posts'
 
 meta:
@@ -31,5 +31,5 @@ navigation:
   page_of_of: 'of'
 
 widget:
-  category:
-    title: 'Categories'
+  tag:
+    title: 'Tags'

@@ -1,18 +1,10 @@
 ###
 #
-#   Version: 1.0.1
-#   Date: 2020-04-08
+#   Version: 1.1.0
+#   Date: 2020-04-09
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Full history: see below
-#
-#   Fixes:
-#       - Added **_ to each of the exposed links. Facebook sends shit on the URL when you copy paste the blog's
-#         address: ?fbclid=IwAR0qgVcdKo1bgunAT5wFYolJkt3YPT8ANxFNgIiNfTiWzcv4a72j3LPujRI
-#         That is now filtered away with the **_
-#
-#       - Added the URL to the data section so that the templates know what URL was requested.
-#         This allows solving the menu items not coloured correctly
+#   Renaming categories to tags
 #
 ###
 
@@ -59,11 +51,11 @@ class Application(metaclass=Singleton):
         return rendered
 
     @cherrypy.expose
-    def categories(self, category, page_index=1, **_):
-        data = DataLoader().get_category_data(category, page_index)
-        data['url'] = '/categories/{0}/{1}'.format(category, page_index)
+    def tags(self, tag, page_index=1, **_):
+        data = DataLoader().get_tag_data(tag, page_index)
+        data['url'] = '/tags/{0}/{1}'.format(tag, page_index)
 
-        template = TemplateLoader('src/theme/default').get_template('screen_category.html')
+        template = TemplateLoader('src/theme/default').get_template('screen_tag.html')
         rendered = template.render(data=data)
 
         return rendered
@@ -103,6 +95,20 @@ if __name__ == '__main__':
     cherrypy.quickstart(Application(), config=settings)
 
 ###
+#
+#   Version: 1.0.1
+#   Date: 2020-04-08
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Full history: see below
+#
+#   Fixes:
+#       - Added **_ to each of the exposed links. Facebook sends shit on the URL when you copy paste the blog's
+#         address: ?fbclid=IwAR0qgVcdKo1bgunAT5wFYolJkt3YPT8ANxFNgIiNfTiWzcv4a72j3LPujRI
+#         That is now filtered away with the **_
+#
+#       - Added the URL to the data section so that the templates know what URL was requested.
+#         This allows solving the menu items not coloured correctly
 #
 #   Version: 1.0.0
 #   Date: 2020-04-07

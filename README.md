@@ -7,7 +7,7 @@ CherryBlog implements a very simple blogging website.
 
 - Posts: the main content of the blog
 - Pages: the extra static pages like the 'about'
-- Categories: each post has one or multiple categories
+- Tags: each post has one or multiple tags
 
 At this moment, it has the basic news of the project and some dummy articles based on content found on Wikipedia and others.
 
@@ -50,7 +50,7 @@ The content of the blog is written in MarkDown. On top of each content file, the
 - date written
 - image on top of the page
 - summary of the content
-- categories
+- tags
 
 The whole content is served from local files, so no need for a database like for instance WordPress, Drupal or Joomla.
 

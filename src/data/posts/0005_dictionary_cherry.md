@@ -9,7 +9,7 @@ image: "cherry4.jpg"
 
 summary: "cherry: noun." 
 
-categories:
+tags:
     - Cherries
     - dictionary
     
