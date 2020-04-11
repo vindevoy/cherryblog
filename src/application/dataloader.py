@@ -12,6 +12,7 @@
 #       - Dynamic paths to themes and data
 #       - Updated the path of the main menu settings file
 #       - Data for important_news and version widget
+#       - Data for footer_menu
 #
 ###
 
