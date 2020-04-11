@@ -14,4 +14,8 @@
 
         {% include 'elements/_html/title.html' %}
     {% endwith %}
+
+    {% with source = '/images/' + data.posts[0].image %}
+        {% include 'elements/_html/page_image.html' %}
+    {% endwith %}
 {% endif %}
