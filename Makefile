@@ -1,10 +1,10 @@
 ###
 #
-#   Version: 1.0.1
-#   Date: 2020-04-09
+#   Version: 1.1.0
+#   Date: 2020-04-11
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Cleaned some commands
+#   Add logging
 #
 ###
 
@@ -105,6 +105,12 @@ production:
 	@python3 ./src/application/serve.py --env production 2>&1 | tee ./log/production.log &
 
 ###
+#
+#   Version: 1.0.1
+#   Date: 2020-04-09
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Cleaned some commands
 #
 #   Version: 1.0.0
 #   Date: 2020-03-29
