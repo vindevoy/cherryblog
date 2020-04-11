@@ -68,23 +68,23 @@ history:
 	@echo ''                                                                >   ./HISTORY.md
 	@echo '# VERSION 1.1.1'                                                 >>  ./HISTORY.md
 	@echo ''                                                                >>  ./HISTORY.md
-	@sed -n '/##/,$$p' ./src/data/posts/0010_version_1_1_1.md               >>  ./HISTORY.md
+	@sed -n '/##/,$$p' ./src/data/posts/0006_version_1_1_1.md               >>  ./HISTORY.md
 	@echo ''                                                                >>  ./HISTORY.md
 	@echo '# VERSION 1.1.0'                                                 >>  ./HISTORY.md
 	@echo ''                                                                >>  ./HISTORY.md
-	@sed -n '/##/,$$p' ./src/data/posts/0009_version_1_1_0.md               >>  ./HISTORY.md
+	@sed -n '/##/,$$p' ./src/data/posts/0005_version_1_1_0.md               >>  ./HISTORY.md
 	@echo ''                                                                >>  ./HISTORY.md
 	@echo '# VERSION 1.0.2'                                                 >>  ./HISTORY.md
 	@echo ''                                                                >>  ./HISTORY.md
-	@sed -n '/##/,$$p' ./src/data/posts/0008_version_1_0_2.md               >>  ./HISTORY.md
+	@sed -n '/##/,$$p' ./src/data/posts/0004_version_1_0_2.md               >>  ./HISTORY.md
 	@echo ''                                                                >>  ./HISTORY.md
 	@echo '# VERSION 1.0.1'                                                 >>  ./HISTORY.md
 	@echo ''                                                                >>  ./HISTORY.md
-	@sed -n '/##/,$$p' ./src/data/posts/0007_version_1_0_1.md               >>  ./HISTORY.md
+	@sed -n '/##/,$$p' ./src/data/posts/0003_version_1_0_1.md               >>  ./HISTORY.md
 	@echo ''                                                                >>  ./HISTORY.md
 	@echo '# VERSION 1.0.0'                                                 >>  ./HISTORY.md
 	@echo ''                                                                >>  ./HISTORY.md
-	@sed -n '/##/,$$p' ./src/data/posts/0006_version_1_0_0.md               >>  ./HISTORY.md
+	@sed -n '/##/,$$p' ./src/data/posts/0002_version_1_0_0.md               >>  ./HISTORY.md
 	@echo ''                                                                >>  ./HISTORY.md
 
 	@echo '[OK] HISTORY.md created'

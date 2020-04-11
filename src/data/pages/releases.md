@@ -23,7 +23,7 @@ date: "2020-04-12"
 - Alignment of the footer for small devices
 - Code boxes were not showing nicely
 
-## Github 
+### Github 
 
 For more information on this release, see the issues for this milestone:
 
@@ -61,7 +61,7 @@ For more information on this release, see the issues for this milestone:
 
 - Blog title is bigger, together with the main menu
 
-## Github 
+### Github 
 
 For more information on this release, see the issues for this milestone:
 
@@ -82,7 +82,7 @@ For more information on this release, see the issues for this milestone:
 - Number of types of posts is no longer hard coded.
 - Renamed the directory site to settings because it makes more sense.
 
-## Github 
+### Github 
 
 For more information on this release, see the issues for this milestone:
 
@@ -105,7 +105,7 @@ For more information on this release, see the issues for this milestone:
 - A major bug with for instance Facebook was fixed.  No longer is adding things on the URL causing the app to crash.
 - Links in the uploaded pages yesterday are working.
 
-## Github 
+### Github 
 
 For more information on this release, see the issues for this milestone:
 
@@ -140,7 +140,7 @@ Base architecture:
 - Settings in YAML
 - Multi-environment using YAML
 
-## Github 
+### Github 
 
 For more information on this release, see the issues for this milestone:
 
