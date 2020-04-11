@@ -11,7 +11,7 @@ date: "2020-04-08"
 
 ## WARNING
 
-**This project is brand new and is only in version 1.0.2. Consider this release to be an announcement release. Hence the documentation is very short.  It is provided for people who really want to dig into the project.**
+**This project is brand new and is only in version 1.1.1. Consider this release to be an announcement release. Hence the documentation is very short.  It is provided for people who really want to dig into the project.**
 
 ## Installation
 
