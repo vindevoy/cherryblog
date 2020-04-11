@@ -17,7 +17,7 @@ CherryBlog implements a very simple blogging website.
 - Pages: the extra static pages like the 'about'
 - Tags: each post has one or multiple tags
 
-At this moment, it has the basic news of the project and some dummy articles based on content found on Wikipedia and others.
+At this moment, it has the basic news of the project where each article is a post about the new version that was released.
 
 ### Goals
 
