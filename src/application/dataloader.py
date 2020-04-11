@@ -40,6 +40,11 @@ class DataLoader(metaclass=Singleton):
         return settings
 
     def __get_tags(self):
+        settings_dir = os.path.join(OptionsLoader().data_dir, 'tags_widget')
+        file = open(os.path.join(settings_dir, 'settings.yml'), 'r')
+
+        settings = yaml.load(file, Loader=yaml.SafeLoader)
+
         posts_dir = os.path.join(OptionsLoader().data_dir, 'posts')
 
         # Starting with a dictionary as this is the easiest to find existing tags
@@ -52,6 +57,9 @@ class DataLoader(metaclass=Singleton):
 
             for tag in meta['tags']:
                 label = self.__tag_label(tag)
+
+                if label in settings['skip_tags']:
+                    continue
 
                 if label in tags.keys():
                     current_count = tags[label]['count']
