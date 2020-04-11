@@ -1,4 +1,42 @@
 
+# VERSION 1.1.0
+
+## Release info
+
+- author: Yves Vindevogel (vindevoy)
+- date: 2020-04-11
+
+## Features
+
+- Introduction on top of the index page
+- Footer menu
+- Important news widget
+- Version widget 
+
+## Theme enhancements
+
+- Categories are now named tags
+- H-elements have a slightly different colour now in order to make the text more readable
+- Logo added to the top menu and as favicon.ico
+- The first post for a tag contributes the image to the top of the page
+
+## Code enhancements
+
+- Logging is now saved
+- Root of the theme and data directory can be parameterized
+- Makefile enhancements
+- Directory updates
+
+## Fixes
+
+- Blog title is bigger, together with the main menu
+
+## Github 
+
+For more information on this release, see the issues for this milestone:
+
+- [https://github.com/vindevoy/cherryblog/milestone/3](https://github.com/vindevoy/cherryblog/milestone/3)
+
 # VERSION 1.0.2
 
 ## Release info

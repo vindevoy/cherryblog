@@ -5,15 +5,17 @@ blog:
   copyright: "CherryBlog is licensed under the MIT license"
 
 index:
-  primary_title: "Latest news"
-  secondary_title: "about CherryBlog"
+  primary_title_introduction: "CherryBlog.ORG"
+  secondary_title_introduction: "open source blogging software"
+  primary_title_posts: "Latest news"
+  secondary_title_posts: "about CherryBlog"
   primary_title_archive: 'News archive'
 
 post:
 
 page:
 
-category:
+tag:
   secondary_title: 'posts'
 
 meta:
@@ -31,5 +33,14 @@ navigation:
   page_of_of: 'of'
 
 widget:
-  category:
-    title: 'Categories'
+  tag:
+    title: 'Tags'
+  important_news:
+    title: 'IMPORTANT NEWS'
+    title_color: '#FF0000'
+    title_weight: 'normal'
+    text_color: '#000000'
+    text_weight: 'normal'
+
+  version:
+    title: 'Latest version'

@@ -1,15 +1,18 @@
 ###
 #
-#   Version: 1.0.0
-#   Date: 2020-03-29
+#   Version: 1.1.0
+#   Date: 2020-04-11
 #   Author: Yves Vindevogel (vindevoy)
+#
+#   Add logging
 #
 ###
 
 clean:
-	@rm -rf ./__pycache__
-	@rm -rf ./src/application/__pycache__
-	@rm -rf ./tmp
+	@find . -name '__pycache__' -type d -delete
+	@rm -rf ./tmp ./log ./download
+
+	@echo '[OK] Cleaned'
 
 setup:
 	@mkdir -p ./src/application
@@ -18,6 +21,7 @@ setup:
 	@mkdir -p ./src/data/blog
 	@mkdir -p ./src/data/site
 	@touch ./src/data/site/settings.yml
+
 	@echo '[OK] Setup has created the /src directory and sub-directories'
 
 download: clean
@@ -35,11 +39,14 @@ download: clean
 
 	@rm -rf ./tmp
 
+	@echo '[OK] Download done'
+
 dependencies:
 	@pip3 install cherrypy
 	@pip3 install jinja2
 	@pip3 install pyyaml
 	@pip3 install markdown
+
 	@echo '[OK] Dependencies in Python installed'
 
 readme:
@@ -59,6 +66,10 @@ readme:
 
 history:
 	@echo ''                                                                >   ./HISTORY.md
+	@echo '# VERSION 1.1.0'                                                 >>  ./HISTORY.md
+	@echo ''                                                                >>  ./HISTORY.md
+	@sed -n '/##/,$$p' ./src/data/posts/0009_version_1_1_0.md               >>  ./HISTORY.md
+	@echo ''                                                                >>  ./HISTORY.md
 	@echo '# VERSION 1.0.2'                                                 >>  ./HISTORY.md
 	@echo ''                                                                >>  ./HISTORY.md
 	@sed -n '/##/,$$p' ./src/data/posts/0008_version_1_0_2.md               >>  ./HISTORY.md
@@ -92,7 +103,25 @@ history:
 	@echo '[OK] history copied to pages'
 
 develop:
-	@python3 ./src/application/serve.py
+	@mkdir -p ./log
+	@python3 ./src/application/serve.py 2>&1 | tee ./log/develop.log
 
 production:
-	@python3 ./src/application/serve.py --env production &
+	@mkdir -p /var/log/cherryblog
+	@python3 ./src/application/serve.py --env production 2>&1 | tee /var/log/cherryblog/production.log &
+
+###
+#
+#   Version: 1.0.1
+#   Date: 2020-04-09
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Cleaned some commands
+#
+#   Version: 1.0.0
+#   Date: 2020-03-29
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Original file
+#
+###

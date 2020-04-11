@@ -1,0 +1,11 @@
+---
+
+- label: "Github"
+  ref: "https://github.com/vindevoy/cherryblog"
+
+- label: "Release Notes"
+  ref: "/pages/releases"
+
+- label: "Credits"
+  ref: "/pages/credits"
+

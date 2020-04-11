@@ -1,13 +1,13 @@
-<!-- Categories Widget -->
-<div class="card m-0 mr-1 p-0 ">
-    <h5 class="card-header text-left">{{ data.settings.widget.category.title }}</h5>
+<!-- Tags Widget -->
+<div class="card m-0 mb-3 mr-1 p-0">
+    <h5 class="card-header text-left">{{ data.settings.widget.tag.title }}</h5>
     <div class="card-body">
         <div class="row">
             <div class="d-none d-md-block d-lg-none">
                 <ul class="list-unstyled mb-0">
-                    {% for category in data.categories %}
+                    {% for tag in data.tags %}
                         <li>
-                            <a href="/categories/{{ category.label }}">{{ category.text }}</a><span class="text-muted small"> ({{ category.count }})</span>
+                            <a href="/tags/{{ tag.label }}">{{ tag.text }}</a><span class="text-muted small"> ({{ tag.count }})</span>
                         </li>
                     {% endfor %}
                 </ul>
@@ -18,10 +18,10 @@
                 <ul class="list-unstyled mb-0">
                     {% set count = namespace(value=0) %}
 
-                    {% for category in data.categories %}
+                    {% for tag in data.tags %}
                         {% if count.value % 2 == 0 %}
                             <li>
-                                <a href="/categories/{{ category.label }}">{{ category.text }}</a><span class="text-muted small"> ({{ category.count }})</span>
+                                <a href="/tags/{{ tag.label }}">{{ tag.text }}</a><span class="text-muted small"> ({{ tag.count }})</span>
                             </li>
                         {% endif %}
 
@@ -35,10 +35,10 @@
                 <ul class="list-unstyled mb-0">
                     {% set count = namespace(value=0) %}
 
-                    {% for category in data.categories %}
+                    {% for tag in data.tags %}
                         {% if count.value % 2 == 1 %}
                             <li>
-                                <a href="/categories/{{ category.label }}">{{ category.text }}</a><span class="text-muted small"> ({{ category.count }})</span>
+                                <a href="/tags/{{ tag.label }}">{{ tag.text }}</a><span class="text-muted small"> ({{ tag.count }})</span>
                             </li>
                         {% endif %}
 

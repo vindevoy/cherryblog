@@ -1,8 +1,20 @@
 <!-- Footer -->
 <footer class="bg-dark">
     <div class="container">
-        <div class="m-0 mt-3 p-0 py-2">
-            <p class="text-center text-white">{{ data.settings.blog.copyright }}</p>
+        <div class="row">
+            <div class="col-md-6 m-0 mt-3 p-0 pr-3 pb-3 text-right">
+                <ul class="list-unstyled m-0 p-0">
+                    {% for menu in data.footer_menu %}
+                        <li>
+                            <a class="text-white" href="{{ menu.ref }}">{{ menu.label }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col-md-6 m-0 mt-3 p-0 pl-3 text-left">
+                <p class="text-white">{{ data.settings.blog.copyright }}</p>
+            </div>
         </div>
     </div>
 </footer>

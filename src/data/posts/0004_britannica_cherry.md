@@ -9,7 +9,7 @@ image: "cherry3.jpg"
 
 summary: Cherry, any of various trees belonging to the genus Prunus and their edible fruits. 
 
-categories:
+tags:
     - Cherries
     - Britannica
     

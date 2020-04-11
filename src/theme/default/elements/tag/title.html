@@ -1,0 +1,10 @@
+<!-- Title -->
+{% with primary_text = data.tag.name,
+        secondary_text = data.settings.tag.secondary_title %}
+
+    {% include 'elements/_html/title.html' %}
+{% endwith %}
+
+{% with source = '/images/' + data.posts[0].image %}
+    {% include 'elements/_html/page_image.html' %}
+{% endwith %}

@@ -9,7 +9,7 @@ image: "cherry2.jpg"
 
 summary: A cherry is the fruit of many plants of the genus Prunus, and is a fleshy drupe (stone fruit).
 
-categories:
+tags:
     - Cherries
     - Wikipedia
     

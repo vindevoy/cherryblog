@@ -1,7 +1,7 @@
 <!-- Title -->
 {% if data.pagination.current_page == 1 %}
-    {% with primary_text = data.settings.index.primary_title,
-            secondary_text = data.settings.index.secondary_title %}
+    {% with primary_text = data.settings.index.primary_title_posts,
+            secondary_text = data.settings.index.secondary_title_posts %}
 
         {% include 'elements/_html/title.html' %}
     {% endwith %}

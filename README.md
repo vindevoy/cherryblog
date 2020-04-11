@@ -7,7 +7,7 @@ CherryBlog implements a very simple blogging website.
 
 - Posts: the main content of the blog
 - Pages: the extra static pages like the 'about'
-- Categories: each post has one or multiple categories
+- Tags: each post has one or multiple tags
 
 At this moment, it has the basic news of the project and some dummy articles based on content found on Wikipedia and others.
 
@@ -50,7 +50,7 @@ The content of the blog is written in MarkDown. On top of each content file, the
 - date written
 - image on top of the page
 - summary of the content
-- categories
+- tags
 
 The whole content is served from local files, so no need for a database like for instance WordPress, Drupal or Joomla.
 
@@ -204,6 +204,10 @@ Images downloaded:
 - <a href="https://pixabay.com/users/Hans-2/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1260641">Hans Braxmeier</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1260641">Pixabay</a>
 - <a href="https://pixabay.com/users/webandi-1460261/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3308735">Andreas Lischka</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3308735">Pixabay</a>
 - <a href="https://pixabay.com/users/gayulo-3585927/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3238564">gayulo</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=3238564">Pixabay</a>
+
+SVG downloaded for logo:
+
+- <a href="https://commons.wikimedia.org/wiki/File:Fruit-cherries.svg?uselang=fr">https://commons.wikimedia.org/wiki/File:Fruit-cherries.svg?uselang=fr</a>
 
 ## Inspiration
 
