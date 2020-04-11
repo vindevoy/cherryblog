@@ -87,7 +87,7 @@ At this moment, I (vindevoy) am the only contributor.  I started the project jus
 
 ### Version(s)
 
-The current version is 1.1.0.  The code is tagged on Github for each released version.
+The current version is depicted in the version widget.  The code is tagged on Github for each released version.
 
 ### Roadmap
 

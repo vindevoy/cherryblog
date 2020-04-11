@@ -5,10 +5,29 @@ title: "Release notes"
 image: "blossom4.jpg"
 
 author: "Yves Vindevogel"
-date: "2020-04-11"
+date: "2020-04-12"
 
 ----------
 
+
+# VERSION 1.1.1
+
+## Release info
+
+- author: Yves Vindevogel (vindevoy)
+- date: 2020-04-11
+
+## Fixes
+
+- Missing top image in the posts archive
+- Alignment of the footer for small devices
+- Code boxes were not showing nicely
+
+## Github 
+
+For more information on this release, see the issues for this milestone:
+
+- [https://github.com/vindevoy/cherryblog/milestone/7](https://github.com/vindevoy/cherryblog/milestone/7)
 
 # VERSION 1.1.0
 
