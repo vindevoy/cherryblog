@@ -3,5 +3,6 @@ __pycache__/
 
 tmp/
 download/
+log/
 
 production.yml

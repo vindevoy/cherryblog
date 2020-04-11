@@ -10,7 +10,7 @@
 
 clean:
 	@find . -name '__pycache__' -type d -delete
-	@find . -name 'tmp' -type d -delete
+	@rm -rf ./tmp ./log
 
 	@echo '[OK] Cleaned'
 
@@ -99,10 +99,10 @@ history:
 	@echo '[OK] history copied to pages'
 
 develop:
-	@python3 ./src/application/serve.py
+	@python3 ./src/application/serve.py 2>&1 | tee ./log/develop.log
 
 production:
-	@python3 ./src/application/serve.py --env production &
+	@python3 ./src/application/serve.py --env production 2>&1 | tee ./log/production.log &
 
 ###
 #
