@@ -10,7 +10,7 @@
 
 clean:
 	@find . -name '__pycache__' -type d -delete
-	@rm -rf ./tmp ./log
+	@rm -rf ./tmp ./log ./download
 
 	@echo '[OK] Cleaned'
 
