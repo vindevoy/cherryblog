@@ -87,6 +87,15 @@ class DataLoader(metaclass=Singleton):
         return menu
 
     @staticmethod
+    def __get_footer_menu():
+        config_dir = os.path.join(OptionsLoader().data_dir, 'footer_menu')
+        file = open(os.path.join(config_dir, 'settings.yml'), 'r')
+
+        menu = yaml.load(file, Loader=yaml.SafeLoader)
+
+        return menu
+
+    @staticmethod
     def __get_important_news():
         config_dir = os.path.join(OptionsLoader().data_dir, 'important_news_widget')
         file = open(os.path.join(config_dir, 'settings.yml'), 'r')
@@ -108,6 +117,7 @@ class DataLoader(metaclass=Singleton):
         return {'settings': self.__get_settings(),
                 'tags': self.__get_tags(),
                 'main_menu': self.__get_main_menu(),
+                'footer_menu': self.__get_footer_menu(),
                 'important_news': self.__get_important_news(),
                 'version': self.__get_version()
                 }

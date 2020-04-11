@@ -3,15 +3,5 @@
 - label: "About"
   ref: "/pages/about"
 
-- label: "Releases"
-  ref: "/pages/releases"
-
 - label: "Documentation"
   ref: "/pages/docs"
-
-- label: "Sources"
-  ref: "https://github.com/vindevoy/cherryblog"
-
-- label: "Credits"
-  ref: "/pages/credits"
-
