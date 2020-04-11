@@ -1,8 +1,9 @@
 <!-- Footer -->
 <footer class="bg-dark">
     <div class="container">
+        <!-- Normal size -->
         <div class="row">
-            <div class="col-md-6 m-0 mt-3 p-0 pr-3 pb-3 text-right">
+            <div class="d-none d-md-block col-md-6 m-0 mt-3 p-0 pr-3 pb-3 text-right">
                 <ul class="list-unstyled m-0 p-0">
                     {% for menu in data.footer_menu %}
                         <li>
@@ -12,7 +13,26 @@
                 </ul>
             </div>
 
-            <div class="col-md-6 m-0 mt-3 p-0 pl-3 text-left">
+            <div class="d-none d-md-block col-md-6 m-0 mt-3 p-0 pl-3 text-left">
+                <p class="text-white">{{ data.settings.blog.copyright }}</p>
+            </div>
+        </div>
+
+        <!-- Small size -->
+        <div class="row">
+            <div class="col-xs-12 d-md-none m-0 mt-3 p-0 w-100 text-center">
+                <ul class="list-unstyled m-0 p-0">
+                    {% for menu in data.footer_menu %}
+                        <li>
+                            <a class="text-white" href="{{ menu.ref }}">{{ menu.label }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 d-md-none m-0 mt-3 p-0 pl-3 w-100 text-center">
                 <p class="text-white">{{ data.settings.blog.copyright }}</p>
             </div>
         </div>
