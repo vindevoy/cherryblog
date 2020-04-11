@@ -47,7 +47,7 @@ p, a, li, lu, span {
 }
 
 a.nav-link {
-  font-size: 1.20rem
+  font-size: 1.15rem
 }
 
 a, a:visited {
@@ -105,10 +105,14 @@ a:hover, a:active, a:hover {
 }
 
 code {
-  margin: 1rem 0rem;
-  padding: 1rem 1rem;
+  display: block;
+  margin: 0.5rem 0rem;
+  padding: 0.5rem;
   font-size: 100%;
   color: black;
-  word-break: break-word;
-  background-color: lightgrey;
+  word-wrap: break-word;
+  background-color: #fbfbfb;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
 }

@@ -66,6 +66,10 @@ readme:
 
 history:
 	@echo ''                                                                >   ./HISTORY.md
+	@echo '# VERSION 1.1.1'                                                 >>  ./HISTORY.md
+	@echo ''                                                                >>  ./HISTORY.md
+	@sed -n '/##/,$$p' ./src/data/posts/0010_version_1_1_1.md               >>  ./HISTORY.md
+	@echo ''                                                                >>  ./HISTORY.md
 	@echo '# VERSION 1.1.0'                                                 >>  ./HISTORY.md
 	@echo ''                                                                >>  ./HISTORY.md
 	@sed -n '/##/,$$p' ./src/data/posts/0009_version_1_1_0.md               >>  ./HISTORY.md

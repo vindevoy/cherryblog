@@ -79,7 +79,7 @@ At this moment, I (vindevoy) am the only contributor.  I started the project jus
 
 ### Version(s)
 
-The current version is 1.0.0.  The code is tagged on Github for each released version.
+The current version is depicted in the version widget.  The code is tagged on Github for each released version.
 
 ### Roadmap
 
@@ -101,7 +101,7 @@ The major release number will be bumped when a major new feature is introduced. 
 
 ## WARNING
 
-**This project is brand new and is only in version 1.0.2. Consider this release to be an announcement release. Hence the documentation is very short.  It is provided for people who really want to dig into the project.**
+**This project is brand new and is only in version 1.x. Consider this release to be an announcement release. Hence the documentation is very short.  It is provided for people who really want to dig into the project.**
 
 ## Installation
 
