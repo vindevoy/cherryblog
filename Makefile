@@ -99,10 +99,12 @@ history:
 	@echo '[OK] history copied to pages'
 
 develop:
+	@mkdir -p ./log
 	@python3 ./src/application/serve.py 2>&1 | tee ./log/develop.log
 
 production:
-	@python3 ./src/application/serve.py --env production 2>&1 | tee ./log/production.log &
+	@mkdir -p /var/log/cherryblog
+	@python3 ./src/application/serve.py --env production 2>&1 | tee /var/log/cherryblog/production.log &
 
 ###
 #
