@@ -87,6 +87,8 @@ class SettingsLoader(metaclass=Singleton):
         else:
             Options().run_dir = os.path.join(os.getcwd(), settings_yaml['directories']['run']['path'])
 
+        Options().meta_content_separator = settings_yaml['content']['meta_content_separator']
+
         Options().daemon = settings_yaml['engine']['daemon']
 
         Options().privileges = settings_yaml['user']['privileges']

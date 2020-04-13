@@ -19,6 +19,8 @@ from common.singleton import Singleton
 
 
 class Content(metaclass=Singleton):
+    __meta_content_separator = None
+
     def load_data_settings_yaml(self, directory):
         return self.load_settings_yaml(os.path.join(Options().data_dir, directory))
 
@@ -39,9 +41,11 @@ class Content(metaclass=Singleton):
 
         return meta, html
 
-    @staticmethod
-    def __split_file(data):
-        split = data.split('-' * 10)
+    def __split_file(self, data):
+        if self.__meta_content_separator is None:
+            self.__meta_content_separator = Options().meta_content_separator
+
+        split = data.split(self.__meta_content_separator)
 
         meta = split[0]
         content = ""

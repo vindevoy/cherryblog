@@ -27,6 +27,7 @@ class Options(metaclass=Singleton):
 
     # Properties set from the settings file (environment.yml)
     daemon = False
+    meta_content_separator = ''
 
     # User privileges can be used to start as root and run on port 80 (privileged port)
     # and then run with a user with less rights
