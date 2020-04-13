@@ -22,10 +22,10 @@ from common.options import Options
 
 
 class Pages(metaclass=Singleton):
-    # TODO: rename to base dir
-
-    __settings_dir = 'pages'
+    __base_dir = 'pages'
     __data_loader = None
+
+    __pages = {}
 
     directory = None
     count = 0
@@ -33,20 +33,20 @@ class Pages(metaclass=Singleton):
     def __init__(self, data_loader):
         self.__data_loader = data_loader
 
-        self.directory = os.path.join(Options().data_dir, self.__settings_dir)
+        self.directory = os.path.join(Options().data_dir, self.__base_dir)
         self.count = len(os.listdir(self.directory))
 
-    # TODO: data must be kept in memory
-
     def data(self, page):
+        if page in self.__pages.keys():
+            return self.__pages[page]
+
         data = self.__data_loader.common_data
 
-        # TODO: must be from content, reading content
-        file = open(os.path.join(self.directory, '{0}.md'.format(page)), 'r')
-
-        meta, content = Content().split_file(file.read())
+        meta, content = Content().read_content(self.__base_dir, '{0}.md'.format(page))
 
         meta['content'] = content
         data['page'] = meta
+
+        self.__pages[page] = data
 
         return data

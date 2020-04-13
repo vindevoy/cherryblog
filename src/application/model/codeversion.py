@@ -15,9 +15,9 @@ from common.singleton import Singleton
 
 
 class CodeVersion(metaclass=Singleton):
-    __settings_dir = 'codeversion'
+    __base_dir = 'codeversion'
 
     data = None
 
     def __init__(self):
-        self.data = Content().load_data_settings_yaml(self.__settings_dir)
+        self.data = Content().load_data_settings_yaml(self.__base_dir)

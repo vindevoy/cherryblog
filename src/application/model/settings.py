@@ -19,11 +19,11 @@ from common.singleton import Singleton
 
 
 class Settings(metaclass=Singleton):
-    __settings_dir = 'settings'
+    __base_dir = 'settings'
 
     global_settings = None
 
     def __init__(self):
-        settings_dir = os.path.join(Options().data_dir, self.__settings_dir)
+        settings_dir = os.path.join(Options().data_dir, self.__base_dir)
 
         self.global_settings = Content().load_yaml(settings_dir, 'global.yml')

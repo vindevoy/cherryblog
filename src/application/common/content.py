@@ -31,8 +31,16 @@ class Content(metaclass=Singleton):
 
         return yaml.load(yaml_file, Loader=yaml.SafeLoader)
 
+    def read_content(self, directory, file):
+        content_dir = os.path.join(Options().data_dir, directory)
+        content_file = open(os.path.join(content_dir, file), 'r')
+
+        meta, html = self.__split_file(content_file.read())
+
+        return meta, html
+
     @staticmethod
-    def split_file(data):
+    def __split_file(data):
         split = data.split('-' * 10)
 
         meta = split[0]

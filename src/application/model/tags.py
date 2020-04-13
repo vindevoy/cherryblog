@@ -18,12 +18,11 @@ from operator import itemgetter
 from pathlib import Path
 
 from common.content import Content
-from common.options import Options
 from common.singleton import Singleton
 
 
 class Tags(metaclass=Singleton):
-    __settings_dir = 'tags'
+    __base_dir = 'tags'
     __data_loader = None
 
     list = None
@@ -33,8 +32,7 @@ class Tags(metaclass=Singleton):
         self.__build_list()
 
     def __build_list(self):
-        settings_dir = os.path.join(Options().data_dir, self.__settings_dir)
-        settings = Content().load_data_settings_yaml(settings_dir)
+        settings = Content().load_data_settings_yaml(self.__base_dir)
 
         posts_dir = self.__data_loader.posts_directory
 
@@ -42,9 +40,7 @@ class Tags(metaclass=Singleton):
         tags = {}
 
         for file in os.listdir(posts_dir):
-            file = open(os.path.join(posts_dir, file), 'r')
-
-            meta, _ = Content().split_file(file.read())  # No need to catch the content
+            meta, _ = Content().read_content(posts_dir, file)  # No need to catch the content
 
             for tag in meta['tags']:
                 label = self.__tag_label(tag)
@@ -80,9 +76,7 @@ class Tags(metaclass=Singleton):
         skip_entries = (int(page_index) - 1) * max_entries
 
         for file in sorted(os.listdir(posts_dir), reverse=True):
-            file = open(os.path.join(posts_dir, file), 'r')
-
-            post, post['content'] = Content().split_file(file.read())
+            post, post['content'] = Content().read_content(posts_dir, file)
 
             must_include = False
 
@@ -98,7 +92,7 @@ class Tags(metaclass=Singleton):
                 if skip_entries >= count_entries:
                     continue
 
-                stem = Path(file.name).stem
+                stem = Path(file).stem
                 post['url'] = stem
 
                 data['posts'].append(post)
@@ -121,9 +115,7 @@ class Tags(metaclass=Singleton):
         count_entries = 0
 
         for file in os.listdir(posts_dir):
-            file = open(os.path.join(posts_dir, file), 'r')
-
-            post, _ = Content().split_file(file.read())
+            post, _ = Content().read_content(posts_dir, file)
 
             for tag_raw in post['tags']:
                 if self.__tag_label(tag_raw) == tag:

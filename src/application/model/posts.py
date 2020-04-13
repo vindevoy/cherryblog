@@ -24,29 +24,31 @@ from common.options import Options
 
 
 class Posts(metaclass=Singleton):
-    __settings_dir = 'posts'
+    __base_dir = 'posts'
     __data_loader = None
+
+    __posts = {}
 
     directory = None
     count = 0
 
-    # TODO: data must be kept in memory
-
     def __init__(self, data_loader):
         self.__data_loader = data_loader
 
-        self.directory = os.path.join(Options().data_dir, self.__settings_dir)
+        self.directory = os.path.join(Options().data_dir, self.__base_dir)
         self.count = len(os.listdir(self.directory))
 
     def data(self, post):
+        if post in self.__posts.keys():
+            return self.__posts[post]
+
         data = self.__data_loader.common_data
 
-        # TODO: must be from content, reading content
-        file = open(os.path.join(self.directory, '{0}.md'.format(post)), 'r')
-
-        meta, content = Content().split_file(file.read())
+        meta, content = Content().read_content(self.__base_dir, '{0}.md'.format(post))
 
         meta['content'] = content
         data['post'] = meta
+
+        self.__posts[post] = data
 
         return data

@@ -25,10 +25,12 @@ from common.singleton import Singleton
 
 
 class Index(metaclass=Singleton):
-    __settings_dir = 'index'
+    __base_dir = 'index'
     __main_menu_settings_dir = 'main_menu'
     __footer_menu_settings_dir = 'footer_menu'
     __data_loader = None
+
+    __data = {}
 
     main_menu = None
     footer_menu = None
@@ -43,25 +45,23 @@ class Index(metaclass=Singleton):
         self.main_menu = Content().load_data_settings_yaml(self.__main_menu_settings_dir)
         self.footer_menu = Content().load_data_settings_yaml(self.__footer_menu_settings_dir)
 
-        settings = Content().load_data_settings_yaml(self.__settings_dir)
+        settings = Content().load_data_settings_yaml(self.__base_dir)
 
         self.max_posts = settings['max_posts']
         self.spotlight_posts = settings['spotlight_posts']
         self.highlight_posts = settings['highlight_posts']
 
-    # TODO: data must be kept in memory
-
     def data(self, page_index):
+        key_index = 'index-{0}'.format(page_index)
+
+        if key_index in self.__data.keys():
+            return self.__data[key_index]
+
         data = self.__data_loader.common_data
 
         data_index = {}
 
-        # TODO: this must be a method in content
-
-        intro_dir = os.path.join(Options().data_dir, 'index')
-        intro_file = open(os.path.join(intro_dir, 'introduction.md'), 'r')
-
-        intro_meta, data_index['introduction'] = Content().split_file(intro_file.read())
+        intro_meta, data_index['introduction'] = Content().read_content('index', 'introduction.md')
 
         data_index['image'] = intro_meta['image']
 
@@ -91,11 +91,9 @@ class Index(metaclass=Singleton):
             if skip_entries >= count_entries:
                 continue
 
-            file = open(os.path.join(posts_dir, file), 'r')
+            post, post['content'] = Content().read_content(posts_dir, file)
 
-            post, post['content'] = Content().split_file(file.read())
-
-            stem = Path(file.name).stem
+            stem = Path(file).stem
             post['url'] = stem
 
             if page_index == 1:
@@ -122,5 +120,7 @@ class Index(metaclass=Singleton):
                               'spotlight_posts': len(data['spotlight_posts']),
                               'highlight_posts': len(data['highlight_posts']),
                               'posts': len(data['posts'])}
+
+        self.__data[key_index] = data
 
         return data
