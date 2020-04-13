@@ -2,13 +2,14 @@
 #
 #   Full history: see below
 #
-#   Version: 1.1.0
-#   Date: 2020-04-09
+#   Version: 1.2.0
+#   Date: 2020-04-13
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Features:
-#       - Renaming categories to tags
-#       - Dynamic paths to themes and data
+#       - Daemon functionality
+#       - PID functionality
+#       - UID and GID functionality
 #
 ###
 
@@ -16,6 +17,8 @@ import cherrypy
 import getopt
 import os
 import sys
+
+from cherrypy.process.plugins import Daemonizer, PIDFile, DropPrivileges
 
 from dataloader import DataLoader
 from optionsloader import OptionsLoader
@@ -90,33 +93,46 @@ class Application(metaclass=Singleton):
 if __name__ == '__main__':
     environment = 'localhost'
     data_dir = ""
-    theme_dir = ""
 
-    opts, args = getopt.getopt(sys.argv[1:], 'd:e:t:', ['env=', 'data=', 'theme='])
+    opts, args = getopt.getopt(sys.argv[1:], 'd:e:', ['env=', 'data='])
 
     for opt, arg in opts:
         if opt in ['-d', '--data']:
             data_dir = arg
         if opt in ['-e', '--env']:
             environment = arg
-        if opt in ['-t', '--theme']:
-            theme_dir = arg
 
     if data_dir == '':
         data_dir = os.path.join(os.getcwd(), 'src', 'data')
 
-    if theme_dir == '':
-        theme_dir = os.path.join(os.getcwd(), 'src', 'theme', 'default')
-
     OptionsLoader().environment = environment
     OptionsLoader().data_dir = data_dir
-    OptionsLoader().theme_dir = theme_dir
 
     settings = SettingsLoader(environment).parse()
 
+    if OptionsLoader().daemon:
+        daemon = Daemonizer(cherrypy.engine)
+        daemon.subscribe()
+
+    pid = PIDFile(cherrypy.engine, os.path.join(OptionsLoader().run_dir, 'cherryblog.pid'))
+    pid.subscribe()
+
+    if OptionsLoader().privileges:
+        privileges = DropPrivileges(cherrypy.engine, uid=OptionsLoader().uid, gid=OptionsLoader().gid)
+        privileges.subscribe()
+
     cherrypy.quickstart(Application(), config=settings)
 
+
 ###
+#
+#   Version: 1.1.0
+#   Date: 2020-04-09
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - Renaming categories to tags
+#       - Dynamic paths to themes and data
 #
 #   Version: 1.0.1
 #   Date: 2020-04-08
