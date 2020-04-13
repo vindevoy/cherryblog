@@ -25,15 +25,15 @@ import string
 from pathlib import Path
 from operator import itemgetter
 
-from optionsloader import OptionsLoader
-from settings import Settings
-from singleton import Singleton
+from controller.options import Options
+from controller.settings import Settings
+from common.singleton import Singleton
 
 
 class DataLoader(metaclass=Singleton):
     @staticmethod
     def __get_settings():
-        settings_dir = os.path.join(OptionsLoader().data_dir, 'settings')
+        settings_dir = os.path.join(Options().data_dir, 'settings')
         file = open(os.path.join(settings_dir, 'global.yml'), 'r')
 
         settings = yaml.load(file, Loader=yaml.SafeLoader)
@@ -41,12 +41,12 @@ class DataLoader(metaclass=Singleton):
         return settings
 
     def __get_tags(self):
-        settings_dir = os.path.join(OptionsLoader().data_dir, 'tags_widget')
+        settings_dir = os.path.join(Options().data_dir, 'tags_widget')
         file = open(os.path.join(settings_dir, 'settings.yml'), 'r')
 
         settings = yaml.load(file, Loader=yaml.SafeLoader)
 
-        posts_dir = os.path.join(OptionsLoader().data_dir, 'posts')
+        posts_dir = os.path.join(Options().data_dir, 'posts')
 
         # Starting with a dictionary as this is the easiest to find existing tags
         tags = {}
@@ -80,7 +80,7 @@ class DataLoader(metaclass=Singleton):
 
     @staticmethod
     def __get_main_menu():
-        config_dir = os.path.join(OptionsLoader().data_dir, 'main_menu')
+        config_dir = os.path.join(Options().data_dir, 'main_menu')
         file = open(os.path.join(config_dir, 'settings.yml'), 'r')
 
         menu = yaml.load(file, Loader=yaml.SafeLoader)
@@ -89,7 +89,7 @@ class DataLoader(metaclass=Singleton):
 
     @staticmethod
     def __get_footer_menu():
-        config_dir = os.path.join(OptionsLoader().data_dir, 'footer_menu')
+        config_dir = os.path.join(Options().data_dir, 'footer_menu')
         file = open(os.path.join(config_dir, 'settings.yml'), 'r')
 
         menu = yaml.load(file, Loader=yaml.SafeLoader)
@@ -98,7 +98,7 @@ class DataLoader(metaclass=Singleton):
 
     @staticmethod
     def __get_important_news():
-        config_dir = os.path.join(OptionsLoader().data_dir, 'important_news_widget')
+        config_dir = os.path.join(Options().data_dir, 'important_news_widget')
         file = open(os.path.join(config_dir, 'settings.yml'), 'r')
 
         news = yaml.load(file, Loader=yaml.SafeLoader)
@@ -107,7 +107,7 @@ class DataLoader(metaclass=Singleton):
 
     @staticmethod
     def __get_version():
-        config_dir = os.path.join(OptionsLoader().data_dir, 'version_widget')
+        config_dir = os.path.join(Options().data_dir, 'version_widget')
         file = open(os.path.join(config_dir, 'settings.yml'), 'r')
 
         versions = yaml.load(file, Loader=yaml.SafeLoader)
@@ -125,18 +125,18 @@ class DataLoader(metaclass=Singleton):
 
     @staticmethod
     def __count_pages():
-        pages_dir = os.path.join(OptionsLoader().data_dir, 'pages')
+        pages_dir = os.path.join(Options().data_dir, 'pages')
 
         return len(os.listdir(pages_dir))
 
     @staticmethod
     def __count_posts():
-        posts_dir = os.path.join(OptionsLoader().data_dir, 'posts')
+        posts_dir = os.path.join(Options().data_dir, 'posts')
 
         return len(os.listdir(posts_dir))
 
     def __count_tag_posts(self, tag):
-        posts_dir = os.path.join(OptionsLoader().data_dir, 'posts')
+        posts_dir = os.path.join(Options().data_dir, 'posts')
 
         count_entries = 0
 
@@ -156,7 +156,7 @@ class DataLoader(metaclass=Singleton):
 
         data_index = {}
 
-        intro_dir = os.path.join(OptionsLoader().data_dir, 'index')
+        intro_dir = os.path.join(Options().data_dir, 'index')
         intro_file = open(os.path.join(intro_dir, 'introduction.md'), 'r')
 
         intro_meta, data_index['introduction'] = self.__split_file(intro_file.read())
@@ -165,7 +165,7 @@ class DataLoader(metaclass=Singleton):
 
         data['index'] = data_index
 
-        posts_dir = os.path.join(OptionsLoader().data_dir, 'posts')
+        posts_dir = os.path.join(Options().data_dir, 'posts')
 
         data['posts'] = []
         data['spotlight_posts'] = []
@@ -226,7 +226,7 @@ class DataLoader(metaclass=Singleton):
     def get_tag_data(self, tag, page_index):
         data = self.__get_common()
 
-        posts_dir = os.path.join(OptionsLoader().data_dir, 'posts')
+        posts_dir = os.path.join(Options().data_dir, 'posts')
 
         data['posts'] = []
 
@@ -273,7 +273,7 @@ class DataLoader(metaclass=Singleton):
     def get_page_data(self, page):
         data = self.__get_common()
 
-        pages_dir = os.path.join(OptionsLoader().data_dir, 'pages')
+        pages_dir = os.path.join(Options().data_dir, 'pages')
         file = open(os.path.join(pages_dir, '{0}.md'.format(page)), 'r')
 
         meta, content = self.__split_file(file.read())
@@ -286,7 +286,7 @@ class DataLoader(metaclass=Singleton):
     def get_post_data(self, post):
         data = self.__get_common()
 
-        posts_dir = os.path.join(OptionsLoader().data_dir, 'posts')
+        posts_dir = os.path.join(Options().data_dir, 'posts')
         file = open(os.path.join(posts_dir, '{0}.md'.format(post)), 'r')
 
         meta, content = self.__split_file(file.read())

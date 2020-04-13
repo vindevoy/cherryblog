@@ -14,16 +14,6 @@ clean:
 
 	@echo '[OK] Cleaned'
 
-setup:
-	@mkdir -p ./src/application
-	@mkdir -p ./src/theme/default
-	@mkdir -p ./src/data/pages
-	@mkdir -p ./src/data/blog
-	@mkdir -p ./src/data/site
-	@touch ./src/data/site/settings.yml
-
-	@echo '[OK] Setup has created the /src directory and sub-directories'
-
 download: clean
 	@mkdir -p ./tmp
 	@wget -O ./tmp/startbootstrap-blog-home.zip         https://github.com/BlackrockDigital/startbootstrap-blog-home/archive/gh-pages.zip
@@ -108,11 +98,11 @@ history:
 
 develop:
 	@mkdir -p ./log
-	@python3 ./src/application/serve.py 2>&1 | tee ./log/develop.log
+	@python3 ./src/application/main.py 2>&1 | tee ./log/develop.log
 
 production:
 	@mkdir -p /var/log/cherryblog
-	@python3 ./src/application/serve.py --env production 2>&1 | tee /var/log/cherryblog/production.log &
+	@python3 ./src/application/main.py --env production 2>&1 | tee /var/log/cherryblog/production.log &
 
 ###
 #

@@ -13,15 +13,15 @@
 
 from jinja2 import Environment, FileSystemLoader
 
-from optionsloader import OptionsLoader
-from singleton import Singleton
+from controller.options import Options
+from common.singleton import Singleton
 
 
 class TemplateLoader(metaclass=Singleton):
     __environment = None
 
     def __init__(self):
-        self.__environment = Environment(loader=FileSystemLoader(OptionsLoader().theme_dir))
+        self.__environment = Environment(loader=FileSystemLoader(Options().theme_dir))
 
     def get_template(self, file):
         return self.__environment.get_template(file)

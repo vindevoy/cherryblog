@@ -14,8 +14,8 @@
 import os
 import yaml
 
-from optionsloader import OptionsLoader
-from singleton import Singleton
+from controller.options import Options
+from common.singleton import Singleton
 
 
 class SettingsLoader(metaclass=Singleton):
@@ -26,8 +26,8 @@ class SettingsLoader(metaclass=Singleton):
 
     def parse(self):
         # data_dir and environment are set before the SettingsLoader is called
-        # and are read in serve.py where the command line is parsed
-        environment_dir = os.path.join(OptionsLoader().data_dir, 'environment')
+        # and are read in application.py where the command line is parsed
+        environment_dir = os.path.join(Options().data_dir, 'environment')
         environment_file = os.path.join(environment_dir, '{0}.yml'.format(self.__environment))
 
         # read the yaml file
@@ -38,7 +38,7 @@ class SettingsLoader(metaclass=Singleton):
         self.__option_settings(settings_yaml)
 
         # return the settings really needed in a format for CherryPy
-        # they will be used when starting the engine in serve.py
+        # they will be used when starting the engine in application.py
         return self.__engine_settings(settings_yaml)
 
     @staticmethod
@@ -67,7 +67,7 @@ class SettingsLoader(metaclass=Singleton):
 
         settings['/favicon.ico'] = {
             'tools.staticfile.on': True,
-            'tools.staticfile.filename': os.path.join(OptionsLoader().data_dir, 'images', 'favicon.ico')
+            'tools.staticfile.filename': os.path.join(Options().data_dir, 'images', 'favicon.ico')
         }
 
         return settings
@@ -75,25 +75,25 @@ class SettingsLoader(metaclass=Singleton):
     @staticmethod
     def __option_settings(settings_yaml):
         if settings_yaml['directories']['theme']['absolute']:
-            OptionsLoader().theme_dir = settings_yaml['directories']['theme']['path']
+            Options().theme_dir = settings_yaml['directories']['theme']['path']
         else:
-            OptionsLoader().theme_dir = os.path.join(os.getcwd(), settings_yaml['directories']['theme']['path'])
+            Options().theme_dir = os.path.join(os.getcwd(), settings_yaml['directories']['theme']['path'])
 
         if settings_yaml['directories']['log']['absolute']:
-            OptionsLoader().log_dir = settings_yaml['directories']['log']['path']
+            Options().log_dir = settings_yaml['directories']['log']['path']
         else:
-            OptionsLoader().log_dir = os.path.join(os.getcwd(), settings_yaml['directories']['log']['path'])
+            Options().log_dir = os.path.join(os.getcwd(), settings_yaml['directories']['log']['path'])
 
         if settings_yaml['directories']['run']['absolute']:
-            OptionsLoader().run_dir = settings_yaml['directories']['run']['path']
+            Options().run_dir = settings_yaml['directories']['run']['path']
         else:
-            OptionsLoader().run_dir = os.path.join(os.getcwd(), settings_yaml['directories']['run']['path'])
+            Options().run_dir = os.path.join(os.getcwd(), settings_yaml['directories']['run']['path'])
 
-        OptionsLoader().daemon = settings_yaml['engine']['daemon']
+        Options().daemon = settings_yaml['engine']['daemon']
 
-        OptionsLoader().privileges = settings_yaml['user']['privileges']
-        OptionsLoader().uid = settings_yaml['user']['uid']
-        OptionsLoader().gid = settings_yaml['user']['gid']
+        Options().privileges = settings_yaml['user']['privileges']
+        Options().uid = settings_yaml['user']['uid']
+        Options().gid = settings_yaml['user']['gid']
 
 ###
 #

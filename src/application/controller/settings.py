@@ -16,15 +16,15 @@
 import os
 import yaml
 
-from optionsloader import OptionsLoader
-from singleton import Singleton
+from controller.options import Options
+from common.singleton import Singleton
 
 
 class Settings(metaclass=Singleton):
     __index_settings = None
 
     def __init__(self):
-        settings_dir = os.path.join(OptionsLoader().data_dir, 'index')
+        settings_dir = os.path.join(Options().data_dir, 'index')
         file = open(os.path.join(settings_dir, 'settings.yml'), 'r')
 
         self.__index_settings = yaml.load(file, Loader=yaml.SafeLoader)

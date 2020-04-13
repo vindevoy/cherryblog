@@ -2,29 +2,19 @@
 #
 #   Full history: see below
 #
-#   Version: 1.2.0
+#   Version: 2.0.0
 #   Date: 2020-04-13
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Features:
-#       - Daemon functionality
-#       - PID functionality
-#       - UID and GID functionality
+#   This is a split of the original application.py in the root directory, containing only the Application class
 #
 ###
 
 import cherrypy
-import getopt
-import os
-import sys
 
-from cherrypy.process.plugins import Daemonizer, PIDFile, DropPrivileges
-
-from dataloader import DataLoader
-from optionsloader import OptionsLoader
-from settingsloader import SettingsLoader
-from singleton import Singleton
-from templateloader import TemplateLoader
+from model.dataloader import DataLoader
+from common.singleton import Singleton
+from view.templateloader import TemplateLoader
 
 
 class Application(metaclass=Singleton):
@@ -69,62 +59,36 @@ class Application(metaclass=Singleton):
 
         return rendered
 
-    @cherrypy.expose
-    def print_page(self, page, **_):
-        data = DataLoader().get_page_data(page)
-        data['url'] = '/print_page/{0}'.format(page)
-
-        template = TemplateLoader().get_template('print_page.html')
-        rendered = template.render(data=data)
-
-        return rendered
-
-    @cherrypy.expose
-    def print_post(self, post, **_):
-        data = DataLoader().get_post_data(post)
-        data['url'] = '/print_post/{0}'.format(post)
-
-        template = TemplateLoader().get_template('print_post.html')
-        rendered = template.render(data=data)
-
-        return rendered
-
-
-if __name__ == '__main__':
-    environment = 'localhost'
-    data_dir = ""
-
-    opts, args = getopt.getopt(sys.argv[1:], 'd:e:', ['env=', 'data='])
-
-    for opt, arg in opts:
-        if opt in ['-d', '--data']:
-            data_dir = arg
-        if opt in ['-e', '--env']:
-            environment = arg
-
-    if data_dir == '':
-        data_dir = os.path.join(os.getcwd(), 'src', 'data')
-
-    OptionsLoader().environment = environment
-    OptionsLoader().data_dir = data_dir
-
-    settings = SettingsLoader(environment).parse()
-
-    if OptionsLoader().daemon:
-        daemon = Daemonizer(cherrypy.engine)
-        daemon.subscribe()
-
-    pid = PIDFile(cherrypy.engine, os.path.join(OptionsLoader().run_dir, 'cherryblog.pid'))
-    pid.subscribe()
-
-    if OptionsLoader().privileges:
-        privileges = DropPrivileges(cherrypy.engine, uid=OptionsLoader().uid, gid=OptionsLoader().gid)
-        privileges.subscribe()
-
-    cherrypy.quickstart(Application(), config=settings)
-
+    # @cherrypy.expose
+    # def print_page(self, page, **_):
+    #     data = DataLoader().get_page_data(page)
+    #     data['url'] = '/print_page/{0}'.format(page)
+    #
+    #     template = TemplateLoader().get_template('print_page.html')
+    #     rendered = template.render(data=data)
+    #
+    #     return rendered
+    #
+    # @cherrypy.expose
+    # def print_post(self, post, **_):
+    #     data = DataLoader().get_post_data(post)
+    #     data['url'] = '/print_post/{0}'.format(post)
+    #
+    #     template = TemplateLoader().get_template('print_post.html')
+    #     rendered = template.render(data=data)
+    #
+    #     return rendered
 
 ###
+#
+#   Version: 1.2.0
+#   Date: 2020-04-13
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - Daemon functionality
+#       - PID functionality
+#       - UID and GID functionality
 #
 #   Version: 1.1.0
 #   Date: 2020-04-09

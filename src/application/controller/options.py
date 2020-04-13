@@ -2,22 +2,18 @@
 #
 #   Full history: see below
 #
-#   Version: 1.1.0
+#   Version: 2.0.0
 #   Date: 2020-04-13
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Features:
-#       - Extra properties for
-#           - Daemon
-#           - Extra directories
-#           - privileges (starting as root, lower to other user and group)
+#   Renamed class from OptionsLoader to Options (as it's not loading anything)
 #
 ###
 
-from singleton import Singleton
+from common.singleton import Singleton
 
 
-class OptionsLoader(metaclass=Singleton):
+class Options(metaclass=Singleton):
     # Will be used for loading the correct file
     environment = ''
 
@@ -40,10 +36,19 @@ class OptionsLoader(metaclass=Singleton):
 
 ###
 #
+#   Version: 1.1.0
+#   Date: 2020-04-13
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - Extra properties for
+#           - Daemon
+#           - Extra directories
+#           - privileges (starting as root, lower to other user and group)
+#
 #   Version: 1.0.0
 #   Date: 2020-04-09
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Original code
 ###
-
