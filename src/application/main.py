@@ -21,7 +21,7 @@ import sys
 from cherrypy.process.plugins import Daemonizer, PIDFile, DropPrivileges
 
 from controller.application import Application
-from controller.options import Options
+from common.options import Options
 from controller.settingsloader import SettingsLoader
 
 

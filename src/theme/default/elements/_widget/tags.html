@@ -1,11 +1,11 @@
 <!-- Tags Widget -->
 <div class="card m-0 mb-3 mr-1 p-0">
-    <h5 class="card-header text-left">{{ data.settings.widget.tag.title }}</h5>
+    <h5 class="card-header text-left">{{ data.settings.widget.tags.title }}</h5>
     <div class="card-body">
         <div class="row">
             <div class="d-none d-md-block d-lg-none">
                 <ul class="list-unstyled mb-0">
-                    {% for tag in data.tags %}
+                    {% for tag in data.tags_list %}
                         <li>
                             <a href="/tags/{{ tag.label }}">{{ tag.text }}</a><span class="text-muted small"> ({{ tag.count }})</span>
                         </li>
@@ -18,7 +18,7 @@
                 <ul class="list-unstyled mb-0">
                     {% set count = namespace(value=0) %}
 
-                    {% for tag in data.tags %}
+                    {% for tag in data.tags_list %}
                         {% if count.value % 2 == 0 %}
                             <li>
                                 <a href="/tags/{{ tag.label }}">{{ tag.text }}</a><span class="text-muted small"> ({{ tag.count }})</span>
@@ -35,7 +35,7 @@
                 <ul class="list-unstyled mb-0">
                     {% set count = namespace(value=0) %}
 
-                    {% for tag in data.tags %}
+                    {% for tag in data.tags_list %}
                         {% if count.value % 2 == 1 %}
                             <li>
                                 <a href="/tags/{{ tag.label }}">{{ tag.text }}</a><span class="text-muted small"> ({{ tag.count }})</span>

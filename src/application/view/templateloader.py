@@ -13,7 +13,7 @@
 
 from jinja2 import Environment, FileSystemLoader
 
-from controller.options import Options
+from common.options import Options
 from common.singleton import Singleton
 
 

@@ -12,9 +12,9 @@
 ###
 
 import os
-import yaml
 
-from controller.options import Options
+from common.content import Content
+from common.options import Options
 from common.singleton import Singleton
 
 
@@ -28,11 +28,9 @@ class SettingsLoader(metaclass=Singleton):
         # data_dir and environment are set before the SettingsLoader is called
         # and are read in application.py where the command line is parsed
         environment_dir = os.path.join(Options().data_dir, 'environment')
-        environment_file = os.path.join(environment_dir, '{0}.yml'.format(self.__environment))
 
         # read the yaml file
-        file = open(environment_file, 'r')
-        settings_yaml = yaml.load(file.read(), Loader=yaml.SafeLoader)
+        settings_yaml = Content().load_yaml(environment_dir, '{0}.yml'.format(self.__environment))
 
         # set the settings needed elsewhere in the code
         self.__option_settings(settings_yaml)

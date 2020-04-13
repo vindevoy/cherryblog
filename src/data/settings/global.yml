@@ -33,7 +33,7 @@ navigation:
   page_of_of: 'of'
 
 widget:
-  tag:
+  tags:
     title: 'Tags'
   important_news:
     title: 'IMPORTANT NEWS'
@@ -42,5 +42,5 @@ widget:
     text_color: '#000000'
     text_weight: 'normal'
 
-  version:
+  code_version:
     title: 'Latest version'

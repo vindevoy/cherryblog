@@ -12,15 +12,15 @@
 
 import cherrypy
 
-from model.dataloader import DataLoader
 from common.singleton import Singleton
+from controller.dataloader import DataLoader
 from view.templateloader import TemplateLoader
 
 
 class Application(metaclass=Singleton):
     @cherrypy.expose
     def index(self, page_index=1, **_):
-        data = DataLoader().get_index_data(page_index)
+        data = DataLoader().index_data(page_index)
         data['url'] = '/index/{0}'.format(page_index)
 
         template = TemplateLoader().get_template('screen_index.html')
@@ -31,7 +31,7 @@ class Application(metaclass=Singleton):
     @cherrypy.expose
     def pages(self, page, **_):
         # page on the URL: http://www.yoursite.ext/pages/page
-        data = DataLoader().get_page_data(page)
+        data = DataLoader().pages_data(page)
         data['url'] = '/pages/{0}'.format(page)
 
         template = TemplateLoader().get_template('screen_page.html')
@@ -41,7 +41,7 @@ class Application(metaclass=Singleton):
 
     @cherrypy.expose
     def posts(self, post, **_):
-        data = DataLoader().get_post_data(post)
+        data = DataLoader().posts_data(post)
         data['url'] = '/posts/{0}'.format(post)
 
         template = TemplateLoader().get_template('screen_post.html')
@@ -51,7 +51,7 @@ class Application(metaclass=Singleton):
 
     @cherrypy.expose
     def tags(self, tag, page_index=1, **_):
-        data = DataLoader().get_tag_data(tag, page_index)
+        data = DataLoader().tags_data(tag, page_index)
         data['url'] = '/tags/{0}/{1}'.format(tag, page_index)
 
         template = TemplateLoader().get_template('screen_tag.html')
