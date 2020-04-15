@@ -22,52 +22,66 @@ import sys
 from cherrypy.process.plugins import Daemonizer, PIDFile, DropPrivileges
 
 from controller.application import Application
-from common.logging_loader import LoggingLoader
+from controller.logging_loader import LoggingLoader
 from common.options import Options
-from controller.settingsloader import SettingsLoader
+from controller.settings_loader import SettingsLoader
 
+__application = 'CherryBlog'
+__version = '1.2.0'
 
 if __name__ == '__main__':
-    LoggingLoader().configure()
-
-    logger = logging.getLogger('MAIN')
-
     environment = 'localhost'
     data_dir = ""
 
     opts, args = getopt.getopt(sys.argv[1:], 'd:e:', ['env=', 'data='])
-    logger.debug('opts: {0}'.format(opts))
-    logger.debug('args: {0}'.format(args))
 
     for opt, arg in opts:
         if opt in ['-d', '--data']:
-            logger.debug('Overriding data_dir to {0}.'.format(arg))
             data_dir = arg
         if opt in ['-e', '--env']:
-            logger.debug('Overriding environment to {0}.'.format(arg))
             environment = arg
 
     if data_dir == '':
         data_dir = os.path.join(os.getcwd(), 'src', 'data')
 
-    logger.info('Environment set to {0}.'.format(environment))
-    logger.info('Data directory set to {0}.'.format(data_dir))
-
+    # Options is a singleton and can be loaded with what we know already
     Options().environment = environment
     Options().data_dir = data_dir
 
+    # Load the settings from the environment.yml file to fill out the rest of the settings
+    # This also sets most of the unknown properties in Options()
     settings = SettingsLoader(environment).parse()
 
+    # Do not load the logging before you have the data_dir
+    # This will fill out the logging level in the Options()
+    LoggingLoader().configure()
+
+    logger = logging.getLogger('MAIN')
+
+    logger.info('{0} v.{1}'.format(__application, __version))
+    logger.info('Environment set to {0}.'.format(environment))
+    logger.info('Data directory set to {0}.'.format(data_dir))
+    logger.info('Theme directory set to {0}.'.format(Options().theme_dir))
+    logger.info('Log directory set to {0}.'.format(Options().log_dir))
+    logger.info('Run directory set to {0}.'.format(Options().run_dir))
+    logger.info('Meta-content separator set to {0}.'.format(Options().meta_content_separator))
+    logger.info('Default logging level set to {0}.'.format(Options().default_logging_level))
+
+    logger.debug('main - CherryPy settings:\n{0}\n'.format(settings))
+
     if Options().daemon:
+        # Daemon info is logged by CherryPy
         daemon = Daemonizer(cherrypy.engine)
         daemon.subscribe()
     else:
         logger.info('Not running as daemon.')
 
+    # PID is logged by CherryPy
     pid = PIDFile(cherrypy.engine, os.path.join(Options().run_dir, 'cherryblog.pid'))
     pid.subscribe()
 
     if Options().privileges:
+        # Privileges are logged by CherryPy
         privileges = DropPrivileges(cherrypy.engine, uid=Options().uid, gid=Options().gid)
         privileges.subscribe()
     else:

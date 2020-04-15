@@ -10,6 +10,9 @@
 #
 ###
 
+import logging
+
+from common.options import Options
 from common.singleton import Singleton
 
 ##
@@ -18,15 +21,19 @@ from common.singleton import Singleton
 
 
 class CommonData(metaclass=Singleton):
+    __logger = None
     __data_loader = None
 
     def __init__(self, data_loader):
+        self.__logger = logging.getLogger('MODEL.COMMON_DATA')
+        self.__logger.setLevel(Options().default_logging_level)
+
         self.__data_loader = data_loader
 
     def data(self):
         dl = self.__data_loader
 
-        return {
+        cd = {
                 'settings': dl.global_settings,
                 'tags_list': dl.tags_list,
                 'main_menu': dl.index_main_menu,
@@ -34,3 +41,7 @@ class CommonData(metaclass=Singleton):
                 'important_news': dl.important_news_data,
                 'code_version': dl.code_version_data
                 }
+
+        self.__logger.debug('data - {0}'.format(cd))
+
+        return cd

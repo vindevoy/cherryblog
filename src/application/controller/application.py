@@ -2,60 +2,94 @@
 #
 #   Full history: see below
 #
-#   Version: 2.0.0
-#   Date: 2020-04-13
+#   Version: 2.1.0
+#   Date: 2020-04-15
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   This is a split of the original application.py in the root directory, containing only the Application class
+#   Added logging of the requests for performance insights
 #
 ###
 
 import cherrypy
+import logging
 
+from datetime import datetime
+
+from common.options import Options
 from common.singleton import Singleton
-from controller.dataloader import DataLoader
+from controller.data_loader import DataLoader
 from view.templateloader import TemplateLoader
 
 
 class Application(metaclass=Singleton):
+    __logger = None
+
+    def __init__(self):
+        self.__logger = logging.getLogger('APPLICATION')
+        self.__logger.setLevel(Options().default_logging_level)
+
     @cherrypy.expose
     def index(self, page_index=1, **_):
+        request = '/index/{0}'.format(page_index)
+        start = datetime.now()
+
         data = DataLoader().index_data(page_index)
-        data['url'] = '/index/{0}'.format(page_index)
+        data['url'] = request
 
         template = TemplateLoader().get_template('screen_index.html')
         rendered = template.render(data=data)
+
+        finished = datetime.now()
+        self.__logger.info('{0} {1}'.format(request, finished - start))
 
         return rendered
 
     @cherrypy.expose
     def pages(self, page, **_):
+        request = '/pages/{0}'.format(page)
+        start = datetime.now()
+
         # page on the URL: http://www.yoursite.ext/pages/page
         data = DataLoader().pages_data(page)
-        data['url'] = '/pages/{0}'.format(page)
+        data['url'] = request
 
         template = TemplateLoader().get_template('screen_page.html')
         rendered = template.render(data=data)
+
+        finished = datetime.now()
+        self.__logger.info('{0} {1}'.format(request, finished - start))
 
         return rendered
 
     @cherrypy.expose
     def posts(self, post, **_):
+        request = '/posts/{0}'.format(post)
+        start = datetime.now()
+
         data = DataLoader().posts_data(post)
-        data['url'] = '/posts/{0}'.format(post)
+        data['url'] = request
 
         template = TemplateLoader().get_template('screen_post.html')
         rendered = template.render(data=data)
+
+        finished = datetime.now()
+        self.__logger.info('{0} {1}'.format(request, finished - start))
 
         return rendered
 
     @cherrypy.expose
     def tags(self, tag, page_index=1, **_):
+        request = '/tags/{0}/{1}'.format(tag, page_index)
+        start = datetime.now()
+
         data = DataLoader().tags_data(tag, page_index)
-        data['url'] = '/tags/{0}/{1}'.format(tag, page_index)
+        data['url'] = request
 
         template = TemplateLoader().get_template('screen_tag.html')
         rendered = template.render(data=data)
+
+        finished = datetime.now()
+        self.__logger.info('{0} {1}'.format(request, finished - start))
 
         return rendered
 
@@ -80,6 +114,12 @@ class Application(metaclass=Singleton):
     #     return rendered
 
 ###
+#
+#   Version: 2.0.0
+#   Date: 2020-04-13
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   This is a split of the original application.py in the root directory, containing only the Application class
 #
 #   Version: 1.2.0
 #   Date: 2020-04-13

@@ -55,7 +55,7 @@ handlers:
 
 loggers:
     cherrypy.access:
-        handlers: [cherrypy_console, cherrypy_access]
+        handlers: [cherrypy_access]
         level: INFO
         propagate: no
         

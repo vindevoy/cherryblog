@@ -2,18 +2,20 @@
 #
 #   Full history: see below
 #
-#   Version: 1.2.0
-#   Date: 2020-04-13
+#   Version: 1.2.1
+#   Date: 2020-04-15
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Features:
-#       - Split between the properties needed by the engine and needed by the application
+#   Changes:
+#       Because of logging, the Content() class cannot be used
 #
 ###
 
 import os
+import yaml
 
-from common.content import Content
+# NEVER IMPORT Content from common.content => you need settings from this class here
+
 from common.options import Options
 from common.singleton import Singleton
 
@@ -30,13 +32,17 @@ class SettingsLoader(metaclass=Singleton):
         environment_dir = os.path.join(Options().data_dir, 'environment')
 
         # read the yaml file
-        settings_yaml = Content().load_yaml(environment_dir, '{0}.yml'.format(self.__environment))
+        # DO NOT USE the Content() class here, it needs the settings itself to set the logging level
+        settings_file = os.path.join(environment_dir, '{0}.yml'.format(self.__environment))
+        file = open(settings_file, 'r')
+        settings_yaml = yaml.load(file.read(), Loader=yaml.SafeLoader)
 
         # set the settings needed elsewhere in the code
         self.__option_settings(settings_yaml)
 
-        # return the settings really needed in a format for CherryPy
-        # they will be used when starting the engine in application.py
+        # Return the settings really needed in a format for CherryPy
+        # They will be used when starting the engine in application.py
+        # They are logged in main.py
         return self.__engine_settings(settings_yaml)
 
     @staticmethod
@@ -72,6 +78,8 @@ class SettingsLoader(metaclass=Singleton):
 
     @staticmethod
     def __option_settings(settings_yaml):
+        # The individual properties are logged in main
+        # No need to log them here
         if settings_yaml['directories']['theme']['absolute']:
             Options().theme_dir = settings_yaml['directories']['theme']['path']
         else:
@@ -96,6 +104,13 @@ class SettingsLoader(metaclass=Singleton):
         Options().gid = settings_yaml['user']['gid']
 
 ###
+#
+#   Version: 1.2.0
+#   Date: 2020-04-13
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - Split between the properties needed by the engine and needed by the application
 #
 #   Version: 1.1.0
 #   Date: 2020-04-09

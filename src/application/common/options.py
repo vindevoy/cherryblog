@@ -35,6 +35,8 @@ class Options(metaclass=Singleton):
     uid = 0
     gid = 0
 
+    default_logging_level = ''
+
 ###
 #
 #   Version: 1.1.0
