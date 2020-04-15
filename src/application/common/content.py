@@ -8,6 +8,7 @@
 #
 #   Changes:
 #       - Added logging
+#       - Added try except on read of the files in case they don't exist
 #
 ###
 
@@ -42,7 +43,12 @@ class Content(metaclass=Singleton):
     def load_yaml(self, directory, file):
         self.__logger.debug('load_yaml - Loading {0} from directory {0}.'.format(file, directory))
 
-        yaml_file = open(os.path.join(directory, file), 'r')
+        # If the file cannot be read (for instance when the user deleted the directory in data)
+        # don't care, return blanks
+        try:
+            yaml_file = open(os.path.join(directory, file), 'r')
+        except FileNotFoundError:
+            return {}
 
         content = yaml.load(yaml_file, Loader=yaml.SafeLoader)
         self.__logger.debug('load_yaml - Content of yaml:\n{0}'.format(content))
@@ -53,7 +59,10 @@ class Content(metaclass=Singleton):
         content_dir = os.path.join(Options().data_dir, directory)
         self.__logger.debug('read_content - Reading content file {0} from directory {0}.'.format(file, content_dir))
 
-        content_file = open(os.path.join(content_dir, file), 'r')
+        try:
+            content_file = open(os.path.join(content_dir, file), 'r')
+        except FileNotFoundError:
+            return {}, ''
 
         meta, html = self.__split_file(content_file.read())
         # No logging, already logged
