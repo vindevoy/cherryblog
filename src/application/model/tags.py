@@ -2,11 +2,11 @@
 #
 #   Full history: see below
 #
-#   Version: 1.0.0
-#   Date: 2020-04-13
+#   Version: 1.1.0
+#   Date: 2020-04-15
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   This class was split of the DataLoader class
+#   Added logging
 #
 ###
 
@@ -169,3 +169,14 @@ class Tags(metaclass=Singleton):
     @staticmethod
     def __tag_text(tag):
         return string.capwords(tag.replace('-', ' '))
+
+
+###
+#
+#   Version: 1.0.0
+#   Date: 2020-04-13
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   This class was split of the DataLoader class
+#
+###

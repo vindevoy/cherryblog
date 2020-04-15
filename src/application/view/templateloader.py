@@ -2,12 +2,11 @@
 #
 #   Full history: see below
 #
-#   Version: 1.1.0
-#   Date: 2020-04-09
+#   Version: 1.2.0
+#   Date: 2020-04-15
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Features:
-#       - Dynamic paths for data and theme
+#   Added logging
 #
 ###
 
@@ -36,6 +35,13 @@ class TemplateLoader(metaclass=Singleton):
         return self.__environment.get_template(file)
 
 ###
+#
+#   Version: 1.1.0
+#   Date: 2020-04-09
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - Dynamic paths for data and theme
 #
 #   Version: 1.0.0
 #   Date: 2020-04-07

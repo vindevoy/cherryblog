@@ -2,14 +2,11 @@
 #
 #   Full history: see below
 #
-#   Version: 2.0.0
-#   Date: 2020-04-13
+#   Version: 2.1.0
+#   Date: 2020-04-15
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   main.py is the entry point of the application and is derived from the original application.py file
-#   It has been split into main.py containing only the main() function
-#   and application.py in controller that maps the URLs
-#   History of the file is kept in application.py
+#   Added logging
 #
 ###
 
@@ -88,3 +85,16 @@ if __name__ == '__main__':
         logger.info('No user privileges specified.')
 
     cherrypy.quickstart(Application(), config=settings)
+
+###
+#
+#   Version: 2.0.0
+#   Date: 2020-04-13
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   main.py is the entry point of the application and is derived from the original application.py file
+#   It has been split into main.py containing only the main() function
+#   and application.py in controller that maps the URLs
+#   History of the file is kept in application.py
+#
+###

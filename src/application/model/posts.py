@@ -2,13 +2,11 @@
 #
 #   Full history: see below
 #
-#   Version: 1.0.0
-#   Date: 2020-04-13
+#   Version: 1.1.0
+#   Date: 2020-04-15
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Features:
-#       - This class was split of the DataLoader class
-#       - Data stored in memory
+#   Added logging
 #
 ###
 
@@ -67,3 +65,16 @@ class Posts(metaclass=Singleton):
         self.__logger.debug('data - posts[{0}]: {1}'.format(post, data))
 
         return data
+
+
+###
+#
+#   Version: 1.0.0
+#   Date: 2020-04-13
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - This class was split of the DataLoader class
+#       - Data stored in memory
+#
+###
