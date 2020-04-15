@@ -69,6 +69,17 @@ class SettingsLoader(metaclass=Singleton):
             settings[url] = {'tools.staticdir.on': True,
                              'tools.staticdir.dir': path}
 
+        for staticfile in settings_yaml['tools']['staticfiles']:
+            url = staticfile['url']
+            absolute = staticfile['absolute']
+            path = staticfile['path']
+
+            if not absolute:
+                path = os.path.join(os.getcwd(), path)
+
+            settings[url] = {'tools.staticfile.on': True,
+                             'tools.staticfile.filename': path}
+
         settings['/favicon.ico'] = {
             'tools.staticfile.on': True,
             'tools.staticfile.filename': os.path.join(Options().data_dir, 'images', 'favicon.ico')
