@@ -36,6 +36,7 @@ class CommonData(metaclass=Singleton):
         cd = {
                 'settings': dl.global_settings,
                 'tags_list': dl.tags_list,
+                'tags_list_count': len(dl.tags_list),
                 'main_menu': dl.index_main_menu,
                 'footer_menu': dl.index_footer_menu,
                 'important_news': dl.important_news_data,

@@ -3,7 +3,9 @@
     {% with primary_text = data.settings.index.primary_title_posts,
             secondary_text = data.settings.index.secondary_title_posts %}
 
-        {% include 'elements/_html/title.html' %}
+        {% if data.pagination.spotlight_posts > 0 %}
+            {% include 'elements/_html/title.html' %}
+        {% endif %}
     {% endwith %}
 {% endif %}
 
