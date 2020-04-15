@@ -48,24 +48,27 @@ class Tags(metaclass=Singleton):
         # Starting with a dictionary as this is the easiest to find existing tags
         tags = {}
 
-        for file in os.listdir(posts_dir):
-            meta, _ = Content().read_content(posts_dir, file)  # No need to catch the content
+        try:
+            for file in os.listdir(posts_dir):
+                meta, _ = Content().read_content(posts_dir, file)  # No need to catch the content
 
-            for tag in meta['tags']:
-                label = self.__tag_label(tag)
+                for tag in meta['tags']:
+                    label = self.__tag_label(tag)
 
-                if label in settings['skip_tags']:
-                    self.__logger.debug('__build_list - tag {0} found in skip_tags'.format(tag))
-                    continue
+                    if label in settings['skip_tags']:
+                        self.__logger.debug('__build_list - tag {0} found in skip_tags'.format(tag))
+                        continue
 
-                if label in tags.keys():
-                    self.__logger.debug('__build_list - tag {0} already exists, +1'.format(tag))
-                    current_count = tags[label]['count']
-                    tags[label]['count'] = current_count + 1
-                else:
-                    self.__logger.debug('__build_list - tag {0} does not already exist'.format(tag))
-                    data = {'label': label, 'count': 1, 'text': string.capwords(tag)}
-                    tags[label] = data
+                    if label in tags.keys():
+                        self.__logger.debug('__build_list - tag {0} already exists, +1'.format(tag))
+                        current_count = tags[label]['count']
+                        tags[label]['count'] = current_count + 1
+                    else:
+                        self.__logger.debug('__build_list - tag {0} does not already exist'.format(tag))
+                        data = {'label': label, 'count': 1, 'text': string.capwords(tag)}
+                        tags[label] = data
+        except FileNotFoundError:
+            pass
 
         self.__logger.debug('__build_list - tags: '.format(tags))
 
@@ -96,37 +99,40 @@ class Tags(metaclass=Singleton):
         self.__logger.debug('data - max_entries: {0}'.format(max_entries))
         self.__logger.debug('data - skip_entries: {0}'.format(skip_entries))
 
-        for file in sorted(os.listdir(posts_dir), reverse=True):
-            post, post['content'] = Content().read_content(posts_dir, file)
-            self.__logger.debug('data - post: {0}'.format(post))
+        try:
+            for file in sorted(os.listdir(posts_dir), reverse=True):
+                post, post['content'] = Content().read_content(posts_dir, file)
+                self.__logger.debug('data - post: {0}'.format(post))
 
-            must_include = False
+                must_include = False
 
-            for tag_raw in post['tags']:
-                if self.__tag_label(tag_raw) == tag:
-                    must_include = True
-                    break
+                for tag_raw in post['tags']:
+                    if self.__tag_label(tag_raw) == tag:
+                        must_include = True
+                        break
 
-            self.__logger.debug('data - must_include: {0}'.format(must_include))
+                self.__logger.debug('data - must_include: {0}'.format(must_include))
 
-            if must_include:
-                count_entries += 1
+                if must_include:
+                    count_entries += 1
 
-                # We count the entries, but for pages 2 and more, you don't show them
-                if skip_entries >= count_entries:
-                    self.__logger.debug('data - post skipped}')
-                    continue
-                else:
-                    self.__logger.debug('data - post added')
+                    # We count the entries, but for pages 2 and more, you don't show them
+                    if skip_entries >= count_entries:
+                        self.__logger.debug('data - post skipped}')
+                        continue
+                    else:
+                        self.__logger.debug('data - post added')
 
-                stem = Path(file).stem
-                post['url'] = stem
+                    stem = Path(file).stem
+                    post['url'] = stem
 
-                data['posts'].append(post)
+                    data['posts'].append(post)
 
-                if count_entries == max_entries:
-                    self.__logger.debug('data - enough posts')
-                    break
+                    if count_entries == max_entries:
+                        self.__logger.debug('data - enough posts')
+                        break
+        except FileNotFoundError:
+            pass
 
         data['tag'] = {'name': self.__tag_text(tag), 'path': tag}
 
@@ -149,14 +155,17 @@ class Tags(metaclass=Singleton):
 
         count_entries = 0
 
-        for file in os.listdir(posts_dir):
-            post, _ = Content().read_content(posts_dir, file)
+        try:
+            for file in os.listdir(posts_dir):
+                post, _ = Content().read_content(posts_dir, file)
 
-            for tag_raw in post['tags']:
-                if self.__tag_label(tag_raw) == tag:
-                    count_entries += 1
-                    self.__logger.debug('count_posts - file {0} includes tag '.format(file))
-                    break
+                for tag_raw in post['tags']:
+                    if self.__tag_label(tag_raw) == tag:
+                        count_entries += 1
+                        self.__logger.debug('count_posts - file {0} includes tag '.format(file))
+                        break
+        except FileNotFoundError:
+            pass
 
         self.__logger.debug('count_posts - tag {0} has {1} posts'.format(tag, count_entries))
 

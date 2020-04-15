@@ -106,40 +106,43 @@ class Index(metaclass=Singleton):
         skip_entries = (int(page_index) - 1) * max_entries
         self.__logger.debug('data - skip_entries: {0}'.format(skip_entries))
 
-        for file in sorted(os.listdir(posts_dir), reverse=True):
-            count_entries += 1
+        try:
+            for file in sorted(os.listdir(posts_dir), reverse=True):
+                count_entries += 1
 
-            # We count the entries, but for pages 2 and more, you don't show them
-            if skip_entries >= count_entries:
-                continue
+                # We count the entries, but for pages 2 and more, you don't show them
+                if skip_entries >= count_entries:
+                    continue
 
-            post, post['content'] = Content().read_content(posts_dir, file)
+                post, post['content'] = Content().read_content(posts_dir, file)
 
-            stem = Path(file).stem
-            post['url'] = stem
+                stem = Path(file).stem
+                post['url'] = stem
 
-            self.__logger.debug('data - post: {0}'.format(post))
+                self.__logger.debug('data - post: {0}'.format(post))
 
-            if page_index == 1:
-                if count_entries <= spotlight_entries:
-                    self.__logger.debug('data - post added to spotlight_posts.')
-                    data['spotlight_posts'].append(post)
+                if page_index == 1:
+                    if count_entries <= spotlight_entries:
+                        self.__logger.debug('data - post added to spotlight_posts.')
+                        data['spotlight_posts'].append(post)
 
-                if spotlight_entries < count_entries <= (spotlight_entries + highlight_entries):
-                    self.__logger.debug('data - post added to highlight_posts.')
-                    data['highlight_posts'].append(post)
+                    if spotlight_entries < count_entries <= (spotlight_entries + highlight_entries):
+                        self.__logger.debug('data - post added to highlight_posts.')
+                        data['highlight_posts'].append(post)
 
-                if count_entries > (spotlight_entries + highlight_entries):
+                    if count_entries > (spotlight_entries + highlight_entries):
+                        self.__logger.debug('data - post added to (standard) posts.')
+                        data['posts'].append(post)
+
+                else:
                     self.__logger.debug('data - post added to (standard) posts.')
                     data['posts'].append(post)
 
-            else:
-                self.__logger.debug('data - post added to (standard) posts.')
-                data['posts'].append(post)
-
-            if count_entries == (max_entries + skip_entries):
-                self.__logger.debug('data - enough posts for this index page.')
-                break
+                if count_entries == (max_entries + skip_entries):
+                    self.__logger.debug('data - enough posts for this index page.')
+                    break
+        except FileNotFoundError:
+            pass
 
         total_posts = self.__data_loader.posts_count
         total_index_pages = math.ceil(total_posts / max_entries)

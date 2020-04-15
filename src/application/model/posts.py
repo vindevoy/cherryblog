@@ -40,7 +40,12 @@ class Posts(metaclass=Singleton):
         self.__data_loader = data_loader
 
         self.directory = os.path.join(Options().data_dir, self.__base_dir)
-        self.count = len(os.listdir(self.directory))
+
+        try:
+            self.count = len(os.listdir(self.directory))
+        except FileNotFoundError:
+            self.count = 0
+
         self.__logger.debug('__init__ - directory: {0}'.format(self.directory))
         self.__logger.debug('__init__ - count: {0}'.format(self.count))
 
