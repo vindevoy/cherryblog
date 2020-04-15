@@ -58,31 +58,37 @@ class SettingsLoader(metaclass=Singleton):
             'global': global_settings
         }
 
-        for staticdir in settings_yaml['tools']['staticdirs']:
-            url = staticdir['url']
-            absolute = staticdir['absolute']
-            path = staticdir['path']
+        try:
+            for staticdir in settings_yaml['tools']['staticdirs']:
+                url = staticdir['url']
+                absolute = staticdir['absolute']
+                path = staticdir['path']
 
-            if not absolute:
-                path = os.path.join(os.getcwd(), path)
+                if not absolute:
+                    path = os.path.abspath(os.path.join(os.getcwd(), path))
 
-            settings[url] = {'tools.staticdir.on': True,
-                             'tools.staticdir.dir': path}
+                settings[url] = {'tools.staticdir.on': True,
+                                 'tools.staticdir.dir': path}
+        except KeyError:
+            pass
 
-        for staticfile in settings_yaml['tools']['staticfiles']:
-            url = staticfile['url']
-            absolute = staticfile['absolute']
-            path = staticfile['path']
+        try:
+            for staticfile in settings_yaml['tools']['staticfiles']:
+                url = staticfile['url']
+                absolute = staticfile['absolute']
+                path = staticfile['path']
 
-            if not absolute:
-                path = os.path.join(os.getcwd(), path)
+                if not absolute:
+                    path = os.path.abspath(os.path.join(os.getcwd(), path))
 
-            settings[url] = {'tools.staticfile.on': True,
-                             'tools.staticfile.filename': path}
+                settings[url] = {'tools.staticfile.on': True,
+                                 'tools.staticfile.filename': path}
+        except KeyError:
+            pass
 
         settings['/favicon.ico'] = {
             'tools.staticfile.on': True,
-            'tools.staticfile.filename': os.path.join(Options().data_dir, 'images', 'favicon.ico')
+            'tools.staticfile.filename': os.path.abspath(os.path.join(Options().data_dir, 'images', 'favicon.ico'))
         }
 
         return settings
