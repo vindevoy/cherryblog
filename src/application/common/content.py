@@ -51,6 +51,11 @@ class Content(metaclass=Singleton):
             return {}
 
         content = yaml.load(yaml_file, Loader=yaml.SafeLoader)
+
+        # In case there's an empty file, yaml returns a None instead of a empty structure
+        if content is None:
+            content = {}
+
         self.__logger.debug('load_yaml - Content of yaml:\n{0}'.format(content))
 
         return content
