@@ -80,7 +80,7 @@ class Index(metaclass=Singleton):
 
         data_index = {}
 
-        intro_meta, data_index['introduction'] = Content().read_content(self.__base_dir, 'introduction.md')
+        intro_meta, raw_intro, data_index['introduction'] = Content().read_content(self.__base_dir, 'introduction.md')
 
         data_index['image'] = intro_meta['image']
 
@@ -114,7 +114,7 @@ class Index(metaclass=Singleton):
                 if skip_entries >= count_entries:
                     continue
 
-                post, post['content'] = Content().read_content(posts_dir, file)
+                post, _, post['content'] = Content().read_content(posts_dir, file)
 
                 stem = Path(file).stem
                 post['url'] = stem
@@ -156,7 +156,7 @@ class Index(metaclass=Singleton):
 
         self.__logger.debug('data - {0}'.format(data))
 
-        return data
+        return data, raw_intro
 
 
 ###

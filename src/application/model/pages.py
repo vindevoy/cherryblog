@@ -51,14 +51,14 @@ class Pages(metaclass=Singleton):
 
         data = {}
 
-        meta, content = Content().read_content(self.__base_dir, '{0}.md'.format(page))
+        meta, content, html = Content().read_content(self.__base_dir, '{0}.md'.format(page))
 
-        meta['content'] = content
+        meta['content'] = html
         data['page'] = meta
 
         self.__logger.debug('data - pages[{0}]: {1}'.format(page, data))
 
-        return data
+        return data, meta, content
 
 
 ###

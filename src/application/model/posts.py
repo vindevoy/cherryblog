@@ -51,14 +51,14 @@ class Posts(metaclass=Singleton):
 
         data = {}
 
-        meta, content = Content().read_content(self.__base_dir, '{0}.md'.format(post))
+        meta, content, html = Content().read_content(self.__base_dir, '{0}.md'.format(post))
 
-        meta['content'] = content
+        meta['content'] = html
         data['post'] = meta
 
         self.__logger.debug('data - posts[{0}]: {1}'.format(post, data))
 
-        return data
+        return data, meta, content
 
 
 ###

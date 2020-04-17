@@ -69,10 +69,10 @@ class Content(metaclass=Singleton):
         except FileNotFoundError:
             return {}, ''
 
-        meta, html = self.__split_file(content_file.read())
+        meta, raw, html = self.__split_file(content_file.read())
         # No logging, already logged
 
-        return meta, html
+        return meta, raw, html
 
     def __split_file(self, data):
         if self.__meta_content_separator is None:
@@ -83,21 +83,21 @@ class Content(metaclass=Singleton):
         split = data.split(self.__meta_content_separator)
 
         meta = split[0]
-        content = ""
+        content_raw = ""
 
         if len(split) == 2:
-            content = split[1]
+            content_raw = split[1]
         else:
             self.__logger.debug('__split_file - No content found.')
 
         meta_data = yaml.load(meta, Loader=yaml.SafeLoader)
         self.__logger.debug('__split_file - Meta data:\n{0}'.format(meta_data))
 
-        self.__logger.debug('__split_file - Markdown data:\n{0}'.format(content))
-        content_html = markdown.markdown(content)
+        self.__logger.debug('__split_file - Markdown data:\n{0}'.format(content_raw))
+        content_html = markdown.markdown(content_raw)
         self.__logger.debug('__split_file - HTML:\n{0}'.format(content_html))
 
-        return meta_data, content_html
+        return meta_data, content_raw, content_html
 
 ###
 #

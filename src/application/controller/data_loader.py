@@ -108,7 +108,8 @@ class DataLoader(metaclass=Singleton):
             return self.__get_cached(key)
 
         common = self.common_data
-        data = Index().data(page_index, self.posts_directory, self.posts_count)
+        data, _ = Index().data(page_index, self.posts_directory, self.posts_count)
+        #  We don't care yet about the raw intro
         combined = self.__combine(common, data)
 
         self.__cache(key, combined)
@@ -143,7 +144,7 @@ class DataLoader(metaclass=Singleton):
             return self.__get_cached(key)
 
         common = self.common_data
-        data = Pages().data(page)
+        data, _, _ = Pages().data(page)  # No catching the meta and raw data yet
         combined = self.__combine(common, data)
 
         self.__cache(key, combined)
@@ -166,7 +167,7 @@ class DataLoader(metaclass=Singleton):
             return self.__get_cached(key)
 
         common = self.common_data
-        data = Posts().data(post)
+        data, _, _ = Posts().data(post)  # We don't do anything with the meta and raw data yet
         combined = self.__combine(common, data)
 
         self.__cache(key, combined)

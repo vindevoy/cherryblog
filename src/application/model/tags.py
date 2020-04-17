@@ -44,7 +44,7 @@ class Tags(metaclass=Singleton):
 
         try:
             for file in os.listdir(posts_dir):
-                meta, _ = Content().read_content(posts_dir, file)  # No need to catch the content
+                meta, _, _ = Content().read_content(posts_dir, file)  # No need to catch the content
 
                 for tag in meta['tags']:
                     label = self.__tag_label(tag)
@@ -94,7 +94,7 @@ class Tags(metaclass=Singleton):
 
         try:
             for file in sorted(os.listdir(posts_dir), reverse=True):
-                post, post['content'] = Content().read_content(posts_dir, file)
+                post, _, post['content'] = Content().read_content(posts_dir, file)
                 self.__logger.debug('data - post: {0}'.format(post))
 
                 must_include = False
@@ -146,7 +146,7 @@ class Tags(metaclass=Singleton):
 
         try:
             for file in os.listdir(posts_dir):
-                post, _ = Content().read_content(posts_dir, file)
+                post, _, _ = Content().read_content(posts_dir, file)
 
                 for tag_raw in post['tags']:
                     if self.__tag_label(tag_raw) == tag:
