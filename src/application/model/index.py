@@ -142,6 +142,7 @@ class Index(metaclass=Singleton):
                     self.__logger.debug('data - enough posts for this index page.')
                     break
         except FileNotFoundError:
+            self.__logger.warning('COULD NOT FIND THE POSTS DIRECTORY {0}'.format(posts_dir))
             pass
 
         total_index_pages = math.ceil(total_posts / max_entries)

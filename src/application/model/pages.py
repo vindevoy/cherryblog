@@ -8,6 +8,7 @@
 #
 #   Features:
 #       - Caching done outside this class
+#       - Added warning in Try Except
 #
 ###
 
@@ -40,6 +41,7 @@ class Pages(metaclass=Singleton):
         try:
             count = len(os.listdir(self.directory))
         except FileNotFoundError:
+            self.__logger.warning('COULD NOT FIND THE PAGES DIRECTORY {0}'.format(self.directory))
             count = 0
 
         self.__logger.debug('count - count: {0}'.format(count))

@@ -62,6 +62,7 @@ class Tags(metaclass=Singleton):
                         data = {'label': label, 'count': 1, 'text': string.capwords(tag)}
                         tags[label] = data
         except FileNotFoundError:
+            self.__logger.warning('COULD NOT FIND THE POSTS DIRECTORY {0}'.format(posts_dir))
             pass
 
         self.__logger.debug('list - tags: '.format(tags))

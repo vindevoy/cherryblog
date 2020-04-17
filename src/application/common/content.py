@@ -48,6 +48,7 @@ class Content(metaclass=Singleton):
         try:
             yaml_file = open(os.path.join(directory, file), 'r')
         except FileNotFoundError:
+            self.__logger.warning('COULD NOT FIND THE YAML FILE {0}/{1}'.format(directory, file))
             return {}
 
         content = yaml.load(yaml_file, Loader=yaml.SafeLoader)
@@ -67,6 +68,7 @@ class Content(metaclass=Singleton):
         try:
             content_file = open(os.path.join(content_dir, file), 'r')
         except FileNotFoundError:
+            self.__logger.warning('COULD NOT FIND THE YAML FILE {0}/{1}'.format(directory, file))
             return {}, ''
 
         meta, raw, html = self.__split_file(content_file.read())
