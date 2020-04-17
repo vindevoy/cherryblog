@@ -16,6 +16,7 @@ import logging
 from common.options import Options
 from common.singleton import Singleton
 from model.codeversion import CodeVersion
+from model.i8n import I8N
 from model.important_news import ImportantNews
 from model.index import Index
 from model.pages import Pages
@@ -75,6 +76,7 @@ class DataLoader(metaclass=Singleton):
             return self.__get_cached(key)
 
         data = {
+                'i8n': self.i8n,
                 'settings': self.global_settings,
                 'tags_list': self.tags_list,
                 'tags_list_count': self.tags_list_count,
@@ -92,6 +94,11 @@ class DataLoader(metaclass=Singleton):
     def important_news_data(self):
         return self.__get_data('important_news_data', ImportantNews(), 'data')
 
+    # i8n
+    @property
+    def i8n(self):
+        return I8N().data
+
     # index
     @property
     def index_main_menu(self):
@@ -101,7 +108,7 @@ class DataLoader(metaclass=Singleton):
     def index_footer_menu(self):
         return self.__get_data('index_footer_menu', Index(), 'footer_menu')
 
-    def index_data(self, page_index):
+    def index_data(self, page_index, language=None):
         key = '/index/{0}'.format(page_index)
 
         if self.__cached_already(key):
@@ -109,6 +116,7 @@ class DataLoader(metaclass=Singleton):
 
         common = self.common_data
         data, _ = Index().data(page_index, self.posts_directory, self.posts_count)
+
         #  We don't care yet about the raw intro
         combined = self.__combine(common, data)
 

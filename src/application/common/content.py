@@ -40,6 +40,11 @@ class Content(metaclass=Singleton):
 
         return self.load_yaml(directory, 'settings.yml')
 
+    def load_data_yaml(self, directory, file):
+        self.__logger.debug('load_data_yaml - Loading {0} from directory {1}.'.format(file, directory))
+
+        return self.load_yaml(os.path.join(Options().data_dir, directory), file)
+
     def load_yaml(self, directory, file):
         self.__logger.debug('load_yaml - Loading {0} from directory {0}.'.format(file, directory))
 

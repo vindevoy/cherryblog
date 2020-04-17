@@ -1,7 +1,7 @@
 <!-- Title -->
 {% if data.pagination.current_page == 1 %}
-    {% with primary_text = data.settings.index.primary_title_posts,
-            secondary_text = data.settings.index.secondary_title_posts %}
+    {% with primary_text = data.i8n.index.primary_title_posts,
+            secondary_text = data.i8n.index.secondary_title_posts %}
 
         {% if data.pagination.spotlight_posts > 0 %}
             {% include 'elements/_html/title.html' %}
@@ -10,9 +10,9 @@
 {% endif %}
 
 {% if data.pagination.current_page > 1 %}
-    {% with primary_text = data.settings.index.primary_title_archive,
-            secondary_text = data.settings.navigation.page_of_page + ' ' + data.pagination.current_page|string + ' '  +
-                             data.settings.navigation.page_of_of + ' ' + data.pagination.total_pages|string %}
+    {% with primary_text = data.i8n.index.primary_title_archive,
+            secondary_text = data.i8n.navigation.page_of_page + ' ' + data.pagination.current_page|string + ' '  +
+                             data.i8n.navigation.page_of_of + ' ' + data.pagination.total_pages|string %}
 
         {% include 'elements/_html/title.html' %}
     {% endwith %}
