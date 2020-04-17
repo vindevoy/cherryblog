@@ -1,4 +1,30 @@
 
+# VERSION 1.2.0
+
+## Release info
+
+- author: Yves Vindevogel (vindevoy)
+- date: 2020-04-17
+
+## Enhancements
+
+- Code is now following the Model-View-Controller pattern
+- Logging updated for CherryPy and added for CherryBlog
+- Updated the caching system, all data is stored in memory
+- Server can now run in daemon mode, including user privileges
+- Try Except added when reading configuration and content
+- Texts are now in I8N directory, for future translations
+- Static directories and static files can be served
+- Separator is now a setting
+- Minor bug fixes
+
+
+### Github 
+
+For more information on this release, see the issues for this milestone:
+
+- [https://github.com/vindevoy/cherryblog/milestone/6](https://github.com/vindevoy/cherryblog/milestone/6)
+
 # VERSION 1.1.1
 
 ## Release info
