@@ -10,19 +10,10 @@
 
 clean:
 	@find . -name '__pycache__' -type d -delete
+	@find . -name '*.log' -type f -delete
 	@rm -rf ./tmp ./log ./download
 
 	@echo '[OK] Cleaned'
-
-setup:
-	@mkdir -p ./src/application
-	@mkdir -p ./src/theme/default
-	@mkdir -p ./src/data/pages
-	@mkdir -p ./src/data/blog
-	@mkdir -p ./src/data/site
-	@touch ./src/data/site/settings.yml
-
-	@echo '[OK] Setup has created the /src directory and sub-directories'
 
 download: clean
 	@mkdir -p ./tmp
@@ -66,6 +57,10 @@ readme:
 
 history:
 	@echo ''                                                                >   ./HISTORY.md
+	@echo '# VERSION 1.2.0'                                                 >>  ./HISTORY.md
+	@echo ''                                                                >>  ./HISTORY.md
+	@sed -n '/##/,$$p' ./src/data/posts/0007_version_1_2_0.md               >>  ./HISTORY.md
+	@echo ''                                                                >>  ./HISTORY.md
 	@echo '# VERSION 1.1.1'                                                 >>  ./HISTORY.md
 	@echo ''                                                                >>  ./HISTORY.md
 	@sed -n '/##/,$$p' ./src/data/posts/0006_version_1_1_1.md               >>  ./HISTORY.md
@@ -108,11 +103,11 @@ history:
 
 develop:
 	@mkdir -p ./log
-	@python3 ./src/application/serve.py 2>&1 | tee ./log/develop.log
+	@python3 ./src/application/main.py 2>&1 | tee ./log/develop.log
 
 production:
 	@mkdir -p /var/log/cherryblog
-	@python3 ./src/application/serve.py --env production 2>&1 | tee /var/log/cherryblog/production.log &
+	@python3 ./src/application/main.py --env production 2>&1 | tee /var/log/cherryblog/production.log &
 
 ###
 #

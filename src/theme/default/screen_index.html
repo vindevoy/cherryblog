@@ -1,8 +1,8 @@
 {% extends "_screen.html" %}
 {% block content %}
     {% if data.pagination.current_page == 1 %}
-        {% with primary_text = data.settings.index.primary_title,
-                secondary_text = data.settings.index.secondary_title %}
+        {% with primary_text = data.i8n.index.primary_title,
+                secondary_text = data.i8n.index.secondary_title %}
 
             {% include 'elements/index/introduction_title.html' %}
         {% endwith %}

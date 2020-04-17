@@ -1,7 +1,22 @@
 ---
 
+content:
+  meta_content_separator: "----------"
+
+directories:
+  theme:
+      absolute: False
+      path: 'src/theme/default'
+  log:
+      absolute: False
+      path: 'log'
+  run:
+      absolute: False
+      path: 'log'
+
 engine:
   autoreload: True
+  daemon: False
 
 server:
   socket_host: '127.0.0.1'
@@ -10,9 +25,15 @@ server:
 
 tools:
   staticdirs:
-    - url: '/static'
-      absolute: False
-      path: 'src/theme/default/static'
     - url: '/images'
       absolute: False
       path: 'src/data/images'
+    - url: '/static'
+      absolute: False
+      path: 'src/theme/default/static'
+
+user:
+  privileges: False
+  uid: 502
+  gid: 20
+

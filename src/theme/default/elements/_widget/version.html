@@ -1,9 +1,9 @@
 <!-- Versions Widget -->
 <div class="card m-0 mr-1 mb-3 p-0 ">
-    <h5 class="card-header text-left">{{ data.settings.widget.version.title }}</h5>
+    <h5 class="card-header text-left">{{ data.i8n.code_version.title }}</h5>
     <div class="card-body">
             <div class="d-none d-lg-block">
-                {% for v in data.version.text %}
+                {% for v in data.code_version.text %}
                     <span>{{ v }}</span><br/>
                 {% endfor %}
             </div>
