@@ -2,11 +2,12 @@
 #
 #   Full history: see below
 #
-#   Version: 1.1.0
-#   Date: 2020-04-15
+#   Version: 1.2.0
+#   Date: 2020-04-17
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Added logging
+#   Features:
+#       - Caching done outside this class
 #
 ###
 
@@ -27,23 +28,16 @@ class Tags(metaclass=Singleton):
     __base_dir = 'tags'
 
     __logger = None
-    __data_loader = None
 
-    list = None
-
-    def __init__(self, data_loader):
+    def __init__(self):
         self.__logger = logging.getLogger('MODEL.TAGS')
         self.__logger.setLevel(Options().default_logging_level)
 
-        self.__data_loader = data_loader
-        self.__build_list()
+    def list(self, posts_dir):
+        self.__logger.debug('list - posts_dir: {0}'.format(posts_dir))
 
-    def __build_list(self):
         settings = Content().load_data_settings_yaml(self.__base_dir)
-        self.__logger.debug('__build_list - settings: {0}'.format(settings))
-
-        posts_dir = self.__data_loader.posts_directory
-        self.__logger.debug('__build_list - posts_dir: {0}'.format(posts_dir))
+        self.__logger.debug('list - settings: {0}'.format(settings))
 
         # Starting with a dictionary as this is the easiest to find existing tags
         tags = {}
@@ -56,21 +50,21 @@ class Tags(metaclass=Singleton):
                     label = self.__tag_label(tag)
 
                     if label in settings['skip_tags']:
-                        self.__logger.debug('__build_list - tag {0} found in skip_tags'.format(tag))
+                        self.__logger.debug('list - tag {0} found in skip_tags'.format(tag))
                         continue
 
                     if label in tags.keys():
-                        self.__logger.debug('__build_list - tag {0} already exists, +1'.format(tag))
+                        self.__logger.debug('list - tag {0} already exists, +1'.format(tag))
                         current_count = tags[label]['count']
                         tags[label]['count'] = current_count + 1
                     else:
-                        self.__logger.debug('__build_list - tag {0} does not already exist'.format(tag))
+                        self.__logger.debug('list - tag {0} does not already exist'.format(tag))
                         data = {'label': label, 'count': 1, 'text': string.capwords(tag)}
                         tags[label] = data
         except FileNotFoundError:
             pass
 
-        self.__logger.debug('__build_list - tags: '.format(tags))
+        self.__logger.debug('list - tags: '.format(tags))
 
         # Pushing this into a simple array for Jinja2
         tags_array = []
@@ -78,23 +72,22 @@ class Tags(metaclass=Singleton):
         for _, value in tags.items():  # Only need the value
             tags_array.append(value)
 
-        self.list = sorted(tags_array, key=itemgetter('count'), reverse=True)
-        self.__logger.debug('__build_list - sorted tags: '.format(self.list))
+        tags_list = sorted(tags_array, key=itemgetter('count'), reverse=True)
+        self.__logger.debug('list - sorted tags: '.format(tags_list))
 
-    def data(self, tag, page_index):
+        return tags_list
+
+    def data(self, posts_dir, tag, page_index, index_max_posts, count_tag_posts):
+        self.__logger.debug('data - posts_dir: {0}'.format(posts_dir))
         self.__logger.debug('data - tag: {0}'.format(tag))
         self.__logger.debug('data - page_index tags: {0}'.format(page_index))
+        self.__logger.debug('data - index_max_posts tags: {0}'.format(index_max_posts))
+        self.__logger.debug('data - count_tag_posts tags: {0}'.format(count_tag_posts))
 
-        data = self.__data_loader.common_data
-        self.__logger.debug('data - common_data: {0}'.format(data))
-
-        posts_dir = self.__data_loader.posts_directory
-        self.__logger.debug('data - posts_dir: {0}'.format(posts_dir))
-
-        data['posts'] = []
+        data = {'posts': []}
 
         count_entries = 0
-        max_entries = self.__data_loader.index_max_posts
+        max_entries = index_max_posts
         skip_entries = (int(page_index) - 1) * max_entries
         self.__logger.debug('data - max_entries: {0}'.format(max_entries))
         self.__logger.debug('data - skip_entries: {0}'.format(skip_entries))
@@ -136,9 +129,7 @@ class Tags(metaclass=Singleton):
 
         data['tag'] = {'name': self.__tag_text(tag), 'path': tag}
 
-        total_posts = self.count_posts(tag)
-        total_index_pages = math.ceil(total_posts / max_entries)
-        self.__logger.debug('data - total_posts: {0}'.format(total_posts))
+        total_index_pages = math.ceil(count_tag_posts / max_entries)
         self.__logger.debug('data - total_index_pages: {0}'.format(total_index_pages))
 
         data['pagination'] = {'current_page': int(page_index), 'total_pages': total_index_pages}
@@ -147,10 +138,8 @@ class Tags(metaclass=Singleton):
 
         return data
 
-    def count_posts(self, tag):
+    def count_posts(self, posts_dir, tag):
         self.__logger.debug('count_posts - tag: {0}'.format(tag))
-
-        posts_dir = self.__data_loader.posts_directory
         self.__logger.debug('count_posts - posts_dir: {0}'.format(posts_dir))
 
         count_entries = 0
@@ -181,6 +170,13 @@ class Tags(metaclass=Singleton):
 
 
 ###
+#
+#   Version: 1.1.0
+#   Date: 2020-04-15
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - Added logging
 #
 #   Version: 1.0.0
 #   Date: 2020-04-13
