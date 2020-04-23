@@ -1,10 +1,12 @@
 ###
 #
-#   Version: 1.1.0
+#   Version: 1.2.0
 #   Date: 2020-04-11
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Add logging
+#   Features:
+#       - stop command
+#       - better history generation
 #
 ###
 
@@ -89,14 +91,24 @@ production:
 	@python3 ./src/application/main.py --env production 2>&1 | tee /var/log/cherryblog/production.log &
 
 stop:
+	@cat ./log/cherryblog.pid | xargs kill
+
 
 ###
+#
+#   Version: 1.1.0
+#   Date: 2020-04-11
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - Add logging
 #
 #   Version: 1.0.1
 #   Date: 2020-04-09
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Cleaned some commands
+#   Features:
+#       - Cleaned some commands
 #
 #   Version: 1.0.0
 #   Date: 2020-03-29
