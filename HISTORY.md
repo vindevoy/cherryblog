@@ -1,4 +1,22 @@
 
+# VERSION 1.3.0
+
+## Release info
+
+- author: Yves Vindevogel (vindevoy)
+- date: 2020-04-23
+
+## Enhancements
+
+- Page caching added, next to the data caching (which remains in place for common data)
+- Caching is in a class now
+
+### Github 
+
+For more information on this release, see the issues for this milestone:
+
+- [https://github.com/vindevoy/cherryblog/milestone/8](https://github.com/vindevoy/cherryblog/milestone/8)
+
 # VERSION 1.2.0
 
 ## Release info
