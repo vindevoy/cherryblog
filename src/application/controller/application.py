@@ -2,11 +2,11 @@
 #
 #   Full history: see below
 #
-#   Version: 2.1.0
-#   Date: 2020-04-15
+#   Version: 2.2.0
+#   Date: 2020-04-22
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Added logging of the requests for performance insights
+#   Added page caching
 #
 ###
 
@@ -18,6 +18,7 @@ from datetime import datetime
 from common.options import Options
 from common.singleton import Singleton
 from controller.data_loader import DataLoader
+from controller.page_cacher import PageCacher
 from view.templateloader import TemplateLoader
 
 
@@ -33,11 +34,17 @@ class Application(metaclass=Singleton):
         request = '/index/{0}'.format(page_index)
         start = datetime.now()
 
-        data = DataLoader().index_data(page_index)
-        data['url'] = request
+        if PageCacher().cached_already(request):
+            rendered = PageCacher().get_cached(request)
 
-        template = TemplateLoader().get_template('screen_index.html')
-        rendered = template.render(data=data)
+        else:
+            data = DataLoader().index_data(page_index)
+            data['url'] = request
+
+            template = TemplateLoader().get_template('screen_index.html')
+            rendered = template.render(data=data)
+
+            PageCacher().cache(request, rendered)
 
         finished = datetime.now()
         self.__logger.info('{0} {1}'.format(request, finished - start))
@@ -49,12 +56,18 @@ class Application(metaclass=Singleton):
         request = '/pages/{0}'.format(page)
         start = datetime.now()
 
-        # page on the URL: http://www.yoursite.ext/pages/page
-        data = DataLoader().pages_data(page)
-        data['url'] = request
+        if PageCacher().cached_already(request):
+            rendered = PageCacher().get_cached(request)
 
-        template = TemplateLoader().get_template('screen_page.html')
-        rendered = template.render(data=data)
+        else:
+            # page on the URL: http://www.yoursite.ext/pages/page
+            data = DataLoader().pages_data(page)
+            data['url'] = request
+
+            template = TemplateLoader().get_template('screen_page.html')
+            rendered = template.render(data=data)
+
+            PageCacher().cache(request, rendered)
 
         finished = datetime.now()
         self.__logger.info('{0} {1}'.format(request, finished - start))
@@ -66,11 +79,17 @@ class Application(metaclass=Singleton):
         request = '/posts/{0}'.format(post)
         start = datetime.now()
 
-        data = DataLoader().posts_data(post)
-        data['url'] = request
+        if PageCacher().cached_already(request):
+            rendered = PageCacher().get_cached(request)
 
-        template = TemplateLoader().get_template('screen_post.html')
-        rendered = template.render(data=data)
+        else:
+            data = DataLoader().posts_data(post)
+            data['url'] = request
+
+            template = TemplateLoader().get_template('screen_post.html')
+            rendered = template.render(data=data)
+
+            PageCacher().cache(request, rendered)
 
         finished = datetime.now()
         self.__logger.info('{0} {1}'.format(request, finished - start))
@@ -82,11 +101,17 @@ class Application(metaclass=Singleton):
         request = '/tags/{0}/{1}'.format(tag, page_index)
         start = datetime.now()
 
-        data = DataLoader().tags_data(tag, page_index)
-        data['url'] = request
+        if PageCacher().cached_already(request):
+            rendered = PageCacher().get_cached(request)
 
-        template = TemplateLoader().get_template('screen_tag.html')
-        rendered = template.render(data=data)
+        else:
+            data = DataLoader().tags_data(tag, page_index)
+            data['url'] = request
+
+            template = TemplateLoader().get_template('screen_tag.html')
+            rendered = template.render(data=data)
+
+            PageCacher().cache(request, rendered)
 
         finished = datetime.now()
         self.__logger.info('{0} {1}'.format(request, finished - start))
@@ -114,6 +139,12 @@ class Application(metaclass=Singleton):
     #     return rendered
 
 ###
+#
+#   Version: 2.1.0
+#   Date: 2020-04-15
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Added logging of the requests for performance insights
 #
 #   Version: 2.0.0
 #   Date: 2020-04-13
