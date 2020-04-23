@@ -8,6 +8,9 @@
 #
 ###
 
+# Clean is only for development. If you want to clean the logs in production for example,
+# use the proper Linux tools
+
 clean:
 	@find . -name '__pycache__' -type d -delete
 	@find . -name '*.log' -type f -delete
@@ -56,35 +59,7 @@ readme:
 	@echo '[OK] README.md created'
 
 history:
-	@echo ''                                                                >   ./HISTORY.md
-	@echo '# VERSION 1.3.0'                                                 >>  ./HISTORY.md
-	@echo ''                                                                >>  ./HISTORY.md
-	@sed -n '/##/,$$p' ./src/data/posts/0008_version_1_3_0.md               >>  ./HISTORY.md
-	@echo ''                                                                >>  ./HISTORY.md
-	@echo '# VERSION 1.2.0'                                                 >>  ./HISTORY.md
-	@echo ''                                                                >>  ./HISTORY.md
-	@sed -n '/##/,$$p' ./src/data/posts/0007_version_1_2_0.md               >>  ./HISTORY.md
-	@echo ''                                                                >>  ./HISTORY.md
-	@echo '# VERSION 1.1.1'                                                 >>  ./HISTORY.md
-	@echo ''                                                                >>  ./HISTORY.md
-	@sed -n '/##/,$$p' ./src/data/posts/0006_version_1_1_1.md               >>  ./HISTORY.md
-	@echo ''                                                                >>  ./HISTORY.md
-	@echo '# VERSION 1.1.0'                                                 >>  ./HISTORY.md
-	@echo ''                                                                >>  ./HISTORY.md
-	@sed -n '/##/,$$p' ./src/data/posts/0005_version_1_1_0.md               >>  ./HISTORY.md
-	@echo ''                                                                >>  ./HISTORY.md
-	@echo '# VERSION 1.0.2'                                                 >>  ./HISTORY.md
-	@echo ''                                                                >>  ./HISTORY.md
-	@sed -n '/##/,$$p' ./src/data/posts/0004_version_1_0_2.md               >>  ./HISTORY.md
-	@echo ''                                                                >>  ./HISTORY.md
-	@echo '# VERSION 1.0.1'                                                 >>  ./HISTORY.md
-	@echo ''                                                                >>  ./HISTORY.md
-	@sed -n '/##/,$$p' ./src/data/posts/0003_version_1_0_1.md               >>  ./HISTORY.md
-	@echo ''                                                                >>  ./HISTORY.md
-	@echo '# VERSION 1.0.0'                                                 >>  ./HISTORY.md
-	@echo ''                                                                >>  ./HISTORY.md
-	@sed -n '/##/,$$p' ./src/data/posts/0002_version_1_0_0.md               >>  ./HISTORY.md
-	@echo ''                                                                >>  ./HISTORY.md
+	@python3 ./src/application/history.py
 
 	@echo '[OK] HISTORY.md created'
 
@@ -112,6 +87,8 @@ develop:
 production:
 	@mkdir -p /var/log/cherryblog
 	@python3 ./src/application/main.py --env production 2>&1 | tee /var/log/cherryblog/production.log &
+
+stop:
 
 ###
 #

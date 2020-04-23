@@ -9,10 +9,8 @@ date: "2020-04-23"
 
 ----------
 
+# Release v1.3.0
 
-# VERSION 1.3.0
-
-## Release info
 
 - author: Yves Vindevogel (vindevoy)
 - date: 2020-04-23
@@ -28,9 +26,9 @@ For more information on this release, see the issues for this milestone:
 
 - [https://github.com/vindevoy/cherryblog/milestone/8](https://github.com/vindevoy/cherryblog/milestone/8)
 
-# VERSION 1.2.0
 
-## Release info
+# Release v1.2.0
+
 
 - author: Yves Vindevogel (vindevoy)
 - date: 2020-04-17
@@ -54,9 +52,9 @@ For more information on this release, see the issues for this milestone:
 
 - [https://github.com/vindevoy/cherryblog/milestone/6](https://github.com/vindevoy/cherryblog/milestone/6)
 
-# VERSION 1.1.1
 
-## Release info
+# Release v1.1.1
+
 
 - author: Yves Vindevogel (vindevoy)
 - date: 2020-04-11
@@ -73,9 +71,9 @@ For more information on this release, see the issues for this milestone:
 
 - [https://github.com/vindevoy/cherryblog/milestone/7](https://github.com/vindevoy/cherryblog/milestone/7)
 
-# VERSION 1.1.0
 
-## Release info
+# Release v1.1.0
+
 
 - author: Yves Vindevogel (vindevoy)
 - date: 2020-04-11
@@ -111,9 +109,9 @@ For more information on this release, see the issues for this milestone:
 
 - [https://github.com/vindevoy/cherryblog/milestone/3](https://github.com/vindevoy/cherryblog/milestone/3)
 
-# VERSION 1.0.2
 
-## Release info
+# Release v1.0.2
+
 
 - author: Yves Vindevogel (vindevoy)
 - date: 2020-04-08
@@ -132,9 +130,9 @@ For more information on this release, see the issues for this milestone:
 
 - [https://github.com/vindevoy/cherryblog/milestone/5](https://github.com/vindevoy/cherryblog/milestone/5)
 
-# VERSION 1.0.1
 
-## Release info
+# Release v1.0.1
+
 
 - author: Yves Vindevogel (vindevoy)
 - date: 2020-04-08
@@ -155,9 +153,9 @@ For more information on this release, see the issues for this milestone:
 
 - [https://github.com/vindevoy/cherryblog/milestone/4](https://github.com/vindevoy/cherryblog/milestone/4)
 
-# VERSION 1.0.0
 
-## Release info
+# Release v1.0.0
+
 
 - author: Yves Vindevogel (vindevoy)
 - date: 2020-04-07
@@ -189,5 +187,6 @@ Base architecture:
 For more information on this release, see the issues for this milestone:
 
 - [https://github.com/vindevoy/cherryblog/milestone/1](https://github.com/vindevoy/cherryblog/milestone/1)
+
 
 
