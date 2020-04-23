@@ -37,6 +37,11 @@ download: clean
 
 	@echo '[OK] Download done'
 
+update:
+	@git pull origin
+
+	@echo '[OK] Update done'
+
 dependencies:
 	@pip3 install cherrypy
 	@pip3 install jinja2
