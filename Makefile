@@ -42,6 +42,18 @@ update:
 
 	@echo '[OK] Update done'
 
+install-certbot:
+	@wget https://dl.eff.org/certbot-auto -P /tmp
+	@mv /tmp/certbot-auto /usr/local/bin/certbot-auto
+	@chown root:root /usr/local/bin/certbot-auto
+	@chmod 755 /usr/local/bin/certbot-auto
+
+install-certificate:
+	@/usr/local/bin/certbot-auto certonly --standalone
+
+update-certificate:
+	@echo "0 0,12 * * * root python3 -c 'import random; import time; time.sleep(random.random() * 3600)' && /usr/local/bin/certbot-auto renew -q" | tee -a /etc/crontab > /dev/null
+
 dependencies:
 	@pip3 install cherrypy
 	@pip3 install jinja2

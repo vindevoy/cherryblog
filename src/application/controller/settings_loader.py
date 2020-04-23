@@ -2,12 +2,12 @@
 #
 #   Full history: see below
 #
-#   Version: 1.2.1
-#   Date: 2020-04-15
+#   Version: 1.3.0
+#   Date: 2020-04-23
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Changes:
-#       Because of logging, the Content() class cannot be used
+#   Features:
+#       SSL
 #
 ###
 
@@ -120,7 +120,31 @@ class SettingsLoader(metaclass=Singleton):
         Options().uid = settings_yaml['user']['uid']
         Options().gid = settings_yaml['user']['gid']
 
+        Options().ssl_certificate = settings_yaml['ssl']['ssl_certificate']
+        Options().ssl_private_key = settings_yaml['ssl']['ssl_private_key']
+        Options().ssl_certificate_chain = settings_yaml['ssl']['ssl_certificate_chain']
+
+        use_ssl = False
+
+        if Options().ssl_certificate != '':
+            use_ssl = True
+
+        if Options().ssl_private_key != '':
+            use_ssl = True
+
+        if Options().ssl_certificate_chain != '':
+            use_ssl = True
+
+        Options().use_ssl = use_ssl
+
 ###
+#
+#   Version: 1.2.1
+#   Date: 2020-04-15
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Changes:
+#       Because of logging, the Content() class cannot be used
 #
 #   Version: 1.2.0
 #   Date: 2020-04-13

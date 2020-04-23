@@ -37,3 +37,7 @@ user:
   uid: 502
   gid: 20
 
+ssl:
+  ssl_certificate:
+  ssl_private_key:
+  ssl_certificate_chain:
