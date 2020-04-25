@@ -1,3 +1,21 @@
+# Release v1.4.0
+
+
+- author: Yves Vindevogel (vindevoy)
+- date: 2020-04-25
+
+## Enhancements
+
+- Added the code to start with HTTPS instead of HTTP
+- CherryBlog.org will run on HTTPS from now on
+
+### Github 
+
+For more information on this release, see the issues for this milestone:
+
+- [https://github.com/vindevoy/cherryblog/milestone/9](https://github.com/vindevoy/cherryblog/milestone/9)
+
+
 # Release v1.3.0
 
 

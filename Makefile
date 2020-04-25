@@ -1,11 +1,11 @@
 ###
 #
-#   Version: 1.2.0
-#   Date: 2020-04-11
+#   Version: 1.2.1
+#   Date: 2020-04-25
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Features:
-#       - stop command
+#   Fixes:
+#       - all logging is now in application.log instead of ENVIRONMENT.log (settings determine it for the run)
 #       - better history generation
 #
 ###
@@ -101,17 +101,25 @@ history:
 
 develop:
 	@mkdir -p ./log
-	@python3 ./src/application/main.py 2>&1 | tee ./log/develop.log
+	@python3 ./src/application/main.py 2>&1 | tee ./log/application.log
 
 production:
 	@mkdir -p /var/log/cherryblog
-	@python3 ./src/application/main.py --env production 2>&1 | tee /var/log/cherryblog/production.log &
+	@python3 ./src/application/main.py --env production 2>&1 | tee /var/log/cherryblog/application.log &
 
 stop:
 	@cat ./log/cherryblog.pid | xargs kill
 
 
 ###
+#
+#   Version: 1.2.0
+#   Date: 2020-04-11
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - stop command
+#       - better history generation
 #
 #   Version: 1.1.0
 #   Date: 2020-04-11
