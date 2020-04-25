@@ -2,12 +2,12 @@
 #
 #   Full history: see below
 #
-#   Version: 1.2.0
-#   Date: 2020-04-17
+#   Version: 1.2.1
+#   Date: 2020-04-23
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Features:
-#       - Caching done outside this class
+#   Fixes:
+#       - Error on page with no tags
 #
 ###
 
@@ -37,7 +37,7 @@ class Tags(metaclass=Singleton):
         self.__logger.debug('list - posts_dir: {0}'.format(posts_dir))
 
         settings = Content().load_data_settings_yaml(self.__base_dir)
-        self.__logger.debug('list - settings: {0}'.format(settings))
+        self.__logger.info('list - settings: {0}'.format(settings))
 
         # Starting with a dictionary as this is the easiest to find existing tags
         tags = {}
@@ -45,6 +45,9 @@ class Tags(metaclass=Singleton):
         try:
             for file in os.listdir(posts_dir):
                 meta, _, _ = Content().read_content(posts_dir, file)  # No need to catch the content
+
+                if meta['tags'] is None:
+                    continue
 
                 for tag in meta['tags']:
                     label = self.__tag_label(tag)
@@ -96,6 +99,10 @@ class Tags(metaclass=Singleton):
         try:
             for file in sorted(os.listdir(posts_dir), reverse=True):
                 post, _, post['content'] = Content().read_content(posts_dir, file)
+
+                if post['tags'] is None:
+                    continue
+
                 self.__logger.debug('data - post: {0}'.format(post))
 
                 must_include = False
@@ -149,6 +156,9 @@ class Tags(metaclass=Singleton):
             for file in os.listdir(posts_dir):
                 post, _, _ = Content().read_content(posts_dir, file)
 
+                if post['tags'] is None:
+                    continue
+
                 for tag_raw in post['tags']:
                     if self.__tag_label(tag_raw) == tag:
                         count_entries += 1
@@ -171,6 +181,13 @@ class Tags(metaclass=Singleton):
 
 
 ###
+#
+#   Version: 1.2.0
+#   Date: 2020-04-17
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - Caching done outside this class
 #
 #   Version: 1.1.0
 #   Date: 2020-04-15

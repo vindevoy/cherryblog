@@ -2,11 +2,11 @@
 #
 #   Full history: see below
 #
-#   Version: 2.1.0
-#   Date: 2020-04-15
+#   Version: 2.2.0
+#   Date: 2020-04-23
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Added logging
+#   Added SSL
 #
 ###
 
@@ -66,6 +66,18 @@ if __name__ == '__main__':
 
     logger.debug('main - CherryPy settings:\n{0}\n'.format(settings))
 
+    if Options().use_ssl:
+        cherrypy.server.ssl_module = 'pyOpenSSL'
+
+        if Options().ssl_certificate != '':
+            cherrypy.server.ssl_certificate = Options().ssl_certificate
+
+        if Options().ssl_private_key != '':
+            cherrypy.server.ssl_private_key = Options().ssl_private_key
+
+        if Options().ssl_certificate_chain != '':
+            cherrypy.server.ssl_certificate_chain = Options().ssl_certificate_chain
+
     if Options().daemon:
         # Daemon info is logged by CherryPy
         daemon = Daemonizer(cherrypy.engine)
@@ -87,6 +99,12 @@ if __name__ == '__main__':
     cherrypy.quickstart(Application(), config=settings)
 
 ###
+#
+#   Version: 2.1.0
+#   Date: 2020-04-15
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Added logging
 #
 #   Version: 2.0.0
 #   Date: 2020-04-13

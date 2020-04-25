@@ -37,3 +37,7 @@ user:
   uid: 3112
   gid: 3112
 
+ssl:
+  ssl_certificate: 'cert.pem'
+  ssl_private_key: 'private.pem'
+  ssl_certificate_chain:

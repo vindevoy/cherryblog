@@ -1,5 +1,4 @@
 ---
 
 skip_tags:
-  - skip_me
-  - and_me
+  - history

@@ -2,11 +2,11 @@
 #
 #   Full history: see below
 #
-#   Version: 2.0.0
-#   Date: 2020-04-13
+#   Version: 2.1.0
+#   Date: 2020-04-23
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Renamed class from OptionsLoader to Options (as it's not loading anything)
+#   Adding SSL
 #
 ###
 
@@ -37,7 +37,19 @@ class Options(metaclass=Singleton):
 
     default_logging_level = ''
 
+    # SSL settings (for instance for LetsEncrypt)
+    use_ssl = False
+    ssl_certificate = ''
+    ssl_private_key = ''
+    ssl_certificate_chain = ''
+
 ###
+#
+#   Version: 2.0.0
+#   Date: 2020-04-13
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Renamed class from OptionsLoader to Options (as it's not loading anything)
 #
 #   Version: 1.1.0
 #   Date: 2020-04-13
