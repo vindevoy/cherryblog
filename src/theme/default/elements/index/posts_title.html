@@ -11,7 +11,8 @@
 
 {% if data.pagination.current_page > 1 %}
     {% with primary_text = data.i8n.index.primary_title_archive,
-            secondary_text = data.i8n.navigation.page_of_page + ' ' + data.pagination.current_page|string + ' '  +
+            secondary_text = '',
+            tertiary_text = data.i8n.navigation.page_of_page + ' ' + data.pagination.current_page|string + ' '  +
                              data.i8n.navigation.page_of_of + ' ' + data.pagination.total_pages|string %}
 
         {% include 'elements/_html/title.html' %}
