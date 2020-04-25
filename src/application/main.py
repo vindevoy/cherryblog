@@ -2,11 +2,12 @@
 #
 #   Full history: see below
 #
-#   Version: 2.2.0
-#   Date: 2020-04-23
+#   Version: 2.2.1
+#   Date: 2020-04-25
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Added SSL
+#   Fixes:
+#       - Urgent bug on the type of SSL to use
 #
 ###
 
@@ -67,7 +68,10 @@ if __name__ == '__main__':
     logger.debug('main - CherryPy settings:\n{0}\n'.format(settings))
 
     if Options().use_ssl:
-        cherrypy.server.ssl_module = 'pyOpenSSL'
+        # vindevoy - 2020-04-25
+        # You must use the builtin SSL option.  If you use pyOpenSLL you get the error below (see history)
+
+        cherrypy.server.ssl_module = 'builtin'
 
         if Options().ssl_certificate != '':
             cherrypy.server.ssl_certificate = Options().ssl_certificate
@@ -100,6 +104,12 @@ if __name__ == '__main__':
 
 ###
 #
+#   Version: 2.2.0
+#   Date: 2020-04-23
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Added SSL
+#
 #   Version: 2.1.0
 #   Date: 2020-04-15
 #   Author: Yves Vindevogel (vindevoy)
@@ -114,5 +124,62 @@ if __name__ == '__main__':
 #   It has been split into main.py containing only the main() function
 #   and application.py in controller that maps the URLs
 #   History of the file is kept in application.py
+#
+###
+
+###
+#
+# 2020 - 04 - 25
+# 11: 42:57, 567[ERROR][25 / Apr / 2020:11:42: 57] ENGINE
+# WantWriteError()
+# Traceback(most
+# recent
+# call
+# last):
+# File
+# "/usr/local/lib/python3.6/site-packages/cheroot/server.py", line
+# 1269, in communicate
+# req.respond()
+# File
+# "/usr/local/lib/python3.6/site-packages/cheroot/server.py", line
+# 1071, in respond
+# self.server.gateway(self).respond()
+# File
+# "/usr/local/lib/python3.6/site-packages/cheroot/wsgi.py", line
+# 148, in respond
+# self.write(chunk)
+# File
+# "/usr/local/lib/python3.6/site-packages/cheroot/wsgi.py", line
+# 234, in write
+# self.req.write(chunk)
+# File
+# "/usr/local/lib/python3.6/site-packages/cheroot/server.py", line
+# 1127, in write
+# self.conn.wfile.write(chunk)
+# File
+# "/usr/local/lib/python3.6/site-packages/cheroot/makefile.py", line
+# 438, in write
+# res = super().write(val, *args, **kwargs)
+# File
+# "/usr/local/lib/python3.6/site-packages/cheroot/makefile.py", line
+# 36, in write
+# self._flush_unlocked()
+# File
+# "/usr/local/lib/python3.6/site-packages/cheroot/makefile.py", line
+# 45, in _flush_unlocked
+# n = self.raw.write(bytes(self._write_buf))
+# File
+# "/usr/lib64/python3.6/socket.py", line
+# 604, in write
+# return self._sock.send(b)
+# File
+# "/usr/lib/python3.6/site-packages/OpenSSL/SSL.py", line
+# 1729, in send
+# self._raise_ssl_error(self._ssl, result)
+# File
+# "/usr/lib/python3.6/site-packages/OpenSSL/SSL.py", line
+# 1616, in _raise_ssl_error
+# raise WantWriteError()
+# OpenSSL.SSL.WantWriteError
 #
 ###
