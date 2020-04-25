@@ -78,6 +78,15 @@ a:hover, a:active, a:hover {
   border-color: darkred !important;
 }
 
+.btn-primary:focus, .btn-primary.focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 1);
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 1);
+}
+
 .page-link {
   color: red;
   padding: 0.1rem 0.5rem;
@@ -111,7 +120,7 @@ code {
   font-size: 100%;
   color: black;
   word-wrap: break-word;
-  background-color: #fbfbfb;
+  background-color: rgba(0, 0, 0, 0.03);
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;

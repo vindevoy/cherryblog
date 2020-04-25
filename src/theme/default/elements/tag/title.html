@@ -1,9 +1,19 @@
 <!-- Title -->
-{% with primary_text = data.tag.name,
-        secondary_text = data.i8n.tags.secondary_title %}
+{% if data.pagination.total_pages == 1 %}
+    {% with primary_text = data.tag.name,
+            secondary_text = data.i8n.tags.secondary_title %}
 
-    {% include 'elements/_html/title.html' %}
-{% endwith %}
+        {% include 'elements/_html/title.html' %}
+    {% endwith %}
+{% else %}
+    {% with primary_text = data.tag.name,
+            secondary_text = data.i8n.tags.secondary_title,
+            tertiary_text = data.i8n.navigation.page_of_page + ' ' + data.pagination.current_page|string + ' '  +
+                                data.i8n.navigation.page_of_of + ' ' + data.pagination.total_pages|string %}
+
+        {% include 'elements/_html/title.html' %}
+    {% endwith %}
+{% endif %}
 
 {% with source = '/images/' + data.posts[0].image %}
     {% include 'elements/_html/page_image.html' %}

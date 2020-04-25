@@ -1,3 +1,26 @@
+# Release v1.4.1
+
+
+- author: Yves Vindevogel (vindevoy)
+- date: 2020-04-25
+
+## Fixes
+
+- Colour of the background for code is now aligned with the colour of the boxes
+- Blue border is gone on the buttons on the home page (primary buttons)
+- Margin problem on the tags for smaller screens
+- No data showing in the version widget on smaller screens
+- External links go in a new tab or window
+- Tags now also display page x of y
+- MIT License is linked to a Wikipedia page
+
+### Github 
+
+For more information on this release, see the issues for this milestone:
+
+- [https://github.com/vindevoy/cherryblog/milestone/10](https://github.com/vindevoy/cherryblog/milestone/10)
+
+
 # Release v1.4.0
 
 

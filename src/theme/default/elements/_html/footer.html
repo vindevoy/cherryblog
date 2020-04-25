@@ -7,7 +7,11 @@
                 <ul class="list-unstyled m-0 p-0">
                     {% for menu in data.footer_menu %}
                         <li>
-                            <a class="text-white" href="{{ menu.ref }}">{{ menu.label }}</a>
+                            {% if menu.ref.startswith('http') %}
+                                <a class="text-white" href="{{ menu.ref }}" target="_blank">{{ menu.label }}</a>
+                            {% else %}
+                                <a class="text-white" href="{{ menu.ref }}">{{ menu.label }}</a>
+                            {% endif %}
                         </li>
                     {% endfor %}
                 </ul>
@@ -24,9 +28,13 @@
                 <ul class="list-unstyled m-0 p-0">
                     {% for menu in data.footer_menu %}
                         <li>
-                            <a class="text-white" href="{{ menu.ref }}">{{ menu.label }}</a>
+                            {% if menu.ref.startswith('http') %}
+                                <a class="text-white" href="{{ menu.ref }}" target="_blank">{{ menu.label }}</a>
+                            {% else %}
+                                <a class="text-white" href="{{ menu.ref }}">{{ menu.label }}</a>
+                            {% endif %}
                         </li>
-                    {% endfor %}
+                {% endfor %}
                 </ul>
             </div>
         </div>
