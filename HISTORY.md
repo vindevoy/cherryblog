@@ -1,3 +1,20 @@
+# Release v1.4.2
+
+
+- author: Yves Vindevogel (vindevoy)
+- date: 2020-04-26
+
+## Enhancements
+
+- Added a simple re-route script to re-route HTTP to HTTPS. Can be used if you don't want to run behind an NGINX or Apache.
+
+### Github 
+
+For more information on this release, see the issues for this milestone:
+
+- [https://github.com/vindevoy/cherryblog/milestone/1](https://github.com/vindevoy/cherryblog/milestone/11)
+
+
 # Release v1.4.1
 
 
