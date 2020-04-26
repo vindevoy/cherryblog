@@ -37,7 +37,7 @@ class Tags(metaclass=Singleton):
         self.__logger.debug('list - posts_dir: {0}'.format(posts_dir))
 
         settings = Content().load_data_settings_yaml(self.__base_dir)
-        self.__logger.info('list - settings: {0}'.format(settings))
+        self.__logger.debug('list - settings: {0}'.format(settings))
 
         # Starting with a dictionary as this is the easiest to find existing tags
         tags = {}
