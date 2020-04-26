@@ -2,12 +2,12 @@
 #
 #   Full history: see below
 #
-#   Version: 1.3.0
+#   Version: 1.4.0
 #   Date: 2020-04-23
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Features:
-#       SSL
+#       Caching enabled or not
 #
 ###
 
@@ -137,7 +137,20 @@ class SettingsLoader(metaclass=Singleton):
 
         Options().use_ssl = use_ssl
 
+        # TODO: protect all settings the way below
+        if settings_yaml['caching']['use'] is not None:
+            Options().caching = settings_yaml['caching']['use']
+        else:
+            Options().caching = False
+
 ###
+#
+#   Version: 1.3.0
+#   Date: 2020-04-23
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       SSL
 #
 #   Version: 1.2.1
 #   Date: 2020-04-15

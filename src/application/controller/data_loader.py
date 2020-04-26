@@ -2,12 +2,12 @@
 #
 #   Full history: see below
 #
-#   Version: 1.2.0
-#   Date: 2020-04-17
+#   Version: 1.3.0
+#   Date: 2020-04-26
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Features:
-#       - Caching implemented in this class instead of model classes
+#       - Caching enabled or not
 #
 ###
 
@@ -37,11 +37,13 @@ class DataLoader(metaclass=Singleton):
 
     @staticmethod
     def __get_data(key, cls, method):
-        if DataCacher().cached_already(key):
+        if Options().caching and DataCacher().cached_already(key):
             return DataCacher().get_cached(key)
 
         data = getattr(cls, method)
-        DataCacher().cache(key, data)
+
+        if Options().caching:
+            DataCacher().cache(key, data)
 
         return data
 
@@ -64,7 +66,7 @@ class DataLoader(metaclass=Singleton):
     def common_data(self):
         key = 'common_data'
 
-        if DataCacher().cached_already(key):
+        if Options().caching and DataCacher().cached_already(key):
             return DataCacher().get_cached(key)
 
         data = {
@@ -78,7 +80,9 @@ class DataLoader(metaclass=Singleton):
                 'code_version': self.code_version_data
                 }
 
-        DataCacher().cache(key, data)
+        if Options().caching:
+            DataCacher().cache(key, data)
+
         return data
 
     # important news
@@ -103,7 +107,7 @@ class DataLoader(metaclass=Singleton):
     def index_data(self, page_index):
         key = '/index/{0}'.format(page_index)
 
-        if DataCacher().cached_already(key):
+        if Options().caching and DataCacher().cached_already(key):
             return DataCacher().get_cached(key)
 
         common = self.common_data
@@ -112,7 +116,8 @@ class DataLoader(metaclass=Singleton):
         #  We don't care yet about the raw intro
         combined = self.__combine(common, data)
 
-        DataCacher().cache(key, combined)
+        if Options().caching:
+            DataCacher().cache(key, combined)
 
         return combined
 
@@ -140,14 +145,15 @@ class DataLoader(metaclass=Singleton):
     def pages_data(self, page):
         key = '/pages/{0}'.format(page)
 
-        if DataCacher().cached_already(key):
+        if Options().caching and DataCacher().cached_already(key):
             return DataCacher().get_cached(key)
 
         common = self.common_data
         data, _, _ = Pages().data(page)  # No catching the meta and raw data yet
         combined = self.__combine(common, data)
 
-        DataCacher().cache(key, combined)
+        if Options().caching:
+            DataCacher().cache(key, combined)
 
         return combined
 
@@ -163,14 +169,15 @@ class DataLoader(metaclass=Singleton):
     def posts_data(self, post):
         key = '/posts/{0}'.format(post)
 
-        if DataCacher().cached_already(key):
+        if Options().caching and DataCacher().cached_already(key):
             return DataCacher().get_cached(key)
 
         common = self.common_data
         data, _, _ = Posts().data(post)  # We don't do anything with the meta and raw data yet
         combined = self.__combine(common, data)
 
-        DataCacher().cache(key, combined)
+        if Options().caching:
+            DataCacher().cache(key, combined)
 
         return combined
 
@@ -183,12 +190,13 @@ class DataLoader(metaclass=Singleton):
     def tags_posts_count(self, tag):
         key = 'tags_posts_count/{0}'.format(tag)
 
-        if DataCacher().cached_already(key):
+        if Options().caching and DataCacher().cached_already(key):
             return DataCacher().get_cached(key)
 
         data = Tags().count_posts(self.posts_directory, tag)
 
-        DataCacher().cache(key, data)
+        if Options().caching:
+            DataCacher().cache(key, data)
 
         return data
 
@@ -196,12 +204,13 @@ class DataLoader(metaclass=Singleton):
     def tags_list(self):
         key = 'tags_list'
 
-        if DataCacher().cached_already(key):
+        if Options().caching and DataCacher().cached_already(key):
             return DataCacher().get_cached(key)
 
         tags_list = Tags().list(self.posts_directory)
 
-        DataCacher().cache(key, tags_list)
+        if Options().caching:
+            DataCacher().cache(key, tags_list)
 
         return tags_list
 
@@ -212,18 +221,26 @@ class DataLoader(metaclass=Singleton):
     def tags_data(self, tag, page_index):
         key = 'tags_data/{0}/{1}'.format(tag, page_index)
 
-        if DataCacher().cached_already(key):
+        if Options().caching and DataCacher().cached_already(key):
             return DataCacher().get_cached(key)
 
         common = self.common_data
         data = Tags().data(self.posts_directory, tag, page_index, self.index_max_posts, self.tags_posts_count(tag))
         combined = self.__combine(common, data)
 
-        DataCacher().cache(key, combined)
+        if Options().caching:
+            DataCacher().cache(key, combined)
 
         return combined
 
 ###
+#
+#   Version: 1.2.0
+#   Date: 2020-04-17
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - Caching implemented in this class instead of model classes
 #
 #   Version: 1.1.0
 #   Date: 2020-04-09

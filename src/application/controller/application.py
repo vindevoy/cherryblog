@@ -2,11 +2,11 @@
 #
 #   Full history: see below
 #
-#   Version: 2.2.0
-#   Date: 2020-04-22
+#   Version: 2.3.0
+#   Date: 2020-04-26
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Added page caching
+#   Caching enabled or not
 #
 ###
 
@@ -34,7 +34,7 @@ class Application(metaclass=Singleton):
         request = '/index/{0}'.format(page_index)
         start = datetime.now()
 
-        if PageCacher().cached_already(request):
+        if Options().caching and PageCacher().cached_already(request):
             rendered = PageCacher().get_cached(request)
 
         else:
@@ -44,7 +44,8 @@ class Application(metaclass=Singleton):
             template = TemplateLoader().get_template('screen_index.html')
             rendered = template.render(data=data)
 
-            PageCacher().cache(request, rendered)
+            if Options().caching:
+                PageCacher().cache(request, rendered)
 
         finished = datetime.now()
         self.__logger.info('{0} {1}'.format(request, finished - start))
@@ -56,7 +57,7 @@ class Application(metaclass=Singleton):
         request = '/pages/{0}'.format(page)
         start = datetime.now()
 
-        if PageCacher().cached_already(request):
+        if Options().caching and PageCacher().cached_already(request):
             rendered = PageCacher().get_cached(request)
 
         else:
@@ -67,7 +68,8 @@ class Application(metaclass=Singleton):
             template = TemplateLoader().get_template('screen_page.html')
             rendered = template.render(data=data)
 
-            PageCacher().cache(request, rendered)
+            if Options().caching:
+                PageCacher().cache(request, rendered)
 
         finished = datetime.now()
         self.__logger.info('{0} {1}'.format(request, finished - start))
@@ -79,7 +81,7 @@ class Application(metaclass=Singleton):
         request = '/posts/{0}'.format(post)
         start = datetime.now()
 
-        if PageCacher().cached_already(request):
+        if Options().caching and PageCacher().cached_already(request):
             rendered = PageCacher().get_cached(request)
 
         else:
@@ -89,7 +91,8 @@ class Application(metaclass=Singleton):
             template = TemplateLoader().get_template('screen_post.html')
             rendered = template.render(data=data)
 
-            PageCacher().cache(request, rendered)
+            if Options().caching:
+                PageCacher().cache(request, rendered)
 
         finished = datetime.now()
         self.__logger.info('{0} {1}'.format(request, finished - start))
@@ -101,7 +104,7 @@ class Application(metaclass=Singleton):
         request = '/tags/{0}/{1}'.format(tag, page_index)
         start = datetime.now()
 
-        if PageCacher().cached_already(request):
+        if Options().caching and PageCacher().cached_already(request):
             rendered = PageCacher().get_cached(request)
 
         else:
@@ -111,7 +114,8 @@ class Application(metaclass=Singleton):
             template = TemplateLoader().get_template('screen_tag.html')
             rendered = template.render(data=data)
 
-            PageCacher().cache(request, rendered)
+            if Options().caching:
+                PageCacher().cache(request, rendered)
 
         finished = datetime.now()
         self.__logger.info('{0} {1}'.format(request, finished - start))
@@ -139,6 +143,12 @@ class Application(metaclass=Singleton):
     #     return rendered
 
 ###
+#
+#   Version: 2.2.0
+#   Date: 2020-04-22
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Added page caching
 #
 #   Version: 2.1.0
 #   Date: 2020-04-15
