@@ -129,7 +129,7 @@ class Tags(metaclass=Singleton):
 
                     data['posts'].append(post)
 
-                    if count_entries == max_entries:
+                    if count_entries == (max_entries + skip_entries):
                         self.__logger.debug('data - enough posts')
                         break
         except FileNotFoundError:
