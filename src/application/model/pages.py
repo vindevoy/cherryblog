@@ -37,6 +37,19 @@ class Pages(metaclass=Singleton):
         return directory
 
     @property
+    def files(self):
+        directory = self.directory
+        files = []
+
+        for file in sorted(os.listdir(directory), reverse=False):
+            entry = {'directory': self.__base_dir,
+                     'file': file}
+
+            files.append(entry)
+
+        return files
+
+    @property
     def count(self):
         try:
             count = len(os.listdir(self.directory))

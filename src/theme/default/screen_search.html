@@ -1,0 +1,20 @@
+{% extends "_screen.html" %}
+{% block content %}
+    {% include 'elements/search/title.html' %}
+    {% include 'elements/search/query.html' %}
+
+    {% for found in data.found %}
+        {% with found = found,
+                occurrences_postfix = data.i8n.search.occurrences_postfix,
+                button = data.i8n.navigation.read_more_label
+        %}
+
+            <div class="row mb-3 p-0 m-0">
+                {% include 'elements/search/found.html' %}
+            </div>
+
+        {% endwith %}
+    {% endfor %}
+
+    {% include 'elements/search/pagination.html' %}
+{% endblock %}

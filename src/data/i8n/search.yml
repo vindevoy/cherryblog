@@ -1,0 +1,23 @@
+---
+
+widget_title: 'Search'
+widget_placeholder: 'Search for ...'
+widget_button: 'Go!'
+
+primary_title: 'Search results'
+
+no_results: 'no results found'
+no_more_results: 'no more results found'
+
+found_prefix: "Found with '"
+found_postfix: "' : "
+
+page_prefix: ' page '
+page_postfix: ' - '
+
+entries_prefix: ' entries '
+entries_to: ' to '
+entries_postfix: ''
+
+occurrences_prefix: 'Found '
+occurrences_postfix: ' time(s) - showing first occurrence'

@@ -122,6 +122,22 @@ class Application(metaclass=Singleton):
 
         return rendered
 
+    @cherrypy.expose
+    def search(self, page_index=1, query='', **_):
+        request = '/search/{0}/{1}'.format(page_index, query)
+        start = datetime.now()
+
+        data = DataLoader().search_data(query, page_index)
+        data['url'] = request
+
+        template = TemplateLoader().get_template('screen_search.html')
+        rendered = template.render(data=data)
+
+        finished = datetime.now()
+        self.__logger.info('{0} {1}'.format(request, finished - start))
+
+        return rendered
+
     # @cherrypy.expose
     # def print_page(self, page, **_):
     #     data = DataLoader().get_page_data(page)

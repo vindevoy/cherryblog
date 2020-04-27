@@ -22,6 +22,7 @@ from model.important_news import ImportantNews
 from model.index import Index
 from model.pages import Pages
 from model.posts import Posts
+from model.search import Search
 from model.settings import Settings
 from model.tags import Tags
 
@@ -139,6 +140,10 @@ class DataLoader(metaclass=Singleton):
         return self.__get_data('pages_directory', Pages(), 'directory')
 
     @property
+    def pages_files(self):
+        return self.__get_data('pages_files', Pages(), 'files')
+
+    @property
     def pages_count(self):
         return self.__get_data('pages_count', Pages(), 'count')
 
@@ -163,6 +168,10 @@ class DataLoader(metaclass=Singleton):
         return self.__get_data('posts_directory', Posts(), 'directory')
 
     @property
+    def posts_files(self):
+        return self.__get_data('posts_files', Posts(), 'files')
+
+    @property
     def posts_count(self):
         return self.__get_data('posts_count', Posts(), 'count')
 
@@ -178,6 +187,22 @@ class DataLoader(metaclass=Singleton):
 
         if Options().caching:
             DataCacher().cache(key, combined)
+
+        return combined
+
+    # search
+    def search_data(self, query, page_index):
+        search_base = []
+
+        for page in self.pages_files:
+            search_base.append(page)
+
+        for post in self.posts_files:
+            search_base.append(post)
+
+        common = self.common_data
+        data = Search().data(query, page_index, search_base, self.index_max_posts)
+        combined = self.__combine(common, data)
 
         return combined
 

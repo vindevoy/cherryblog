@@ -1,0 +1,11 @@
+<!-- Search item -->
+<div class="m-0 p-0 px-2 w-100">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ found.meta.title }}</h5>
+            <p class="text-muted small">{{ data.i8n.search.occurrences_prefix }}{{ found.occurrences }}{{ data.i8n.search.occurrences_postfix }}</p>
+            <p class="card-text">{{ found.sample }}</p>
+            <a href="/{{ found.item.directory }}/{{ found.item.stem }}" class="btn btn-primary">{{ button }}</a>
+        </div>
+    </div>
+</div>
