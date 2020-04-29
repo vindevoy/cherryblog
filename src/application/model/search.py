@@ -29,9 +29,9 @@ class Search(metaclass=Singleton):
         self.__logger.setLevel(Options().default_logging_level)
 
     def data(self, query, page_index, search_base, max_entries):
-        self.__logger.info('data - query: {0}'.format(query))
-        self.__logger.info('data - page_index: {0}'.format(page_index))
-        self.__logger.info('data - search_base: {0}'.format(search_base))
+        self.__logger.debug('data - query: {0}'.format(query))
+        self.__logger.debug('data - page_index: {0}'.format(page_index))
+        self.__logger.debug('data - search_base: {0}'.format(search_base))
 
         data = {'found': []}
 
@@ -41,15 +41,15 @@ class Search(metaclass=Singleton):
         first_entry = skip_entries + 1
 
         for item in search_base:
-            self.__logger.info('data - search_base item: {0}'.format(item))
+            self.__logger.debug('data - search_base item: {0}'.format(item))
 
             meta, raw, html = Content().read_content(item['directory'], item['file'])
 
             lowered_query = query.lower()
             lowered_raw = raw.lower()
 
-            self.__logger.info('data - lowered_query: {0}'.format(lowered_query))
-            self.__logger.info('data - lowered_raw: {0}'.format(lowered_raw))
+            self.__logger.debug('data - lowered_query: {0}'.format(lowered_query))
+            self.__logger.debug('data - lowered_raw: {0}'.format(lowered_raw))
 
             if lowered_query in lowered_raw:
                 count_entries += 1
