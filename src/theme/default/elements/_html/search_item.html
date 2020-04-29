@@ -7,5 +7,15 @@
             <p class="card-text">{{ found.sample }}</p>
             <a href="/{{ found.item.directory }}/{{ found.item.stem }}" class="btn btn-primary">{{ button }}</a>
         </div>
+
+        {% with author = author,
+                date = date,
+                author_prefix = data.i8n.meta.author_prefix,
+                author_postfix = data.i8n.meta.author_postfix,
+                date_prefix = data.i8n.meta.date_prefix,
+                date_postfix = data.i8n.meta.date_postfix
+                %}
+            {% include 'elements/_html/card_footer.html' %}
+        {% endwith %}
     </div>
 </div>

@@ -5,6 +5,8 @@
 
     {% for found in data.found %}
         {% with found = found,
+                date= found.meta.date,
+                author = found.meta.author,
                 occurrences_postfix = data.i8n.search.occurrences_postfix,
                 button = data.i8n.navigation.read_more_label
         %}
