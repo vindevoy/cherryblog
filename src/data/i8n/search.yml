@@ -9,7 +9,7 @@ primary_title: 'Search results'
 no_results: 'no results found'
 no_more_results: 'no more results found'
 
-found_prefix: "Found with '"
+found_prefix: "Searching for '"
 found_postfix: "' : "
 
 page_prefix: ' page '

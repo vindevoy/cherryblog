@@ -5,7 +5,7 @@
     <div class="card-body">
       <div class="input-group">
         <input type="hidden" name="page_index" value="1">
-        <input type="text" class="form-control mr-1" placeholder="{{ data.i8n.search.widget_placeholder }}" name="query">
+        <input type="text" class="form-control mr-1" placeholder="{{ data.i8n.search.widget_placeholder }}" name="query" minlength="3" required="required">
 
         <span class="input-group-btn">
           <button class="btn btn-secondary" type="submit">{{ data.i8n.search.widget_button }}</button>
