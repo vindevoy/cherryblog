@@ -22,6 +22,8 @@ from common.singleton import Singleton
 
 
 class Search(metaclass=Singleton):
+    __base_dir = 'search'
+
     __logger = None
 
     def __init__(self):
@@ -33,6 +35,11 @@ class Search(metaclass=Singleton):
         self.__logger.debug('data - page_index: {0}'.format(page_index))
         self.__logger.debug('data - search_base: {0}'.format(search_base))
 
+        settings = Content().load_data_settings_yaml(self.__base_dir)
+        excluded = settings['excluded']
+
+        self.__logger.debug('data - excluded: {0}'.format(excluded))
+
         data = {'found': []}
 
         page_index = int(page_index)
@@ -43,7 +50,20 @@ class Search(metaclass=Singleton):
         for item in search_base:
             self.__logger.debug('data - search_base item: {0}'.format(item))
 
-            meta, raw, html = Content().read_content(item['directory'], item['file'])
+            directory = item['directory']
+            file = item['file']
+            stem = Path(file).stem
+
+            # adding the stem to the object for the final url
+            item['stem'] = stem
+
+            url = '/{0}/{1}'.format(directory, stem)
+
+            if url in excluded:
+                self.__logger.debug('data - excluded item: {0}'.format(item))
+                continue
+
+            meta, raw, html = Content().read_content(directory, file)
 
             lowered_query = query.lower()
             lowered_raw = raw.lower()
@@ -110,9 +130,6 @@ class Search(metaclass=Singleton):
 
                 occurrences = lowered_raw.count(lowered_query)
                 self.__logger.debug('data - occurrences: {0}'.format(occurrences))
-
-                stem = Path(item['file']).stem
-                item['stem'] = stem
 
                 entry = {
                     'item': item,
