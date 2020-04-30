@@ -154,7 +154,7 @@ class DataLoader(metaclass=Singleton):
             return DataCacher().get_cached(key)
 
         common = self.common_data
-        data, _, _ = Pages().data(page)  # No catching the meta and raw data yet
+        data, _, _ = Pages().data(page, self.tags_skip_list)  # No catching the meta and raw data yet
         combined = self.__combine(common, data)
 
         if Options().caching:
@@ -182,7 +182,7 @@ class DataLoader(metaclass=Singleton):
             return DataCacher().get_cached(key)
 
         common = self.common_data
-        data, _, _ = Posts().data(post)  # We don't do anything with the meta and raw data yet
+        data, _, _ = Posts().data(post, self.tags_skip_list)  # We don't do anything with the meta and raw data yet
         combined = self.__combine(common, data)
 
         if Options().caching:
@@ -233,6 +233,20 @@ class DataLoader(metaclass=Singleton):
             return DataCacher().get_cached(key)
 
         tags_list = Tags().list(self.posts_directory)
+
+        if Options().caching:
+            DataCacher().cache(key, tags_list)
+
+        return tags_list
+
+    @property
+    def tags_skip_list(self):
+        key = 'tags_skip_list'
+
+        if Options().caching and DataCacher().cached_already(key):
+            return DataCacher().get_cached(key)
+
+        tags_list = Tags().skip_tags()
 
         if Options().caching:
             DataCacher().cache(key, tags_list)

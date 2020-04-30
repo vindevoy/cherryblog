@@ -19,6 +19,8 @@ from common.content import Content
 from common.options import Options
 from common.singleton import Singleton
 
+from model.tags import Tags
+
 
 class Pages(metaclass=Singleton):
     __base_dir = 'pages'
@@ -61,7 +63,7 @@ class Pages(metaclass=Singleton):
 
         return count
 
-    def data(self, page):
+    def data(self, page, skip_tags):
         self.__logger.debug('data - page: {0}'.format(page))
 
         data = {}
@@ -70,6 +72,21 @@ class Pages(metaclass=Singleton):
 
         meta['content'] = html
         data['page'] = meta
+
+        # remove the skipped tags
+        tags = []
+
+        try:
+            for tag in data['page']['tags']:
+                if Tags().tag_label(tag) not in skip_tags:
+                    tags.append(tag)
+                else:
+                    self.__logger.debug('data - removing skipped tag: {0}'.format(tag))
+        except KeyError:
+            pass
+
+        data['page']['tags'] = tags
+        self.__logger.debug('data - tags: {0}'.format(tags))
 
         self.__logger.debug('data - pages[{0}]: {1}'.format(page, data))
 

@@ -1,0 +1,23 @@
+<!--
+    Full history: see below
+
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: Show the tags of content at the bottom of the page
+
+    Parameters:
+        - tags
+-->
+
+{% if tags|length > 0 %}
+    <div class="m-0 p-0 px-2">
+        <p class="text-muted small m-0 p-0">Tags</p>
+        <ul class="small">
+            {% for tag in tags %}
+                <li class="small text-muted">{{ tag }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

@@ -1,0 +1,15 @@
+<!--
+    Full history: see below
+
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: Display the tags of a post
+
+    Parameters: none
+-->
+
+{% with tags = data.post.tags %}
+    {% include 'elements/_html/content_tags.html' %}
+{% endwith %}
