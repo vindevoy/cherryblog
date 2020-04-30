@@ -1,20 +1,26 @@
-<!-- Search item -->
+<!--
+    Full history: see below
+
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: displays one search item (box style)
+
+    Parameters:
+        - found (the item found by the search, this can be a post or a page)
+-->
+
 <div class="m-0 p-0 px-2 w-100">
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">{{ found.meta.title }}</h5>
             <p class="text-muted small">{{ data.i8n.search.occurrences_prefix }}{{ found.occurrences }}{{ data.i8n.search.occurrences_postfix }}</p>
             <p class="card-text">{{ found.sample }}</p>
-            <a href="/{{ found.item.directory }}/{{ found.item.stem }}" class="btn btn-primary">{{ button }}</a>
+            <a href="/{{ found.item.directory }}/{{ found.item.stem }}" class="btn btn-primary">{{ data.i8n.navigation.read_more_label }}</a>
         </div>
 
-        {% with author = author,
-                date = date,
-                author_prefix = data.i8n.meta.author_prefix,
-                author_postfix = data.i8n.meta.author_postfix,
-                date_prefix = data.i8n.meta.date_prefix,
-                date_postfix = data.i8n.meta.date_postfix
-                %}
+        {% with author = found.meta.author, date = found.meta.date %}
             {% include 'elements/_html/card_footer.html' %}
         {% endwith %}
     </div>

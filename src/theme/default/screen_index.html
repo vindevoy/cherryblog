@@ -1,11 +1,17 @@
+<!--
+    Full history: see below
+
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: extends the screen page with the index content
+-->
+
 {% extends "_screen.html" %}
 {% block content %}
     {% if data.pagination.current_page == 1 %}
-        {% with primary_text = data.i8n.index.primary_title,
-                secondary_text = data.i8n.index.secondary_title %}
-
-            {% include 'elements/index/introduction_title.html' %}
-        {% endwith %}
+        {% include 'elements/index/introduction_title.html' %}
 
         <div class="m-0 mb-3 p-0 px-2">
             <div class="card">
@@ -24,7 +30,7 @@
         {% for post in data.spotlight_posts %}
             <div class="row mb-3 m-0 p-0">
                 {% with post = post %}
-                    {% include 'elements/index/spotlight_post.html' %}
+                    {% include 'elements/_html/spotlight_post.html' %}
                 {% endwith %}
             </div>
         {% endfor %}
@@ -32,7 +38,7 @@
         <div class="row m-0 p-0">
             {% for post in data.highlight_posts %}
                 {% with post = post %}
-                    {% include 'elements/index/highlight_post.html' %}
+                    {% include 'elements/_html/highlight_post.html' %}
                 {% endwith %}
             {% endfor %}
         </div>
@@ -41,7 +47,7 @@
     {% for post in data.posts %}
         {% with post = post %}
             <div class="row mb-3 m-0 p-0">
-                {% include 'elements/index/standard_post.html' %}
+                {% include 'elements/_html/standard_post.html' %}
             </div>
         {% endwith %}
     {% endfor %}

@@ -1,11 +1,21 @@
-<!-- Title -->
+<!--
+    Full history: see below
+
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: Display the title of a post
+
+    Parameters: none
+-->
+
 {% with primary_text = data.post.title,
         secondary_text = '' %}
 
     {% include 'elements/_html/title.html' %}
 {% endwith %}
 
-<!-- Preview Image -->
-{% with source = '/images/' + data.post.image %}
+{% with src = '/images/' + data.post.image %}
     {% include 'elements/_html/page_image.html' %}
 {% endwith %}

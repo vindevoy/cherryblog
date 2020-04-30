@@ -1,11 +1,15 @@
-<!-- Pagination -->
-{% with current_page = data.pagination.current_page,
-        total_pages = data.pagination.total_pages,
-        home_path = '',
-        base_path = 'index',
-        label_previous_page = data.i8n.navigation.previous_page_label,
-        label_next_page = data.i8n.navigation.next_page_label
-        %}
+<!--
+    Full history: see below
 
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: Display the pagination on the index pages
+
+    Parameters: none
+-->
+
+{% with home_path = '', base_path = 'index' %}
         {% include 'elements/_html/posts_pagination.html' %}
 {% endwith %}

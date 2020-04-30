@@ -1,1 +1,15 @@
-<span class="small">{{ author_prefix }}{{ author }}{{ author_postfix }}{{ date_prefix }}{{ date }}{{ date_postfix }}</span>
+<!--
+    Full history: see below
+
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: card meta shows the author and date of a content item
+
+    Parameters:
+    - author
+    - date
+-->
+
+<span class="small">{{ data.i8n.meta.author_prefix }}{{ author }}{{ data.i8n.meta.author_postfix }}{{ data.i8n.meta.date_prefix }}{{ date }}{{ data.i8n.meta.date_postfix }}</span>

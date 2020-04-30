@@ -1,4 +1,15 @@
-<!-- Sub title -->
+<!--
+    Full history: see below
+
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: Display the results of the query
+
+    Parameters: none
+-->
+
 {% if data.pagination.found_entries > 0 %}
     {% with subtitle = data.i8n.search.found_prefix +
                         data.search.query +

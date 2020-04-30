@@ -1,11 +1,15 @@
-<!-- Meta -->
-{% with author = data.post.author,
-        date = data.post.date,
-        author_prefix = data.i8n.meta.author_prefix,
-        author_postfix = data.i8n.meta.author_postfix,
-        date_prefix = data.i8n.meta.date_prefix,
-        date_postfix = data.i8n.meta.date_postfix
-        %}
+<!--
+    Full history: see below
 
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: Display the meta data of a post
+
+    Parameters: none
+-->
+
+{% with author = data.post.author, date = data.post.date %}
     {% include 'elements/_html/meta.html' %}
 {% endwith %}
