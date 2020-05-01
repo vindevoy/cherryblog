@@ -2,12 +2,13 @@
 #
 #   Full history: see below
 #
-#   Version: 1.2.1
-#   Date: 2020-04-23
+#   Version: 1.3.0
+#   Date: 2020-05-01
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Fixes:
-#       - Error on page with no tags
+#   Changes:
+#       - Moved the tag_label and tag_text methods to a support class in common
+#       - Rewrite date format
 #
 ###
 
@@ -20,8 +21,10 @@ from operator import itemgetter
 from pathlib import Path
 
 from common.content import Content
+from common.datetime_support import DateTimeSupport
 from common.options import Options
 from common.singleton import Singleton
+from common.tags_support import TagsSupport
 
 
 class Tags(metaclass=Singleton):
@@ -33,11 +36,22 @@ class Tags(metaclass=Singleton):
         self.__logger = logging.getLogger('MODEL.TAGS')
         self.__logger.setLevel(Options().default_logging_level)
 
+    def skip_tags(self):
+        settings = Content().load_data_settings_yaml(self.__base_dir)
+        self.__logger.debug('list - settings: {0}'.format(settings))
+
+        tags = []
+
+        for tag in settings['skip_tags']:
+            tags.append(TagsSupport().tag_label(tag))
+
+        return tags
+
     def list(self, posts_dir):
         self.__logger.debug('list - posts_dir: {0}'.format(posts_dir))
 
         settings = Content().load_data_settings_yaml(self.__base_dir)
-        self.__logger.info('list - settings: {0}'.format(settings))
+        self.__logger.debug('list - settings: {0}'.format(settings))
 
         # Starting with a dictionary as this is the easiest to find existing tags
         tags = {}
@@ -50,7 +64,7 @@ class Tags(metaclass=Singleton):
                     continue
 
                 for tag in meta['tags']:
-                    label = self.__tag_label(tag)
+                    label = TagsSupport().tag_label(tag)
 
                     if label in settings['skip_tags']:
                         self.__logger.debug('list - tag {0} found in skip_tags'.format(tag))
@@ -108,7 +122,7 @@ class Tags(metaclass=Singleton):
                 must_include = False
 
                 for tag_raw in post['tags']:
-                    if self.__tag_label(tag_raw) == tag:
+                    if TagsSupport().tag_label(tag_raw) == tag:
                         must_include = True
                         break
 
@@ -127,15 +141,17 @@ class Tags(metaclass=Singleton):
                     stem = Path(file).stem
                     post['url'] = stem
 
+                    post['date'] = DateTimeSupport().rewrite_date(post['date'])
+
                     data['posts'].append(post)
 
-                    if count_entries == max_entries:
+                    if count_entries == (max_entries + skip_entries):
                         self.__logger.debug('data - enough posts')
                         break
         except FileNotFoundError:
             pass
 
-        data['tag'] = {'name': self.__tag_text(tag), 'path': tag}
+        data['tag'] = {'name': TagsSupport().tag_text(tag), 'path': tag}
 
         total_index_pages = math.ceil(count_tag_posts / max_entries)
         self.__logger.debug('data - total_index_pages: {0}'.format(total_index_pages))
@@ -160,7 +176,7 @@ class Tags(metaclass=Singleton):
                     continue
 
                 for tag_raw in post['tags']:
-                    if self.__tag_label(tag_raw) == tag:
+                    if TagsSupport().tag_label(tag_raw) == tag:
                         count_entries += 1
                         self.__logger.debug('count_posts - file {0} includes tag '.format(file))
                         break
@@ -171,16 +187,14 @@ class Tags(metaclass=Singleton):
 
         return count_entries
 
-    @staticmethod
-    def __tag_label(tag):
-        return tag.lower().replace(' ', '-')
-
-    @staticmethod
-    def __tag_text(tag):
-        return string.capwords(tag.replace('-', ' '))
-
-
 ###
+#
+#   Version: 1.2.1
+#   Date: 2020-04-23
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Fixes:
+#       - Error on page with no tags
 #
 #   Version: 1.2.0
 #   Date: 2020-04-17

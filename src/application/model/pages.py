@@ -2,13 +2,13 @@
 #
 #   Full history: see below
 #
-#   Version: 1.2.0
-#   Date: 2020-04-17
+#   Version: 1.3.0
+#   Date: 2020-05-01
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Features:
-#       - Caching done outside this class
-#       - Added warning in Try Except
+#       - Removing skipped tags
+#       - Rewrite date format
 #
 ###
 
@@ -16,8 +16,10 @@ import logging
 import os
 
 from common.content import Content
+from common.datetime_support import DateTimeSupport
 from common.options import Options
 from common.singleton import Singleton
+from common.tags_support import TagsSupport
 
 
 class Pages(metaclass=Singleton):
@@ -37,6 +39,19 @@ class Pages(metaclass=Singleton):
         return directory
 
     @property
+    def files(self):
+        directory = self.directory
+        files = []
+
+        for file in sorted(os.listdir(directory), reverse=False):
+            entry = {'directory': self.__base_dir,
+                     'file': file}
+
+            files.append(entry)
+
+        return files
+
+    @property
     def count(self):
         try:
             count = len(os.listdir(self.directory))
@@ -48,7 +63,7 @@ class Pages(metaclass=Singleton):
 
         return count
 
-    def data(self, page):
+    def data(self, page, skip_tags):
         self.__logger.debug('data - page: {0}'.format(page))
 
         data = {}
@@ -58,12 +73,40 @@ class Pages(metaclass=Singleton):
         meta['content'] = html
         data['page'] = meta
 
-        self.__logger.debug('data - pages[{0}]: {1}'.format(page, data))
+        # remove the skipped tags
+        tags = []
 
-        return data, meta, content
+        try:
+            for tag in data['page']['tags']:
+                if TagsSupport().tag_label(tag) not in skip_tags:
+                    tags.append(TagsSupport().tag_text(tag))
+                else:
+                    self.__logger.debug('data - removing skipped tag: {0}'.format(tag))
+        except KeyError:
+            pass
+
+        data['page']['tags'] = tags
+        self.__logger.debug('data - tags: {0}'.format(tags))
+
+        data['page']['date'] = DateTimeSupport().rewrite_date(data['page']['date'])
+
+        self.__logger.debug('data - pages[{0}]: {1}'.format(page, data))
+        # meta: the meta in yaml format
+        # content: the content in pure markdown format
+        # data: the meta data injected with the html, completely ready for the post display
+
+        return meta, content, data
 
 
 ###
+#
+#   Version: 1.2.0
+#   Date: 2020-04-17
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - Caching done outside this class
+#       - Added warning in Try Except
 #
 #   Version: 1.1.0
 #   Date: 2020-04-15

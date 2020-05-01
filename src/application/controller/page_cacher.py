@@ -1,3 +1,13 @@
+###
+#
+#   Version: 1.0.0
+#   Date: 2020-04-17
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       Simple page caching
+#
+###
 
 import logging
 
@@ -23,3 +33,4 @@ class PageCacher(metaclass=Singleton):
     def cache(self, key, data):
         self.__logger.info('Caching {0}'.format(key))
         self.__cached_pages[key] = data
+

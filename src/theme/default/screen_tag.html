@@ -1,14 +1,21 @@
+<!--
+    Full history: see below
+
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: extends the screen page with the tag content
+-->
+
 {% extends "_screen.html" %}
 {% block content %}
     {% include 'elements/tag/title.html' %}
 
-
     {% for post in data.posts %}
-        {% with post = post %}
-            <div class="row mb-3 p-0 m-0">
-                {% include 'elements/tag/post.html' %}
-            </div>
-        {% endwith %}
+        <div class="row mb-3 p-0 m-0">
+            {% include 'elements/_html/standard_post.html' %}
+        </div>
     {% endfor %}
 
     {% include 'elements/tag/pagination.html' %}

@@ -1,0 +1,28 @@
+<!--
+    Full history: see below
+
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: Search widget
+
+    Parameters: none
+-->
+
+<div class="card m-0 mb-3 mr-1 p-0">
+  <h5 class="card-header">{{ data.i8n.search.widget_title }}</h5>
+
+  <form method="post" action="/search">
+    <div class="card-body">
+      <div class="input-group">
+        <input type="hidden" name="page_index" value="1">
+        <input type="text" class="form-control mr-1" placeholder="{{ data.i8n.search.widget_placeholder }}" name="query" minlength="3" required="required">
+
+        <span class="input-group-btn">
+          <button class="btn btn-secondary" type="submit">{{ data.i8n.search.widget_button }}</button>
+        </span>
+      </div>
+    </div>
+  </form>
+</div>

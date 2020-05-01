@@ -76,10 +76,10 @@ class Content(metaclass=Singleton):
             self.__logger.warning('COULD NOT FIND THE YAML FILE {0}/{1}'.format(directory, file))
             return {}, ''
 
-        meta, raw, html = self.__split_file(content_file.read())
+        meta, content, html = self.__split_file(content_file.read())
         # No logging, already logged
 
-        return meta, raw, html
+        return meta, content, html
 
     def __split_file(self, data):
         if self.__meta_content_separator is None:

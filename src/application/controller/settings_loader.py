@@ -2,12 +2,12 @@
 #
 #   Full history: see below
 #
-#   Version: 1.3.0
-#   Date: 2020-04-23
+#   Version: 1.5.0
+#   Date: 2020-04-28
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Features:
-#       SSL
+#       Handling missing keys and using defaults
 #
 ###
 
@@ -47,11 +47,32 @@ class SettingsLoader(metaclass=Singleton):
 
     @staticmethod
     def __engine_settings(settings_yaml):
+        # defaults
+        try:
+            socket_host = settings_yaml['server']['socket_host']
+        except KeyError:
+            socket_host = '127.0.0.1'
+
+        try:
+            socket_port = settings_yaml['server']['socket_port']
+        except KeyError:
+            socket_port = 8080
+
+        try:
+            thread_pool = settings_yaml['server']['thread_pool']
+        except KeyError:
+            thread_pool = 8
+
+        try:
+            autoreload = settings_yaml['engine']['autoreload']
+        except KeyError:
+            autoreload = True
+
         global_settings = {
-            'server.socket_host': settings_yaml['server']['socket_host'],
-            'server.socket_port': settings_yaml['server']['socket_port'],
-            'server.thread_pool': settings_yaml['server']['thread_pool'],
-            'engine.autoreload.on': settings_yaml['engine']['autoreload'],
+            'server.socket_host': socket_host,
+            'server.socket_port': socket_port,
+            'server.thread_pool': thread_pool,
+            'engine.autoreload.on': autoreload,
         }
 
         settings = {
@@ -86,10 +107,13 @@ class SettingsLoader(metaclass=Singleton):
         except KeyError:
             pass
 
-        settings['/favicon.ico'] = {
-            'tools.staticfile.on': True,
-            'tools.staticfile.filename': os.path.abspath(os.path.join(Options().data_dir, 'images', 'favicon.ico'))
-        }
+        try:
+            settings['/favicon.ico'] = {
+                'tools.staticfile.on': True,
+                'tools.staticfile.filename': os.path.abspath(os.path.join(Options().data_dir, 'images', 'favicon.ico'))
+            }
+        except FileNotFoundError:
+            pass
 
         return settings
 
@@ -97,47 +121,88 @@ class SettingsLoader(metaclass=Singleton):
     def __option_settings(settings_yaml):
         # The individual properties are logged in main
         # No need to log them here
-        if settings_yaml['directories']['theme']['absolute']:
+
+        try:
             Options().theme_dir = settings_yaml['directories']['theme']['path']
-        else:
+        except KeyError:
             Options().theme_dir = os.path.join(os.getcwd(), settings_yaml['directories']['theme']['path'])
 
-        if settings_yaml['directories']['log']['absolute']:
+        try:
             Options().log_dir = settings_yaml['directories']['log']['path']
-        else:
+        except KeyError:
             Options().log_dir = os.path.join(os.getcwd(), settings_yaml['directories']['log']['path'])
 
-        if settings_yaml['directories']['run']['absolute']:
+        try:
             Options().run_dir = settings_yaml['directories']['run']['path']
-        else:
+        except KeyError:
             Options().run_dir = os.path.join(os.getcwd(), settings_yaml['directories']['run']['path'])
 
-        Options().meta_content_separator = settings_yaml['content']['meta_content_separator']
+        try:
+            Options().meta_content_separator = settings_yaml['content']['meta_content_separator']
+        except KeyError:
+            Options().meta_content_separator = '__________'
 
-        Options().daemon = settings_yaml['engine']['daemon']
+        try:
+            Options().daemon = settings_yaml['engine']['daemon']
+        except KeyError:
+            Options().daemon = False
 
-        Options().privileges = settings_yaml['user']['privileges']
-        Options().uid = settings_yaml['user']['uid']
-        Options().gid = settings_yaml['user']['gid']
+        try:
+            Options().privileges = settings_yaml['user']['privileges']
+        except KeyError:
+            Options().privileges = False
 
-        Options().ssl_certificate = settings_yaml['ssl']['ssl_certificate']
-        Options().ssl_private_key = settings_yaml['ssl']['ssl_private_key']
-        Options().ssl_certificate_chain = settings_yaml['ssl']['ssl_certificate_chain']
+        try:
+            Options().uid = settings_yaml['user']['uid']
+        except KeyError:
+            Options().uid = 0
 
-        use_ssl = False
+        try:
+            Options().gid = settings_yaml['user']['gid']
+        except KeyError:
+            Options().gid = 0
 
-        if Options().ssl_certificate != '':
-            use_ssl = True
+        try:
+            use_ssl = False
 
-        if Options().ssl_private_key != '':
-            use_ssl = True
+            Options().ssl_certificate = settings_yaml['ssl']['ssl_certificate']
+            Options().ssl_private_key = settings_yaml['ssl']['ssl_private_key']
+            Options().ssl_certificate_chain = settings_yaml['ssl']['ssl_certificate_chain']
 
-        if Options().ssl_certificate_chain != '':
-            use_ssl = True
+            if Options().ssl_certificate != '':
+                use_ssl = True
+
+            if Options().ssl_private_key != '':
+                use_ssl = True
+
+            if Options().ssl_certificate_chain != '':
+                use_ssl = True
+
+        except KeyError:
+            use_ssl = False
 
         Options().use_ssl = use_ssl
 
+        try:
+            Options().caching = settings_yaml['caching']['use']
+        except KeyError:
+            Options().caching = False
+
 ###
+#
+#   Version: 1.4.0
+#   Date: 2020-04-23
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       Caching enabled or not
+#
+#   Version: 1.3.0
+#   Date: 2020-04-23
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       SSL
 #
 #   Version: 1.2.1
 #   Date: 2020-04-15

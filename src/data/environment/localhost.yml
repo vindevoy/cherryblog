@@ -23,6 +23,9 @@ server:
   socket_port: 8080
   thread_pool: 8
 
+caching:
+  use: False
+
 tools:
   staticdirs:
     - url: '/images'

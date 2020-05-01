@@ -1,11 +1,21 @@
-<!-- Title -->
+<!--
+    Full history: see below
+
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: Display the title of a page
+
+    Parameters: none
+-->
+
 {% with primary_text = data.page.title,
         secondary_text = '' %}
 
     {% include 'elements/_html/title.html' %}
 {% endwith %}
 
-<!-- Page Image -->
-{% with source = '/images/' + data.page.image %}
+{% with src = '/images/' + data.page.image %}
     {% include 'elements/_html/page_image.html' %}
 {% endwith %}

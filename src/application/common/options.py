@@ -2,11 +2,11 @@
 #
 #   Full history: see below
 #
-#   Version: 2.1.0
-#   Date: 2020-04-23
+#   Version: 2.2.0
+#   Date: 2020-04-26
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Adding SSL
+#   Caching enabled or not
 #
 ###
 
@@ -27,7 +27,14 @@ class Options(metaclass=Singleton):
 
     # Properties set from the settings file (environment.yml)
     daemon = False
+    caching = True
     meta_content_separator = ''
+
+    # SSL settings (for instance for LetsEncrypt)
+    use_ssl = False
+    ssl_certificate = ''
+    ssl_private_key = ''
+    ssl_certificate_chain = ''
 
     # User privileges can be used to start as root and run on port 80 (privileged port)
     # and then run with a user with less rights
@@ -37,13 +44,13 @@ class Options(metaclass=Singleton):
 
     default_logging_level = ''
 
-    # SSL settings (for instance for LetsEncrypt)
-    use_ssl = False
-    ssl_certificate = ''
-    ssl_private_key = ''
-    ssl_certificate_chain = ''
-
 ###
+#
+#   Version: 2.1.0
+#   Date: 2020-04-23
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Adding SSL
 #
 #   Version: 2.0.0
 #   Date: 2020-04-13

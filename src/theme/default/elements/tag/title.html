@@ -1,4 +1,15 @@
-<!-- Title -->
+<!--
+    Full history: see below
+
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: Display the title of a tag page
+
+    Parameters: none
+-->
+
 {% if data.pagination.total_pages == 1 %}
     {% with primary_text = data.tag.name,
             secondary_text = data.i8n.tags.secondary_title %}
@@ -15,6 +26,6 @@
     {% endwith %}
 {% endif %}
 
-{% with source = '/images/' + data.posts[0].image %}
+{% with src = '/images/' + data.posts[0].image %}
     {% include 'elements/_html/page_image.html' %}
 {% endwith %}

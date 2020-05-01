@@ -1,0 +1,47 @@
+<!--
+    Full history: see below
+
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: Pagination of the search pages
+
+    Parameters: none
+-->
+
+{% if data.pagination.current_page + data.pagination.found_entries > 1 %}
+    <div class="row justify-content-center">
+        <ul class="pagination">
+            {% if data.pagination.current_page > 1 %}
+                <li class="page-item">
+                    <form method="post" action="/search">
+                        <input type="hidden" name="page_index" value="{{ data.pagination.current_page - 1 }}">
+                        <input type="hidden" name="query" value="{{ data.search.query }}" >
+
+                        <button class="page-link" type="submit">{{ data.i8n.navigation.previous_search_label }}</button>
+                    </form>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link">{{ data.i8n.navigation.previous_search_label }}</a>
+                </li>
+            {% endif %}
+
+            {% if data.pagination.current_page * data.pagination.max_entries == data.pagination.last_entry %}
+                <li class="page-item">
+                    <form method="post" action="/search">
+                        <input type="hidden" name="page_index" value="{{ data.pagination.current_page + 1 }}">
+                        <input type="hidden" name="query" value="{{ data.search.query }}">
+
+                        <button class="page-link" type="submit">{{ data.i8n.navigation.next_search_label }}</button>
+                      </form>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link">{{ data.i8n.navigation.next_search_label }}</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+{% endif %}

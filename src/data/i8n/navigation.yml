@@ -2,7 +2,12 @@
 
 home_label: "Home"
 read_more_label: "Read More &rarr;"
+
 previous_page_label: '&larr; Newer'
 next_page_label: 'Older &rarr;'
+
+previous_search_label: '&larr; Previous'
+next_search_label: 'More &rarr;'
+
 page_of_page: 'page'
 page_of_of: 'of'

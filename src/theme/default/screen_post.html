@@ -1,6 +1,17 @@
+<!--
+    Full history: see below
+
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: extends the screen page with the post content
+-->
+
 {% extends "_screen.html" %}
 {% block content %}
     {% include 'elements/post/title.html' %}
     {% include 'elements/post/meta.html' %}
     {% include 'elements/post/content.html' %}
+    {% include 'elements/post/tags.html' %}
 {% endblock %}

@@ -2,12 +2,12 @@
 #
 #   Full history: see below
 #
-#   Version: 1.2.0
-#   Date: 2020-04-17
+#   Version: 1.3.0
+#   Date: 2020-05-01
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Features:
-#       - Caching done outside this class
+#       - Rewrite date format
 #
 ###
 
@@ -18,6 +18,7 @@ import os
 from pathlib import Path
 
 from common.content import Content
+from common.datetime_support import DateTimeSupport
 from common.options import Options
 from common.singleton import Singleton
 
@@ -80,7 +81,8 @@ class Index(metaclass=Singleton):
 
         data_index = {}
 
-        intro_meta, raw_intro, data_index['introduction'] = Content().read_content(self.__base_dir, 'introduction.md')
+        intro_meta, intro_content, data_index['introduction'] = Content().read_content(self.__base_dir,
+                                                                                       'introduction.md')
 
         data_index['image'] = intro_meta['image']
 
@@ -118,6 +120,7 @@ class Index(metaclass=Singleton):
 
                 stem = Path(file).stem
                 post['url'] = stem
+                post['date'] = DateTimeSupport().rewrite_date(post['date'])
 
                 self.__logger.debug('data - post: {0}'.format(post))
 
@@ -157,10 +160,17 @@ class Index(metaclass=Singleton):
 
         self.__logger.debug('data - {0}'.format(data))
 
-        return data, raw_intro
+        return data, intro_content
 
 
 ###
+#
+#   Version: 1.2.0
+#   Date: 2020-04-17
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - Caching done outside this class
 #
 #   Version: 1.1.0
 #   Date: 2020-04-15

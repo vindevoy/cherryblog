@@ -1,20 +1,27 @@
+<!--
+    Full history: see below
+
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: a spotlight post on the index page (12 columns with picture)
+
+    Parameters:
+        - post
+-->
+
 <div class="m-0 p-0 px-2">
     <div class="card">
-        <img class="card-img-top" src="{{ image }}">
+        <img class="card-img-top" src="/images/{{ post.image }}">
 
         <div class="card-body">
-            <h3 class="card-title">{{ title }}</h3>
-            <p class="card-text">{{ summary}}</p>
-            <a href="{{ url }}" class="btn btn-primary">{{ button_label }}</a>
+            <h3 class="card-title">{{ post.title }}</h3>
+            <p class="card-text">{{ post.summary}}</p>
+            <a href="/posts/{{ post.url }}" class="btn btn-primary">{{ data.i8n.navigation.read_more_label }}</a>
         </div>
 
-        {% with author = author,
-                date = date,
-                author_prefix = data.i8n.meta.author_prefix,
-                author_postfix = data.i8n.meta.author_postfix,
-                date_prefix = data.i8n.meta.date_prefix,
-                date_postfix = data.i8n.meta.date_postfix
-                %}
+        {% with author = post.author, date = post.date %}
             {% include 'elements/_html/card_footer.html' %}
         {% endwith %}
     </div>

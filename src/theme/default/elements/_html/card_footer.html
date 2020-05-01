@@ -1,11 +1,15 @@
+<!--
+    Full history: see below
+
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: card footer is the grey box on a "card", which is a boxed content item on the index page(s)
+
+    Parameters: none
+-->
+
 <div class="card-footer text-muted">
-    {% with author = author,
-            date = date,
-            author_prefix = author_prefix,
-            author_postfix = author_postfix,
-            date_prefix = date_prefix,
-            date_postfix = date_postfix
-            %}
-        {% include 'elements/_html/card_meta.html' %}
-    {% endwith %}
+    {% include 'elements/_html/card_meta.html' %}
 </div>

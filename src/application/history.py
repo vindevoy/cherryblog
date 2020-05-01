@@ -1,3 +1,16 @@
+###
+#
+#   Full history: see below
+#
+#   Version: 1.0.0
+#   Date: 2020-04-30
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - Builds the history page
+#
+###
+
 import logging
 import os
 

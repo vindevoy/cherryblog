@@ -1,0 +1,54 @@
+<!--
+    Full history: see below
+
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: Display the results of the query
+
+    Parameters: none
+-->
+
+{% if data.pagination.found_entries > 0 %}
+    {% with subtitle = data.i8n.search.found_prefix +
+                        data.search.query +
+                        data.i8n.search.found_postfix +
+                        data.i8n.search.page_prefix +
+                        data.pagination.current_page|string +
+                        data.i8n.search.page_postfix +
+                        data.i8n.search.entries_prefix +
+                        data.pagination.first_entry|string +
+                        data.i8n.search.entries_to +
+                        data.pagination.last_entry|string +
+                        data.i8n.search.entries_postfix
+    %}
+
+        {% include 'elements/_html/subtitle.html' %}
+    {% endwith %}
+{% endif %}
+
+{% if data.pagination.found_entries == 0 and data.pagination.current_page == 1 %}
+    {% with subtitle = data.i8n.search.found_prefix +
+                        data.search.query +
+                        data.i8n.search.found_postfix +
+                        data.i8n.search.no_results
+    %}
+
+        {% include 'elements/_html/subtitle.html' %}
+    {% endwith %}
+{% endif %}
+
+{% if data.pagination.found_entries == 0 and data.pagination.current_page > 1 %}
+    {% with subtitle = data.i8n.search.found_prefix +
+                        data.search.query +
+                        data.i8n.search.found_postfix +
+                        data.i8n.search.page_prefix +
+                        data.pagination.current_page|string +
+                        data.i8n.search.page_postfix +
+                        data.i8n.search.no_more_results
+    %}
+
+        {% include 'elements/_html/subtitle.html' %}
+    {% endwith %}
+{% endif %}

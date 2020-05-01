@@ -1,0 +1,25 @@
+<!--
+    Full history: see below
+
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: extends the screen page with the search content
+-->
+
+{% extends "_screen.html" %}
+{% block content %}
+    {% include 'elements/search/title.html' %}
+    {% include 'elements/search/query.html' %}
+
+    {% for found in data.found %}
+        {% with found = found %}
+            <div class="row mb-3 p-0 m-0">
+                {% include 'elements/_html/search_item.html' %}
+            </div>
+        {% endwith %}
+    {% endfor %}
+
+    {% include 'elements/_html/search_pagination.html' %}
+{% endblock %}

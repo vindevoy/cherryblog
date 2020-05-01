@@ -1,0 +1,45 @@
+<!--
+    Full history: see below
+
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: pagination for posts on index and tags
+
+    Parameters:
+        - home_path
+        - base_path
+-->
+
+{% if data.pagination.total_pages > 1 %}
+    <div class="row justify-content-center">
+        <ul class="pagination">
+            {% if data.pagination.current_page == 1 %}
+                <li class="page-item disabled">
+                    <a class="page-link">{{ data.i8n.navigation.previous_page_label }}</a>
+                </li>
+            {% endif %}
+            {% if data.pagination.current_page == 2 %}
+                <li class="page-item">
+                    <a class="page-link" href="/{{ home_path }}">{{ data.i8n.navigation.previous_page_label }}</a>
+                </li>
+            {% endif %}
+            {% if data.pagination.current_page > 2 %}
+                <li class="page-item">
+                    <a class="page-link" href="/{{ base_path }}/{{ data.pagination.current_page - 1 }}">{{ data.i8n.navigation.previous_page_label }}</a>
+                </li>
+            {% endif %}
+
+            {% if data.pagination.current_page == data.pagination.total_pages %}
+                <li class="page-item disabled">
+                    <a class="page-link">{{ data.i8n.navigation.next_page_label }}</a>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="/{{ base_path }}/{{ data.pagination.current_page + 1 }}">{{ data.i8n.navigation.next_page_label }}</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+{% endif %}

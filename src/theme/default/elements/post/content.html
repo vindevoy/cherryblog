@@ -1,4 +1,15 @@
-<!-- Post Content -->
+<!--
+    Full history: see below
+
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: Display the content of a post
+
+    Parameters: none
+-->
+
 {% with content = data.post.content %}
     {% include 'elements/_html/content.html' %}
 {% endwith %}

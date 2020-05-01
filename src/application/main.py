@@ -2,12 +2,12 @@
 #
 #   Full history: see below
 #
-#   Version: 2.2.1
-#   Date: 2020-04-25
+#   Version: 2.3.0
+#   Date: 2020-04-26
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Fixes:
-#       - Urgent bug on the type of SSL to use
+#   Features:
+#       - Caching enabled or not
 #
 ###
 
@@ -19,9 +19,12 @@ import sys
 
 from cherrypy.process.plugins import Daemonizer, PIDFile, DropPrivileges
 
-from controller.application import Application
-from controller.logging_loader import LoggingLoader
 from common.options import Options
+from common.datetime_support import DateTimeSupport
+
+from controller.application import Application
+from controller.data_loader import DataLoader
+from controller.logging_loader import LoggingLoader
 from controller.settings_loader import SettingsLoader
 
 __application = 'CherryBlog'
@@ -62,10 +65,18 @@ if __name__ == '__main__':
     logger.info('Theme directory set to {0}.'.format(Options().theme_dir))
     logger.info('Log directory set to {0}.'.format(Options().log_dir))
     logger.info('Run directory set to {0}.'.format(Options().run_dir))
-    logger.info('Meta-content separator set to {0}.'.format(Options().meta_content_separator))
+    logger.info('Use caching set to {0}.'.format(Options().caching))
+    logger.info('Meta-content separator set to \'{0}\'.'.format(Options().meta_content_separator))
     logger.info('Default logging level set to {0}.'.format(Options().default_logging_level))
 
     logger.debug('main - CherryPy settings:\n{0}\n'.format(settings))
+
+    # Set how the dates are stored in the files and how they should be shown
+    global_settings = DataLoader().global_settings
+    DateTimeSupport().input_format = global_settings['date_input_format']
+    DateTimeSupport().output_format = global_settings['date_output_format']
+    logger.info('Default date input format set to \'{0}\'.'.format(DateTimeSupport().input_format))
+    logger.info('Default date output format set to \'{0}\'.'.format(DateTimeSupport().output_format))
 
     if Options().use_ssl:
         # vindevoy - 2020-04-25
@@ -103,6 +114,13 @@ if __name__ == '__main__':
     cherrypy.quickstart(Application(), config=settings)
 
 ###
+#
+#   Version: 2.2.1
+#   Date: 2020-04-25
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Fixes:
+#       - Urgent bug on the type of SSL to use
 #
 #   Version: 2.2.0
 #   Date: 2020-04-23

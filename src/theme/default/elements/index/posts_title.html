@@ -1,12 +1,25 @@
-<!-- Title -->
-{% if data.pagination.current_page == 1 %}
-    {% with primary_text = data.i8n.index.primary_title_posts,
-            secondary_text = data.i8n.index.secondary_title_posts %}
+<!--
+    Full history: see below
 
-        {% if data.pagination.spotlight_posts > 0 %}
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+
+    Usage: Display the title on the index pages
+
+    Parameters: none
+-->
+
+{% if data.pagination.current_page == 1 %}
+    {% if data.pagination.spotlight_posts > 0 %}
+
+        {% with primary_text = data.i8n.index.primary_title_posts,
+                secondary_text = data.i8n.index.secondary_title_posts %}
+
             {% include 'elements/_html/title.html' %}
-        {% endif %}
-    {% endwith %}
+        {% endwith %}
+
+    {% endif %}
 {% endif %}
 
 {% if data.pagination.current_page > 1 %}
@@ -18,7 +31,7 @@
         {% include 'elements/_html/title.html' %}
     {% endwith %}
 
-    {% with source = '/images/' + data.posts[0].image %}
+    {% with src = '/images/' + data.posts[0].image %}
         {% include 'elements/_html/page_image.html' %}
     {% endwith %}
 {% endif %}

@@ -8,6 +8,7 @@ CherryBlog implements a very simple blogging website.
 - Posts: the main content of the blog
 - Pages: the extra static pages like the 'about'
 - Tags: each post has one or multiple tags
+- Search: word based search in posts and pages
 
 At this moment, it has the basic news of the project where each article is a post about the new version that was released.
 
@@ -101,7 +102,7 @@ The major release number will be bumped when a major new feature is introduced. 
 
 ## WARNING
 
-**This project is brand new and is only in version 1.x. Consider this release to be an announcement release. Hence the documentation is very short.  It is provided for people who really want to dig into the project.**
+**This project is still rather new and is only in version 1.x. Hence the documentation is very short.  It is provided for people who really want to dig into the project.**
 
 ## Installation
 
