@@ -2,13 +2,13 @@
 #
 #   Full history: see below
 #
-#   Version: 1.2.0
-#   Date: 2020-04-17
+#   Version: 1.3.0
+#   Date: 2020-05-01
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Features:
-#       - Caching done outside this class
-#       - Added warning on Try Except
+#       - Removing skipped tags
+#       - Rewrite date format
 #
 ###
 
@@ -16,10 +16,10 @@ import logging
 import os
 
 from common.content import Content
+from common.datetime_support import DateTimeSupport
 from common.options import Options
 from common.singleton import Singleton
-
-from model.tags import Tags
+from common.tags_support import TagsSupport
 
 
 class Posts(metaclass=Singleton):
@@ -78,8 +78,8 @@ class Posts(metaclass=Singleton):
 
         try:
             for tag in data['post']['tags']:
-                if Tags().tag_label(tag) not in skip_tags:
-                    tags.append(tag)
+                if TagsSupport().tag_label(tag) not in skip_tags:
+                    tags.append(TagsSupport().tag_text(tag))
                 else:
                     self.__logger.debug('data - removing skipped tag: {0}'.format(tag))
         except KeyError:
@@ -88,12 +88,21 @@ class Posts(metaclass=Singleton):
         data['post']['tags'] = tags
         self.__logger.debug('data - tags: {0}'.format(tags))
 
-        self.__logger.debug('data - posts[{0}]: {1}'.format(post, data))
+        data['post']['date'] = DateTimeSupport().rewrite_date(data['post']['date'])
 
+        self.__logger.debug('data - posts[{0}]: {1}'.format(post, data))
         return data, meta, content
 
 
 ###
+#
+#   Version: 1.2.0
+#   Date: 2020-04-17
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - Caching done outside this class
+#       - Added warning on Try Except
 #
 #   Version: 1.1.0
 #   Date: 2020-04-15

@@ -2,13 +2,12 @@
 #
 #   Full history: see below
 #
-#   Version: 1.0.0
-#   Date: 2020-04-26
+#   Version: 1.1.0
+#   Date: 2020-05-01
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Features:
-#       - Searching on posts
-#       - Searching on pages
+#       - Rewrite date format
 #
 ###
 
@@ -17,6 +16,7 @@ import logging
 from pathlib import Path
 
 from common.content import Content
+from common.datetime_support import DateTimeSupport
 from common.options import Options
 from common.singleton import Singleton
 
@@ -131,6 +131,8 @@ class Search(metaclass=Singleton):
                 occurrences = lowered_raw.count(lowered_query)
                 self.__logger.debug('data - occurrences: {0}'.format(occurrences))
 
+                meta['date'] = DateTimeSupport().rewrite_date(meta['date'])
+
                 entry = {
                     'item': item,
                     'meta': meta,
@@ -157,3 +159,15 @@ class Search(metaclass=Singleton):
         }
 
         return data
+
+###
+#
+#   Version: 1.0.0
+#   Date: 2020-04-26
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - Searching on posts
+#       - Searching on pages
+#
+###
