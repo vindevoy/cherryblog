@@ -81,7 +81,8 @@ class Index(metaclass=Singleton):
 
         data_index = {}
 
-        intro_meta, raw_intro, data_index['introduction'] = Content().read_content(self.__base_dir, 'introduction.md')
+        intro_meta, intro_content, data_index['introduction'] = Content().read_content(self.__base_dir,
+                                                                                       'introduction.md')
 
         data_index['image'] = intro_meta['image']
 
@@ -159,7 +160,7 @@ class Index(metaclass=Singleton):
 
         self.__logger.debug('data - {0}'.format(data))
 
-        return data, raw_intro
+        return data, intro_content
 
 
 ###

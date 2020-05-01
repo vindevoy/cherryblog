@@ -113,8 +113,8 @@ class DataLoader(metaclass=Singleton):
 
         common = self.common_data
         data, _ = Index().data(page_index, self.posts_directory, self.posts_count)
+        #  We don't care yet about the introduction content
 
-        #  We don't care yet about the raw intro
         combined = self.__combine(common, data)
 
         if Options().caching:
@@ -154,11 +154,13 @@ class DataLoader(metaclass=Singleton):
             return DataCacher().get_cached(key)
 
         common = self.common_data
-        data, _, _ = Pages().data(page, self.tags_skip_list)  # No catching the meta and raw data yet
+        meta, content, data = Pages().data(page, self.tags_skip_list)  # No catching the meta and raw data yet
         combined = self.__combine(common, data)
 
         if Options().caching:
             DataCacher().cache(key, combined)
+            DataCacher().cache('{0}/meta'.format(key), meta)
+            DataCacher().cache('{0}/content'.format(key), content)
 
         return combined
 
@@ -182,11 +184,14 @@ class DataLoader(metaclass=Singleton):
             return DataCacher().get_cached(key)
 
         common = self.common_data
-        data, _, _ = Posts().data(post, self.tags_skip_list)  # We don't do anything with the meta and raw data yet
+        meta, content, data = Posts().data(post, self.tags_skip_list)
+
         combined = self.__combine(common, data)
 
         if Options().caching:
             DataCacher().cache(key, combined)
+            DataCacher().cache('{0}/meta'.format(key), meta)
+            DataCacher().cache('{0}/content'.format(key), content)
 
         return combined
 
@@ -203,6 +208,8 @@ class DataLoader(metaclass=Singleton):
         common = self.common_data
         data = Search().data(query, page_index, search_base, self.index_max_posts)
         combined = self.__combine(common, data)
+
+        # search data is not stored in memory because it could potentially eat all the memory
 
         return combined
 

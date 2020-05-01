@@ -8,6 +8,7 @@
 #
 #   Features:
 #       - Rewrite date format
+#       - Uses data cacher
 #
 ###
 
@@ -19,6 +20,8 @@ from common.content import Content
 from common.datetime_support import DateTimeSupport
 from common.options import Options
 from common.singleton import Singleton
+
+from controller.data_cacher import DataCacher
 
 
 class Search(metaclass=Singleton):
@@ -63,10 +66,20 @@ class Search(metaclass=Singleton):
                 self.__logger.debug('data - excluded item: {0}'.format(item))
                 continue
 
-            meta, raw, html = Content().read_content(directory, file)
+            cached_already = DataCacher().cached_already(url)
+
+            if cached_already:
+                self.__logger.debug('data - cached: {0}'.format(url))
+
+                meta = DataCacher().get_cached('{0}/meta'.format(url))
+                content = DataCacher().get_cached('{0}/content'.format(url))
+            else:
+                self.__logger.debug('data - not cached: {0}'.format(url))
+
+                meta, content, _ = Content().read_content(directory, file)
 
             lowered_query = query.lower()
-            lowered_raw = raw.lower()
+            lowered_raw = content.lower()
 
             self.__logger.debug('data - lowered_query: {0}'.format(lowered_query))
             self.__logger.debug('data - lowered_raw: {0}'.format(lowered_raw))
@@ -94,7 +107,7 @@ class Search(metaclass=Singleton):
                     prefix = '... '
                     start = index - extra
 
-                if index + extra < len(raw):
+                if index + extra < len(content):
                     self.__logger.debug('data - cutting text at the end')
 
                     postfix = " ..."
@@ -107,14 +120,14 @@ class Search(metaclass=Singleton):
 
                 # removing stuff until first blank
                 for c in range(start, index):
-                    if raw[c:c+1] == ' ':
+                    if content[c:c+1] == ' ':
                         self.__logger.debug('data - blank found: {0}'.format(c))
                         start = c
                         break
 
                 # removing stuff until first blank, backwards
                 for c in range(stop, index + len(query), -1):
-                    if raw[c:c+1] == ' ':
+                    if content[c:c+1] == ' ':
                         self.__logger.debug('data - blank found: {0}'.format(c))
                         stop = c
                         break
@@ -122,7 +135,7 @@ class Search(metaclass=Singleton):
                 self.__logger.debug('data - spaced start: {0}'.format(start))
                 self.__logger.debug('data - spaced stop: {0}'.format(stop))
 
-                sample = prefix + raw[start:stop] + postfix
+                sample = prefix + content[start:stop] + postfix
                 self.__logger.debug('data - sample: {0}'.format(sample))
 
                 sample = sample.replace(query, '<b>{0}</b>'.format(query))
@@ -131,7 +144,9 @@ class Search(metaclass=Singleton):
                 occurrences = lowered_raw.count(lowered_query)
                 self.__logger.debug('data - occurrences: {0}'.format(occurrences))
 
-                meta['date'] = DateTimeSupport().rewrite_date(meta['date'])
+                if not cached_already:
+                    meta['date'] = DateTimeSupport().rewrite_date(meta['date'])
+                    # cached data has the correct format already
 
                 entry = {
                     'item': item,

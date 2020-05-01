@@ -91,7 +91,11 @@ class Posts(metaclass=Singleton):
         data['post']['date'] = DateTimeSupport().rewrite_date(data['post']['date'])
 
         self.__logger.debug('data - posts[{0}]: {1}'.format(post, data))
-        return data, meta, content
+        # meta: the meta in yaml format
+        # content: the content in pure markdown format
+        # data: the meta data injected with the html, completely ready for the post display
+
+        return meta, content, data
 
 
 ###
