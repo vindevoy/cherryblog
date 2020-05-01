@@ -5,9 +5,43 @@ title: "Release notes"
 image: "blossom4.jpg"
 
 author: "Yves Vindevogel"
-date: "2020-04-26"
+date: "2020-05-01"
 
 ----------
+
+# Release v1.5.0
+
+
+- author: Yves Vindevogel (vindevoy)
+- date: 2020-05-01
+
+## Features
+
+- Search widget, with minimal number of characters
+- Word(s) based search on all the pages and posts
+- Case-insensitive search
+- Search results with highlight of the word searched
+- Number of occurrences of the searched word(s)
+- Author and date of each search result
+- Image on top of the page is the image of the first result found
+- Uses cache for during search, but does not cache itself
+- Exclude pages or posts from the search
+
+## Enhancements
+
+- Default settings for items not in the environment files
+- Ability to switch of caching (localhost during development)
+- Tags are shown on the bottom of the page or post
+- Dates are now written in a nicer format
+- Better passing on of data through-out the templates
+- Commenting in the templates
+
+### Github 
+
+For more information on this release, see the issues for this milestone:
+
+- [https://github.com/vindevoy/cherryblog/milestone/12](https://github.com/vindevoy/cherryblog/milestone/12)
+
 
 # Release v1.4.2
 
@@ -23,7 +57,7 @@ date: "2020-04-26"
 
 For more information on this release, see the issues for this milestone:
 
-- [https://github.com/vindevoy/cherryblog/milestone/1](https://github.com/vindevoy/cherryblog/milestone/11)
+- [https://github.com/vindevoy/cherryblog/milestone/11](https://github.com/vindevoy/cherryblog/milestone/11)
 
 
 # Release v1.4.1

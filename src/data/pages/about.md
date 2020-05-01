@@ -6,6 +6,7 @@ image: "blossom1.jpg"
 
 author: "Yves Vindevogel"
 date: "2020-04-08"
+last_update: "2020-05-01"
 
 ----------
 
@@ -16,6 +17,7 @@ CherryBlog implements a very simple blogging website.
 - Posts: the main content of the blog
 - Pages: the extra static pages like the 'about'
 - Tags: each post has one or multiple tags
+- Search: word based search in posts and pages
 
 At this moment, it has the basic news of the project where each article is a post about the new version that was released.
 
