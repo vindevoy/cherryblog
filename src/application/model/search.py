@@ -2,13 +2,12 @@
 #
 #   Full history: see below
 #
-#   Version: 1.1.0
-#   Date: 2020-05-01
+#   Version: 1.1.1
+#   Date: 2020-05-06
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Features:
-#       - Rewrite date format
-#       - Uses data cacher
+#   Fixes:
+#       - The replace with the bold tags works, but it does not capture capital letters.  Introducing another method.
 #
 ###
 
@@ -86,6 +85,7 @@ class Search(metaclass=Singleton):
 
             if lowered_query in lowered_raw:
                 count_entries += 1
+                len_query = len(lowered_query)
 
                 if skip_entries >= count_entries:
                     self.__logger.debug('data - item skipped}')
@@ -120,14 +120,14 @@ class Search(metaclass=Singleton):
 
                 # removing stuff until first blank
                 for c in range(start, index):
-                    if content[c:c+1] == ' ':
+                    if content[c:c + 1] == ' ':
                         self.__logger.debug('data - blank found: {0}'.format(c))
                         start = c
                         break
 
                 # removing stuff until first blank, backwards
                 for c in range(stop, index + len(query), -1):
-                    if content[c:c+1] == ' ':
+                    if content[c:c + 1] == ' ':
                         self.__logger.debug('data - blank found: {0}'.format(c))
                         stop = c
                         break
@@ -135,11 +135,12 @@ class Search(metaclass=Singleton):
                 self.__logger.debug('data - spaced start: {0}'.format(start))
                 self.__logger.debug('data - spaced stop: {0}'.format(stop))
 
-                sample = prefix + content[start:stop] + postfix
-                self.__logger.debug('data - sample: {0}'.format(sample))
+                # vindevoy - 2020-05-06 - issue-187
+                # Do not use replace on sample here because replace is case-sensitive
+                sample = prefix + content[start:index] + '<b>' + content[index:index + len_query] + '</b>'
+                sample += content[index + len_query:stop] + postfix
 
-                sample = sample.replace(query, '<b>{0}</b>'.format(query))
-                self.__logger.debug('data - bold sample: {0}'.format(sample))
+                self.__logger.debug('data - sample: {0}'.format(sample))
 
                 occurrences = lowered_raw.count(lowered_query)
                 self.__logger.debug('data - occurrences: {0}'.format(occurrences))
@@ -176,6 +177,14 @@ class Search(metaclass=Singleton):
         return data
 
 ###
+#
+#   Version: 1.1.0
+#   Date: 2020-05-01
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - Rewrite date format
+#       - Uses data cacher
 #
 #   Version: 1.0.0
 #   Date: 2020-04-26
