@@ -2,7 +2,7 @@
 
 content:
   meta_content_separator: "----------"
-  include_drafts: False
+  include_drafts: True
 
 directories:
   theme:
