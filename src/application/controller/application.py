@@ -11,11 +11,10 @@
 ###
 
 import cherrypy
-from htmlmin.minify import html_minify
-
 import logging
 
 from datetime import datetime
+from htmlmin.minify import html_minify
 
 from common.options import Options
 from common.singleton import Singleton

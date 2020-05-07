@@ -6,6 +6,7 @@
 #
 #   Features:
 #       - dependency for django-htmlmin
+#       - create sitemap.xml
 #
 ###
 
@@ -100,11 +101,21 @@ history:
 
 	@echo '[OK] history copied to pages'
 
-develop:
+sitemap:
+	@mkdir -p ./src/data/sitemap
+	@python3 ./src/application/sitemap.py
+
+
+	@echo '[OK] sitemap.xml created'
+
+google: sitemap
+	@curl http://www.google.com/ping?sitemap=https://cherryblog.org/sitemap.xml > /dev/null
+
+develop: sitemap
 	@mkdir -p ./log
 	@python3 ./src/application/main.py 2>&1 | tee ./log/application.log
 
-production:
+production: sitemap
 	@mkdir -p /var/log/cherryblog
 	@python3 ./src/application/main.py --env production 2>&1 | tee /var/log/cherryblog/application.log &
 
