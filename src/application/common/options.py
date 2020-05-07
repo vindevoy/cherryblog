@@ -2,11 +2,12 @@
 #
 #   Full history: see below
 #
-#   Version: 2.2.0
-#   Date: 2020-04-26
+#   Version: 2.3.0
+#   Date: 2020-05-07
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Caching enabled or not
+#   Features:
+#       - Support for drafts
 #
 ###
 
@@ -29,6 +30,7 @@ class Options(metaclass=Singleton):
     daemon = False
     caching = True
     meta_content_separator = ''
+    include_drafts = False
 
     # SSL settings (for instance for LetsEncrypt)
     use_ssl = False
@@ -45,6 +47,12 @@ class Options(metaclass=Singleton):
     default_logging_level = ''
 
 ###
+#
+#   Version: 2.2.0
+#   Date: 2020-04-26
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Caching enabled or not
 #
 #   Version: 2.1.0
 #   Date: 2020-04-23

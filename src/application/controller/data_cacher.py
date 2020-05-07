@@ -1,3 +1,13 @@
+###
+#
+#   Version: 1.0.0
+#   Date: 2020-04-17
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       Simple data caching
+#
+###
 
 import logging
 

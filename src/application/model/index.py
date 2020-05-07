@@ -2,18 +2,17 @@
 #
 #   Full history: see below
 #
-#   Version: 1.3.0
-#   Date: 2020-05-01
+#   Version: 1.4.0
+#   Date: 2020-05-07
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Features:
-#       - Rewrite date format
+#       - Support for drafts
 #
 ###
 
 import logging
 import math
-import os
 
 from pathlib import Path
 
@@ -73,7 +72,7 @@ class Index(metaclass=Singleton):
 
         return content
 
-    def data(self, page_index, posts_dir, total_posts):
+    def data(self, page_index, published_posts):
         self.__logger.debug('data - page_index: {0}'.format(page_index))
 
         data = {}
@@ -108,46 +107,45 @@ class Index(metaclass=Singleton):
         skip_entries = (int(page_index) - 1) * max_entries
         self.__logger.debug('data - skip_entries: {0}'.format(skip_entries))
 
-        try:
-            for file in sorted(os.listdir(posts_dir), reverse=True):
-                count_entries += 1
+        for entry in published_posts:
+            directory = entry['directory']
+            file = entry['file']
+            count_entries += 1
 
-                # We count the entries, but for pages 2 and more, you don't show them
-                if skip_entries >= count_entries:
-                    continue
+            # We count the entries, but for pages 2 and more, you don't show them
+            if skip_entries >= count_entries:
+                continue
 
-                post, _, post['content'] = Content().read_content(posts_dir, file)
+            post, _, post['content'] = Content().read_content(directory, file)
 
-                stem = Path(file).stem
-                post['url'] = stem
-                post['date'] = DateTimeSupport().rewrite_date(post['date'])
+            stem = Path(file).stem
+            post['url'] = stem
+            post['date'] = DateTimeSupport().rewrite_date(post['date'])
 
-                self.__logger.debug('data - post: {0}'.format(post))
+            self.__logger.debug('data - post: {0}'.format(post))
 
-                if page_index == 1:
-                    if count_entries <= spotlight_entries:
-                        self.__logger.debug('data - post added to spotlight_posts.')
-                        data['spotlight_posts'].append(post)
+            if page_index == 1:
+                if count_entries <= spotlight_entries:
+                    self.__logger.debug('data - post added to spotlight_posts.')
+                    data['spotlight_posts'].append(post)
 
-                    if spotlight_entries < count_entries <= (spotlight_entries + highlight_entries):
-                        self.__logger.debug('data - post added to highlight_posts.')
-                        data['highlight_posts'].append(post)
+                if spotlight_entries < count_entries <= (spotlight_entries + highlight_entries):
+                    self.__logger.debug('data - post added to highlight_posts.')
+                    data['highlight_posts'].append(post)
 
-                    if count_entries > (spotlight_entries + highlight_entries):
-                        self.__logger.debug('data - post added to (standard) posts.')
-                        data['posts'].append(post)
-
-                else:
+                if count_entries > (spotlight_entries + highlight_entries):
                     self.__logger.debug('data - post added to (standard) posts.')
                     data['posts'].append(post)
 
-                if count_entries == (max_entries + skip_entries):
-                    self.__logger.debug('data - enough posts for this index page.')
-                    break
-        except FileNotFoundError:
-            self.__logger.warning('COULD NOT FIND THE POSTS DIRECTORY {0}'.format(posts_dir))
-            pass
+            else:
+                self.__logger.debug('data - post added to (standard) posts.')
+                data['posts'].append(post)
 
+            if count_entries == (max_entries + skip_entries):
+                self.__logger.debug('data - enough posts for this index page.')
+                break
+
+        total_posts = len(published_posts)
         total_index_pages = math.ceil(total_posts / max_entries)
         self.__logger.debug('data - total_posts: {0}'.format(total_posts))
         self.__logger.debug('data - total_index_pages: {0}'.format(total_index_pages))
@@ -164,6 +162,13 @@ class Index(metaclass=Singleton):
 
 
 ###
+#
+#   Version: 1.3.0
+#   Date: 2020-05-01
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - Rewrite date format
 #
 #   Version: 1.2.0
 #   Date: 2020-04-17

@@ -33,4 +33,3 @@ class PageCacher(metaclass=Singleton):
     def cache(self, key, data):
         self.__logger.info('Caching {0}'.format(key))
         self.__cached_pages[key] = data
-
