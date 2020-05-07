@@ -2,12 +2,12 @@
 #
 #   Full history: see below
 #
-#   Version: 1.3.0
-#   Date: 2020-04-26
+#   Version: 1.4.0
+#   Date: 2020-05-07
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Features:
-#       - Caching enabled or not
+#       - Support for drafts
 #
 ###
 
@@ -112,7 +112,12 @@ class DataLoader(metaclass=Singleton):
             return DataCacher().get_cached(key)
 
         common = self.common_data
-        data, _ = Index().data(page_index, self.posts_directory, self.posts_count)
+        if Options().include_drafts:
+            posts = self.posts_files
+        else:
+            posts = self.posts_published
+
+        data, _ = Index().data(page_index, posts)
         #  We don't care yet about the introduction content
 
         combined = self.__combine(common, data)
@@ -144,8 +149,16 @@ class DataLoader(metaclass=Singleton):
         return self.__get_data('pages_files', Pages(), 'files')
 
     @property
+    def pages_published(self):
+        return self.__get_data('pages_files', Pages(), 'files_published')
+
+    @property
     def pages_count(self):
         return self.__get_data('pages_count', Pages(), 'count')
+
+    @property
+    def pages_count_published(self):
+        return self.__get_data('pages_count', Pages(), 'count_published')
 
     def pages_data(self, page):
         key = '/pages/{0}'.format(page)
@@ -174,8 +187,16 @@ class DataLoader(metaclass=Singleton):
         return self.__get_data('posts_files', Posts(), 'files')
 
     @property
+    def posts_published(self):
+        return self.__get_data('posts_files_published', Posts(), 'files_published')
+
+    @property
     def posts_count(self):
         return self.__get_data('posts_count', Posts(), 'count')
+
+    @property
+    def posts_count_published(self):
+        return self.__get_data('posts_count', Posts(), 'count_published')
 
     def posts_data(self, post):
         key = '/posts/{0}'.format(post)
@@ -199,10 +220,17 @@ class DataLoader(metaclass=Singleton):
     def search_data(self, query, page_index):
         search_base = []
 
-        for page in self.pages_files:
+        if Options().include_drafts:
+            pages = self.pages_files
+            posts = self.posts_files
+        else:
+            pages = self.pages_published
+            posts = self.posts_published
+
+        for page in pages:
             search_base.append(page)
 
-        for post in self.posts_files:
+        for post in posts:
             search_base.append(post)
 
         common = self.common_data
@@ -225,7 +253,12 @@ class DataLoader(metaclass=Singleton):
         if Options().caching and DataCacher().cached_already(key):
             return DataCacher().get_cached(key)
 
-        data = Tags().count_posts(self.posts_directory, tag)
+        if Options().include_drafts:
+            posts = self.posts_files
+        else:
+            posts = self.posts_published
+
+        data = Tags().count_posts(posts, tag)
 
         if Options().caching:
             DataCacher().cache(key, data)
@@ -239,7 +272,12 @@ class DataLoader(metaclass=Singleton):
         if Options().caching and DataCacher().cached_already(key):
             return DataCacher().get_cached(key)
 
-        tags_list = Tags().list(self.posts_directory)
+        if Options().include_drafts:
+            posts = self.posts_files
+        else:
+            posts = self.posts_published
+
+        tags_list = Tags().list(posts)
 
         if Options().caching:
             DataCacher().cache(key, tags_list)
@@ -270,8 +308,13 @@ class DataLoader(metaclass=Singleton):
         if Options().caching and DataCacher().cached_already(key):
             return DataCacher().get_cached(key)
 
+        if Options().include_drafts:
+            posts = self.posts_files
+        else:
+            posts = self.posts_published
+
         common = self.common_data
-        data = Tags().data(self.posts_directory, tag, page_index, self.index_max_posts, self.tags_posts_count(tag))
+        data = Tags().data(posts, tag, page_index, self.index_max_posts, self.tags_posts_count(tag))
         combined = self.__combine(common, data)
 
         if Options().caching:
@@ -280,6 +323,13 @@ class DataLoader(metaclass=Singleton):
         return combined
 
 ###
+#
+#   Version: 1.3.0
+#   Date: 2020-04-26
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - Caching enabled or not
 #
 #   Version: 1.2.0
 #   Date: 2020-04-17

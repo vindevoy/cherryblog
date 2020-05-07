@@ -7,8 +7,7 @@
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Features:
-#       - Removing skipped tags
-#       - Rewrite date format
+#       - Support for drafts
 #
 ###
 
@@ -52,6 +51,29 @@ class Pages(metaclass=Singleton):
         return files
 
     @property
+    def files_published(self):
+        directory = self.directory
+        files = []
+
+        for entry in self.files:
+            file = entry['file']
+            meta, _, _ = Content().read_content(directory, file)    # only need the meta data
+
+            try:
+                value = meta['draft']
+                draft = bool(value)
+
+            except KeyError:
+                draft = False
+
+            self.__logger.debug('published_files - {0}/{1} is a draft: {2}'.format(directory, file, draft))
+
+            if not draft:
+                files.append(entry)
+
+        return files
+
+    @property
     def count(self):
         try:
             count = len(os.listdir(self.directory))
@@ -60,6 +82,13 @@ class Pages(metaclass=Singleton):
             count = 0
 
         self.__logger.debug('count - count: {0}'.format(count))
+
+        return count
+
+    @property
+    def count_published(self):
+        count = len(self.files_published)
+        self.__logger.debug('count_published - count: {0}'.format(count))
 
         return count
 
@@ -99,6 +128,14 @@ class Pages(metaclass=Singleton):
 
 
 ###
+#
+#   Version: 1.3.0
+#   Date: 2020-05-01
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - Removing skipped tags
+#       - Rewrite date format
 #
 #   Version: 1.2.0
 #   Date: 2020-04-17
