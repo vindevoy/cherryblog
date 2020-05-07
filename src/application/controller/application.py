@@ -2,15 +2,17 @@
 #
 #   Full history: see below
 #
-#   Version: 2.3.0
-#   Date: 2020-04-26
+#   Version: 2.4.0
+#   Date: 2020-05-07
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Caching enabled or not
+#   Using HTML minify
 #
 ###
 
 import cherrypy
+from htmlmin.minify import html_minify
+
 import logging
 
 from datetime import datetime
@@ -35,7 +37,7 @@ class Application(metaclass=Singleton):
         start = datetime.now()
 
         if Options().caching and PageCacher().cached_already(request):
-            rendered = PageCacher().get_cached(request)
+            minified = PageCacher().get_cached(request)
 
         else:
             data = DataLoader().index_data(page_index)
@@ -43,14 +45,15 @@ class Application(metaclass=Singleton):
 
             template = TemplateLoader().get_template('screen_index.html')
             rendered = template.render(data=data)
+            minified = html_minify(rendered)
 
             if Options().caching:
-                PageCacher().cache(request, rendered)
+                PageCacher().cache(request, minified)
 
         finished = datetime.now()
         self.__logger.info('{0} {1}'.format(request, finished - start))
 
-        return rendered
+        return minified
 
     @cherrypy.expose
     def pages(self, page, **_):
@@ -58,7 +61,7 @@ class Application(metaclass=Singleton):
         start = datetime.now()
 
         if Options().caching and PageCacher().cached_already(request):
-            rendered = PageCacher().get_cached(request)
+            minified = PageCacher().get_cached(request)
 
         else:
             # page on the URL: http://www.yoursite.ext/pages/page
@@ -67,14 +70,15 @@ class Application(metaclass=Singleton):
 
             template = TemplateLoader().get_template('screen_page.html')
             rendered = template.render(data=data)
+            minified = html_minify(rendered)
 
             if Options().caching:
-                PageCacher().cache(request, rendered)
+                PageCacher().cache(request, minified)
 
         finished = datetime.now()
         self.__logger.info('{0} {1}'.format(request, finished - start))
 
-        return rendered
+        return minified
 
     @cherrypy.expose
     def posts(self, post, **_):
@@ -82,7 +86,7 @@ class Application(metaclass=Singleton):
         start = datetime.now()
 
         if Options().caching and PageCacher().cached_already(request):
-            rendered = PageCacher().get_cached(request)
+            minified = PageCacher().get_cached(request)
 
         else:
             data = DataLoader().posts_data(post)
@@ -90,14 +94,15 @@ class Application(metaclass=Singleton):
 
             template = TemplateLoader().get_template('screen_post.html')
             rendered = template.render(data=data)
+            minified = html_minify(rendered)
 
             if Options().caching:
-                PageCacher().cache(request, rendered)
+                PageCacher().cache(request, minified)
 
         finished = datetime.now()
         self.__logger.info('{0} {1}'.format(request, finished - start))
 
-        return rendered
+        return minified
 
     @cherrypy.expose
     def tags(self, tag, page_index=1, **_):
@@ -105,7 +110,7 @@ class Application(metaclass=Singleton):
         start = datetime.now()
 
         if Options().caching and PageCacher().cached_already(request):
-            rendered = PageCacher().get_cached(request)
+            minified = PageCacher().get_cached(request)
 
         else:
             data = DataLoader().tags_data(tag, page_index)
@@ -113,14 +118,15 @@ class Application(metaclass=Singleton):
 
             template = TemplateLoader().get_template('screen_tag.html')
             rendered = template.render(data=data)
+            minified = html_minify(rendered)
 
             if Options().caching:
-                PageCacher().cache(request, rendered)
+                PageCacher().cache(request, minified)
 
         finished = datetime.now()
         self.__logger.info('{0} {1}'.format(request, finished - start))
 
-        return rendered
+        return minified
 
     @cherrypy.expose
     def search(self, page_index=1, query='', **_):
@@ -132,11 +138,12 @@ class Application(metaclass=Singleton):
 
         template = TemplateLoader().get_template('screen_search.html')
         rendered = template.render(data=data)
+        minified = html_minify(rendered)
 
         finished = datetime.now()
         self.__logger.info('{0} {1}'.format(request, finished - start))
 
-        return rendered
+        return minified
 
     # @cherrypy.expose
     # def print_page(self, page, **_):
@@ -159,6 +166,12 @@ class Application(metaclass=Singleton):
     #     return rendered
 
 ###
+#
+#   Version: 2.3.0
+#   Date: 2020-04-26
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Caching enabled or not
 #
 #   Version: 2.2.0
 #   Date: 2020-04-22
