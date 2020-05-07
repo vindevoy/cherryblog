@@ -1,12 +1,11 @@
 ###
 #
-#   Version: 1.2.1
-#   Date: 2020-04-25
+#   Version: 1.3.0
+#   Date: 2020-05-07
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Fixes:
-#       - all logging is now in application.log instead of ENVIRONMENT.log (settings determine it for the run)
-#       - better history generation
+#   Features:
+#       - dependency for django-htmlmin
 #
 ###
 
@@ -59,6 +58,8 @@ dependencies:
 	@pip3 install jinja2
 	@pip3 install pyyaml
 	@pip3 install markdown
+	@pip3 install django-htmlmin
+
 
 	@echo '[OK] Dependencies in Python installed'
 
@@ -112,6 +113,14 @@ stop:
 
 
 ###
+#
+#   Version: 1.2.1
+#   Date: 2020-04-25
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Fixes:
+#       - all logging is now in application.log instead of ENVIRONMENT.log (settings determine it for the run)
+#       - better history generation
 #
 #   Version: 1.2.0
 #   Date: 2020-04-11
