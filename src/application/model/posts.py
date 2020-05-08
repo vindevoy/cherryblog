@@ -2,12 +2,12 @@
 #
 #   Full history: see below
 #
-#   Version: 1.3.1
+#   Version: 1.4.0
 #   Date: 2020-05-08
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Hotfix:
-#       - Page with no tags returns a TypeError and not a KeyError
+#   Feature:
+#       - Support for drafts
 #
 ###
 
@@ -70,15 +70,9 @@ class Posts(metaclass=Singleton):
 
             if not draft:
                 files.append(entry)
-<<<<<<< HEAD
 
         return files
 
-=======
-
-        return files
-
->>>>>>> v1.6.0
     @property
     def count(self):
         count = len(self.files)
@@ -113,11 +107,8 @@ class Posts(metaclass=Singleton):
                 else:
                     self.__logger.debug('data - removing skipped tag: {0}'.format(tag))
         except TypeError:
-<<<<<<< HEAD
             pass
         except KeyError:
-=======
->>>>>>> v1.6.0
             pass
 
         data['post']['tags'] = tags
@@ -134,6 +125,13 @@ class Posts(metaclass=Singleton):
 
 
 ###
+#
+#   Version: 1.3.1
+#   Date: 2020-05-08
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Hotfix:
+#       - Page with no tags returns a TypeError and not a KeyError
 #
 #   Version: 1.3.0
 #   Date: 2020-05-01

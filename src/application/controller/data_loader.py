@@ -3,11 +3,12 @@
 #   Full history: see below
 #
 #   Version: 1.4.0
-#   Date: 2020-05-07
+#   Date: 2020-05-08
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Features:
 #       - Support for drafts
+#       - Remapping of URLs to documents
 #
 ###
 
@@ -76,6 +77,7 @@ class DataLoader(metaclass=Singleton):
                 'settings': self.global_settings,
                 'tags_list': self.tags_list,
                 'tags_list_count': self.tags_list_count,
+                'tags_skip_list': self.tags_skip_list,
                 'main_menu': self.index_main_menu,
                 'footer_menu': self.index_footer_menu,
                 'important_news': self.important_news_data,

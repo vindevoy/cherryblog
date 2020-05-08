@@ -2,11 +2,12 @@
 #
 #   Full history: see below
 #
-#   Version: 2.4.0
-#   Date: 2020-05-07
+#   Version: 2.5.0
+#   Date: 2020-05-08
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Using HTML minify
+#   Features:
+#       - Remapping of URLs to documents
 #
 ###
 
@@ -33,8 +34,9 @@ class Application(metaclass=Singleton):
 
     @cherrypy.expose
     def index(self, page_index=1, **_):
-        request = '/index/{0}'.format(page_index)
         start = datetime.now()
+
+        request = '/index/{0}'.format(page_index)
 
         if Options().caching and PageCacher().cached_already(request):
             minified = PageCacher().get_cached(request)
@@ -57,16 +59,25 @@ class Application(metaclass=Singleton):
 
     @cherrypy.expose
     def pages(self, page, **_):
-        request = '/pages/{0}'.format(page)
         start = datetime.now()
+
+        request = '/pages/{0}'.format(page)
+        self.__logger.debug('pages - request: {0}'.format(request))
 
         if Options().caching and PageCacher().cached_already(request):
             minified = PageCacher().get_cached(request)
 
         else:
+            remapped = Remapper().remap_url(request)
+            self.__logger.debug('pages - remapped: {0}'.format(remapped))
+
+            if request != remapped:
+                page = remapped.split('/')[2]
+                self.__logger.debug('pages - page: {0}'.format(page))
+
             # page on the URL: http://www.yoursite.ext/pages/page
             data = DataLoader().pages_data(page)
-            data['url'] = request
+            data['url'] = remapped
 
             template = TemplateLoader().get_template('screen_page.html')
             rendered = template.render(data=data)
@@ -83,22 +94,23 @@ class Application(metaclass=Singleton):
     @cherrypy.expose
     def posts(self, post, **_):
         start = datetime.now()
-        request = 'posts/{0}'.format(post)
-        self.__logger.info('posts - request: {0}'.format(request))
+
+        request = '/posts/{0}'.format(post)
+        self.__logger.debug('posts - request: {0}'.format(request))
 
         if Options().caching and PageCacher().cached_already(request):
             minified = PageCacher().get_cached(request)
 
         else:
             remapped = Remapper().remap_url(request)
-            self.__logger.info('posts - remapped: {0}'.format(remapped))
+            self.__logger.debug('posts - remapped: {0}'.format(remapped))
 
             if request != remapped:
-                post = remapped.split('/')[1]
-                self.__logger.info('posts - post: {0}'.format(post))
+                post = remapped.split('/')[2]
+                self.__logger.debug('posts - post: {0}'.format(post))
 
             data = DataLoader().posts_data(post)
-            data['url'] = request
+            data['url'] = remapped
 
             template = TemplateLoader().get_template('screen_post.html')
             rendered = template.render(data=data)
@@ -114,15 +126,27 @@ class Application(metaclass=Singleton):
 
     @cherrypy.expose
     def tags(self, tag, page_index=1, **_):
-        request = '/tags/{0}/{1}'.format(tag, page_index)
         start = datetime.now()
+
+        request = '/tags/{0}/{1}'.format(tag, page_index)
+        self.__logger.debug('tags - tag: {0}'.format(tag))
 
         if Options().caching and PageCacher().cached_already(request):
             minified = PageCacher().get_cached(request)
 
         else:
+            short_request = 'tags/{0}'.format(tag)
+            self.__logger.debug('tags - short_request: {0}'.format(short_request))
+
+            remapped = Remapper().remap_url(short_request)
+            self.__logger.debug('tags - remapped: {0}'.format(remapped))
+
+            if short_request != remapped:
+                tag = remapped.split('/')[2]
+                self.__logger.debug('tags - tag: {0}'.format(tag))
+
             data = DataLoader().tags_data(tag, page_index)
-            data['url'] = request
+            data['url'] = remapped
 
             template = TemplateLoader().get_template('screen_tag.html')
             rendered = template.render(data=data)
@@ -137,9 +161,10 @@ class Application(metaclass=Singleton):
         return minified
 
     @cherrypy.expose
-    def search(self, page_index=1, query='', **_):
-        request = '/search/{0}/{1}'.format(page_index, query)
+    def search(self, query='', page_index=1, **_):
         start = datetime.now()
+
+        request = '/search/{0}/{1}'.format(query, page_index)
 
         data = DataLoader().search_data(query, page_index)
         data['url'] = request
@@ -174,6 +199,12 @@ class Application(metaclass=Singleton):
     #     return rendered
 
 ###
+#
+#   Version: 2.4.0
+#   Date: 2020-05-07
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Using HTML minify
 #
 #   Version: 2.3.0
 #   Date: 2020-04-26

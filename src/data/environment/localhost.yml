@@ -25,7 +25,7 @@ server:
   thread_pool: 8
 
 caching:
-  use: False
+  use: True
 
 tools:
   staticdirs:

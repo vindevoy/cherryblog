@@ -3,7 +3,7 @@
 #   Full history: see below
 #
 #   Version: 1.0.0
-#   Date: 2020-05-07
+#   Date: 2020-05-08
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Features:
@@ -43,6 +43,13 @@ class Mapping(metaclass=Singleton):
 
             target = mapping['target']
             source = mapping['source']
+
+            if target[0:1] != '/':
+                target = '/{0}'.format(target)
+
+            if source[0:1] != '/':
+                source = '/{0}'.format(source)
+
             self.__logger.debug('__data - target: {0}'.format(target))
             self.__logger.debug('__data - source: {0}'.format(source))
 

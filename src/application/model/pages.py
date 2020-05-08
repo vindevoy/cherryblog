@@ -2,14 +2,12 @@
 #
 #   Full history: see below
 #
-#   Version: 1.3.1
+#   Version: 1.4.0
 #   Date: 2020-05-08
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Features:
 #       - Support for drafts
-#   Hotfix:
-#       - Page with no tags returns a TypeError and not a KeyError
 #
 ###
 
@@ -132,6 +130,13 @@ class Pages(metaclass=Singleton):
 
 
 ###
+#
+#   Version: 1.3.1
+#   Date: 2020-05-08
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Hotfix:
+#       - Page with no tags returns a TypeError and not a KeyError
 #
 #   Version: 1.3.0
 #   Date: 2020-05-01

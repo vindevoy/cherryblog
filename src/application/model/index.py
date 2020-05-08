@@ -3,11 +3,12 @@
 #   Full history: see below
 #
 #   Version: 1.4.0
-#   Date: 2020-05-07
+#   Date: 2020-05-08
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Features:
 #       - Support for drafts
+#       - Remapping of URLs to documents
 #
 ###
 
@@ -120,7 +121,7 @@ class Index(metaclass=Singleton):
             post, _, post['content'] = Content().read_content(directory, file)
 
             stem = Path(file).stem
-            url = 'posts/{0}'.format(stem)
+            url = '/posts/{0}'.format(stem)
             url = Remapper().remap_document(url)
 
             post['url'] = url

@@ -42,9 +42,7 @@ class Remapper(metaclass=Singleton):
 
         if mapping in mappings:
             mapped = mappings[mapping]
-            self.__logger.debug('__remap - mapped: {0}'.format(mapped))
-
-            self.__logger.info('{0}: {1} -> {2}'.format(way, mapping, mapped))
+            self.__logger.debug('{0}: {1} -> {2}'.format(way, mapping, mapped))
             return mapped
         else:
             return mapping

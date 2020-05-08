@@ -3,11 +3,12 @@
 #   Full history: see below
 #
 #   Version: 1.4.0
-#   Date: 2020-05-07
+#   Date: 2020-05-08
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Changes:
 #       - Support for drafts
+#       - Remapping of URLs to documents
 #
 ###
 
@@ -23,6 +24,7 @@ from common.datetime_support import DateTimeSupport
 from common.options import Options
 from common.singleton import Singleton
 from common.tags_support import TagsSupport
+from controller.remapper import Remapper
 
 
 class Tags(metaclass=Singleton):
@@ -87,6 +89,16 @@ class Tags(metaclass=Singleton):
         for _, value in tags.items():  # Only need the value
             tags_array.append(value)
 
+        for tag in tags_array:
+            label = tag['label']
+            unmapped = '/tags/{0}'.format(label)
+            remapped = Remapper().remap_document(unmapped)
+
+            if unmapped != remapped:
+                label = remapped.split('/')[2]
+                tag['label'] = label
+                tag['text'] = TagsSupport().tag_text(label)
+
         tags_list = sorted(tags_array, key=itemgetter('count'), reverse=True)
         self.__logger.debug('list - sorted tags: '.format(tags_list))
 
@@ -138,8 +150,10 @@ class Tags(metaclass=Singleton):
                     self.__logger.debug('data - post added')
 
                 stem = Path(file).stem
-                post['url'] = stem
+                url = '/posts/{0}'.format(stem)
+                url = Remapper().remap_document(url)
 
+                post['url'] = url
                 post['date'] = DateTimeSupport().rewrite_date(post['date'])
 
                 data['posts'].append(post)
