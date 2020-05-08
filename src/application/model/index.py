@@ -20,6 +20,7 @@ from common.content import Content
 from common.datetime_support import DateTimeSupport
 from common.options import Options
 from common.singleton import Singleton
+from controller.remapper import Remapper
 
 
 class Index(metaclass=Singleton):
@@ -119,7 +120,10 @@ class Index(metaclass=Singleton):
             post, _, post['content'] = Content().read_content(directory, file)
 
             stem = Path(file).stem
-            post['url'] = stem
+            url = 'posts/{0}'.format(stem)
+            url = Remapper().remap_document(url)
+
+            post['url'] = url
             post['date'] = DateTimeSupport().rewrite_date(post['date'])
 
             self.__logger.debug('data - post: {0}'.format(post))

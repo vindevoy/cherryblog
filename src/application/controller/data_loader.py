@@ -20,6 +20,7 @@ from model.codeversion import CodeVersion
 from model.i8n import I8N
 from model.important_news import ImportantNews
 from model.index import Index
+from model.mapping import Mapping
 from model.pages import Pages
 from model.posts import Posts
 from model.search import Search
@@ -138,6 +139,13 @@ class DataLoader(metaclass=Singleton):
     @property
     def index_highlight_posts(self):
         return self.__get_data('index_highlight_posts', Index(), 'highlight_posts')
+
+    # mapping
+    def mapping_incoming(self):
+        return self.__get_data('mapping_incoming', Mapping(), 'incoming')
+
+    def mapping_outgoing(self):
+        return self.__get_data('mapping_outgoing', Mapping(), 'outgoing')
 
     # pages
     @property

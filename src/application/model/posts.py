@@ -107,7 +107,7 @@ class Posts(metaclass=Singleton):
                     tags.append(TagsSupport().tag_text(tag))
                 else:
                     self.__logger.debug('data - removing skipped tag: {0}'.format(tag))
-        except KeyError:
+        except TypeError:
             pass
 
         data['post']['tags'] = tags
