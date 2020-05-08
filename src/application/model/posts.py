@@ -70,9 +70,15 @@ class Posts(metaclass=Singleton):
 
             if not draft:
                 files.append(entry)
+<<<<<<< HEAD
 
         return files
 
+=======
+
+        return files
+
+>>>>>>> v1.6.0
     @property
     def count(self):
         count = len(self.files)
@@ -107,8 +113,11 @@ class Posts(metaclass=Singleton):
                 else:
                     self.__logger.debug('data - removing skipped tag: {0}'.format(tag))
         except TypeError:
+<<<<<<< HEAD
             pass
         except KeyError:
+=======
+>>>>>>> v1.6.0
             pass
 
         data['post']['tags'] = tags
