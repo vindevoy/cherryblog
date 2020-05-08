@@ -2,13 +2,12 @@
 #
 #   Full history: see below
 #
-#   Version: 1.3.0
-#   Date: 2020-05-01
+#   Version: 1.3.1
+#   Date: 2020-05-08
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Features:
-#       - Removing skipped tags
-#       - Rewrite date format
+#   Hotfix:
+#       - Page with no tags returns a TypeError and not a KeyError
 #
 ###
 
@@ -82,6 +81,8 @@ class Posts(metaclass=Singleton):
                     tags.append(TagsSupport().tag_text(tag))
                 else:
                     self.__logger.debug('data - removing skipped tag: {0}'.format(tag))
+        except TypeError:
+            pass
         except KeyError:
             pass
 
@@ -99,6 +100,14 @@ class Posts(metaclass=Singleton):
 
 
 ###
+#
+#   Version: 1.3.0
+#   Date: 2020-05-01
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - Removing skipped tags
+#       - Rewrite date format
 #
 #   Version: 1.2.0
 #   Date: 2020-04-17
