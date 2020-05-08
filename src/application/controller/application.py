@@ -20,6 +20,7 @@ from common.options import Options
 from common.singleton import Singleton
 from controller.data_loader import DataLoader
 from controller.page_cacher import PageCacher
+from controller.remapper import Remapper
 from view.templateloader import TemplateLoader
 
 
@@ -81,13 +82,21 @@ class Application(metaclass=Singleton):
 
     @cherrypy.expose
     def posts(self, post, **_):
-        request = '/posts/{0}'.format(post)
         start = datetime.now()
+        request = 'posts/{0}'.format(post)
+        self.__logger.info('posts - request: {0}'.format(request))
 
         if Options().caching and PageCacher().cached_already(request):
             minified = PageCacher().get_cached(request)
 
         else:
+            remapped = Remapper().remap_url(request)
+            self.__logger.info('posts - remapped: {0}'.format(remapped))
+
+            if request != remapped:
+                post = remapped.split('/')[1]
+                self.__logger.info('posts - post: {0}'.format(post))
+
             data = DataLoader().posts_data(post)
             data['url'] = request
 

@@ -25,6 +25,7 @@ from common.datetime_support import DateTimeSupport
 from controller.application import Application
 from controller.data_loader import DataLoader
 from controller.logging_loader import LoggingLoader
+from controller.remapper import Remapper
 from controller.settings_loader import SettingsLoader
 
 __application = 'CherryBlog'
@@ -77,6 +78,10 @@ if __name__ == '__main__':
     DateTimeSupport().output_format = global_settings['date_output_format']
     logger.info('Default date input format set to \'{0}\'.'.format(DateTimeSupport().input_format))
     logger.info('Default date output format set to \'{0}\'.'.format(DateTimeSupport().output_format))
+
+    # Loading the remapping
+    Remapper().outgoing_content = DataLoader().mapping_outgoing()
+    Remapper().incoming_content = DataLoader().mapping_incoming()
 
     if Options().use_ssl:
         # vindevoy - 2020-04-25
