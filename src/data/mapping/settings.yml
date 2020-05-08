@@ -1,0 +1,7 @@
+---
+
+content:
+  - target: 'posts/announcement'
+    source: 'posts/0001_announcement'
+  - target: 'posts/version_1.0.0'
+    source: 'posts/0002_version_1_0_0'
