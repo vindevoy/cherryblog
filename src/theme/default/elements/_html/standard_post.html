@@ -1,14 +1,17 @@
 <!--
     Full history: see below
 
-    Version: 1.0.0
-    Date: 2020-04-30
+    Version: 1.1.0
+    Date: 2020-05-08
     Author: Yves Vindevogel (vindevoy)
 
     Usage: a standard post on the index page (12 columns but no picture)
 
     Parameters:
         - post
+
+    Update:
+        - changes for remapping
 -->
 
 <div class="m-0 p-0 px-2 w-100">
@@ -16,7 +19,7 @@
         <div class="card-body">
             <h5 class="card-title">{{ post.title }}</h5>
             <p class="card-text">{{ post.summary}}</p>
-            <a href="/posts/{{ post.url }}" class="btn btn-primary">{{ data.i8n.navigation.read_more_label }}</a>
+            <a href="{{ post.url }}" class="btn btn-primary">{{ data.i8n.navigation.read_more_label }}</a>
         </div>
 
         {% with author = post.author, date = post.date %}
@@ -24,3 +27,9 @@
         {% endwith %}
     </div>
 </div>
+
+<!--
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+-->

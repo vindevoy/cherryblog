@@ -2,6 +2,7 @@
 
 content:
   meta_content_separator: "----------"
+  include_drafts: True
 
 directories:
   theme:
@@ -24,7 +25,7 @@ server:
   thread_pool: 8
 
 caching:
-  use: False
+  use: True
 
 tools:
   staticdirs:
@@ -34,6 +35,10 @@ tools:
     - url: '/static'
       absolute: False
       path: 'src/theme/default/static'
+  staticfiles:
+    - url: '/sitemap.xml'
+      absolute: False
+      path: 'src/data/sitemap/sitemap.xml'
 
 user:
   privileges: False

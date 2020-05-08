@@ -2,19 +2,18 @@
 #
 #   Full history: see below
 #
-#   Version: 1.3.0
-#   Date: 2020-05-01
+#   Version: 1.4.0
+#   Date: 2020-05-08
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Changes:
-#       - Moved the tag_label and tag_text methods to a support class in common
-#       - Rewrite date format
+#       - Support for drafts
+#       - Remapping of URLs to documents
 #
 ###
 
 import logging
 import math
-import os
 import string
 
 from operator import itemgetter
@@ -25,6 +24,7 @@ from common.datetime_support import DateTimeSupport
 from common.options import Options
 from common.singleton import Singleton
 from common.tags_support import TagsSupport
+from controller.remapper import Remapper
 
 
 class Tags(metaclass=Singleton):
@@ -47,8 +47,8 @@ class Tags(metaclass=Singleton):
 
         return tags
 
-    def list(self, posts_dir):
-        self.__logger.debug('list - posts_dir: {0}'.format(posts_dir))
+    def list(self, posts):
+        self.__logger.debug('list - posts: {0}'.format(posts))
 
         settings = Content().load_data_settings_yaml(self.__base_dir)
         self.__logger.debug('list - settings: {0}'.format(settings))
@@ -56,31 +56,30 @@ class Tags(metaclass=Singleton):
         # Starting with a dictionary as this is the easiest to find existing tags
         tags = {}
 
-        try:
-            for file in os.listdir(posts_dir):
-                meta, _, _ = Content().read_content(posts_dir, file)  # No need to catch the content
+        for entry in posts:
+            directory = entry['directory']
+            file = entry['file']
 
-                if meta['tags'] is None:
+            meta, _, _ = Content().read_content(directory, file)  # No need to catch the content
+
+            if meta['tags'] is None:
+                continue
+
+            for tag in meta['tags']:
+                label = TagsSupport().tag_label(tag)
+
+                if label in settings['skip_tags']:
+                    self.__logger.debug('list - tag {0} found in skip_tags'.format(tag))
                     continue
 
-                for tag in meta['tags']:
-                    label = TagsSupport().tag_label(tag)
-
-                    if label in settings['skip_tags']:
-                        self.__logger.debug('list - tag {0} found in skip_tags'.format(tag))
-                        continue
-
-                    if label in tags.keys():
-                        self.__logger.debug('list - tag {0} already exists, +1'.format(tag))
-                        current_count = tags[label]['count']
-                        tags[label]['count'] = current_count + 1
-                    else:
-                        self.__logger.debug('list - tag {0} does not already exist'.format(tag))
-                        data = {'label': label, 'count': 1, 'text': string.capwords(tag)}
-                        tags[label] = data
-        except FileNotFoundError:
-            self.__logger.warning('COULD NOT FIND THE POSTS DIRECTORY {0}'.format(posts_dir))
-            pass
+                if label in tags.keys():
+                    self.__logger.debug('list - tag {0} already exists, +1'.format(tag))
+                    current_count = tags[label]['count']
+                    tags[label]['count'] = current_count + 1
+                else:
+                    self.__logger.debug('list - tag {0} does not already exist'.format(tag))
+                    data = {'label': label, 'count': 1, 'text': string.capwords(tag)}
+                    tags[label] = data
 
         self.__logger.debug('list - tags: '.format(tags))
 
@@ -90,13 +89,23 @@ class Tags(metaclass=Singleton):
         for _, value in tags.items():  # Only need the value
             tags_array.append(value)
 
+        for tag in tags_array:
+            label = tag['label']
+            unmapped = '/tags/{0}'.format(label)
+            remapped = Remapper().remap_document(unmapped)
+
+            if unmapped != remapped:
+                label = remapped.split('/')[2]
+                tag['label'] = label
+                tag['text'] = TagsSupport().tag_text(label)
+
         tags_list = sorted(tags_array, key=itemgetter('count'), reverse=True)
         self.__logger.debug('list - sorted tags: '.format(tags_list))
 
         return tags_list
 
-    def data(self, posts_dir, tag, page_index, index_max_posts, count_tag_posts):
-        self.__logger.debug('data - posts_dir: {0}'.format(posts_dir))
+    def data(self, posts, tag, page_index, index_max_posts, count_tag_posts):
+        self.__logger.debug('data - posts: {0}'.format(posts))
         self.__logger.debug('data - tag: {0}'.format(tag))
         self.__logger.debug('data - page_index tags: {0}'.format(page_index))
         self.__logger.debug('data - index_max_posts tags: {0}'.format(index_max_posts))
@@ -110,46 +119,48 @@ class Tags(metaclass=Singleton):
         self.__logger.debug('data - max_entries: {0}'.format(max_entries))
         self.__logger.debug('data - skip_entries: {0}'.format(skip_entries))
 
-        try:
-            for file in sorted(os.listdir(posts_dir), reverse=True):
-                post, _, post['content'] = Content().read_content(posts_dir, file)
+        for entry in posts:
+            directory = entry['directory']
+            file = entry['file']
 
-                if post['tags'] is None:
+            post, _, post['content'] = Content().read_content(directory, file)
+
+            if post['tags'] is None:
+                continue
+
+            self.__logger.debug('data - post: {0}'.format(post))
+
+            must_include = False
+
+            for tag_raw in post['tags']:
+                if TagsSupport().tag_label(tag_raw) == tag:
+                    must_include = True
+                    break
+
+            self.__logger.debug('data - must_include: {0}'.format(must_include))
+
+            if must_include:
+                count_entries += 1
+
+                # We count the entries, but for pages 2 and more, you don't show them
+                if skip_entries >= count_entries:
+                    self.__logger.debug('data - post skipped}')
                     continue
+                else:
+                    self.__logger.debug('data - post added')
 
-                self.__logger.debug('data - post: {0}'.format(post))
+                stem = Path(file).stem
+                url = '/posts/{0}'.format(stem)
+                url = Remapper().remap_document(url)
 
-                must_include = False
+                post['url'] = url
+                post['date'] = DateTimeSupport().rewrite_date(post['date'])
 
-                for tag_raw in post['tags']:
-                    if TagsSupport().tag_label(tag_raw) == tag:
-                        must_include = True
-                        break
+                data['posts'].append(post)
 
-                self.__logger.debug('data - must_include: {0}'.format(must_include))
-
-                if must_include:
-                    count_entries += 1
-
-                    # We count the entries, but for pages 2 and more, you don't show them
-                    if skip_entries >= count_entries:
-                        self.__logger.debug('data - post skipped}')
-                        continue
-                    else:
-                        self.__logger.debug('data - post added')
-
-                    stem = Path(file).stem
-                    post['url'] = stem
-
-                    post['date'] = DateTimeSupport().rewrite_date(post['date'])
-
-                    data['posts'].append(post)
-
-                    if count_entries == (max_entries + skip_entries):
-                        self.__logger.debug('data - enough posts')
-                        break
-        except FileNotFoundError:
-            pass
+                if count_entries == (max_entries + skip_entries):
+                    self.__logger.debug('data - enough posts')
+                    break
 
         data['tag'] = {'name': TagsSupport().tag_text(tag), 'path': tag}
 
@@ -162,32 +173,40 @@ class Tags(metaclass=Singleton):
 
         return data
 
-    def count_posts(self, posts_dir, tag):
+    def count_posts(self, posts, tag):
         self.__logger.debug('count_posts - tag: {0}'.format(tag))
-        self.__logger.debug('count_posts - posts_dir: {0}'.format(posts_dir))
+        self.__logger.debug('count_posts - posts: {0}'.format(posts))
 
         count_entries = 0
 
-        try:
-            for file in os.listdir(posts_dir):
-                post, _, _ = Content().read_content(posts_dir, file)
+        for entry in posts:
+            directory = entry['directory']
+            file = entry['file']
 
-                if post['tags'] is None:
-                    continue
+            post, _, _ = Content().read_content(directory, file)
 
-                for tag_raw in post['tags']:
-                    if TagsSupport().tag_label(tag_raw) == tag:
-                        count_entries += 1
-                        self.__logger.debug('count_posts - file {0} includes tag '.format(file))
-                        break
-        except FileNotFoundError:
-            pass
+            if post['tags'] is None:
+                continue
+
+            for tag_raw in post['tags']:
+                if TagsSupport().tag_label(tag_raw) == tag:
+                    count_entries += 1
+                    self.__logger.debug('count_posts - file {0} includes tag '.format(file))
+                    break
 
         self.__logger.debug('count_posts - tag {0} has {1} posts'.format(tag, count_entries))
 
         return count_entries
 
 ###
+#
+#   Version: 1.3.0
+#   Date: 2020-05-01
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Changes:
+#       - Moved the tag_label and tag_text methods to a support class in common
+#       - Rewrite date format
 #
 #   Version: 1.2.1
 #   Date: 2020-04-23

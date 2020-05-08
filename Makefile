@@ -1,12 +1,12 @@
 ###
 #
-#   Version: 1.2.1
-#   Date: 2020-04-25
+#   Version: 1.3.0
+#   Date: 2020-05-07
 #   Author: Yves Vindevogel (vindevoy)
 #
-#   Fixes:
-#       - all logging is now in application.log instead of ENVIRONMENT.log (settings determine it for the run)
-#       - better history generation
+#   Features:
+#       - dependency for django-htmlmin
+#       - create sitemap.xml
 #
 ###
 
@@ -59,6 +59,8 @@ dependencies:
 	@pip3 install jinja2
 	@pip3 install pyyaml
 	@pip3 install markdown
+	@pip3 install django-htmlmin
+
 
 	@echo '[OK] Dependencies in Python installed'
 
@@ -99,11 +101,21 @@ history:
 
 	@echo '[OK] history copied to pages'
 
-develop:
+sitemap:
+	@mkdir -p ./src/data/sitemap
+	@python3 ./src/application/sitemap.py
+
+
+	@echo '[OK] sitemap.xml created'
+
+google: sitemap
+	@curl http://www.google.com/ping?sitemap=https://cherryblog.org/sitemap.xml > /dev/null
+
+develop: sitemap
 	@mkdir -p ./log
 	@python3 ./src/application/main.py 2>&1 | tee ./log/application.log
 
-production:
+production: sitemap
 	@mkdir -p /var/log/cherryblog
 	@python3 ./src/application/main.py --env production 2>&1 | tee /var/log/cherryblog/application.log &
 
@@ -112,6 +124,14 @@ stop:
 
 
 ###
+#
+#   Version: 1.2.1
+#   Date: 2020-04-25
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Fixes:
+#       - all logging is now in application.log instead of ENVIRONMENT.log (settings determine it for the run)
+#       - better history generation
 #
 #   Version: 1.2.0
 #   Date: 2020-04-11

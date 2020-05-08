@@ -2,12 +2,12 @@
 #
 #   Full history: see below
 #
-#   Version: 1.5.0
-#   Date: 2020-04-28
+#   Version: 1.6.0
+#   Date: 2020-05-07
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Features:
-#       Handling missing keys and using defaults
+#       - Support for drafts
 #
 ###
 
@@ -143,6 +143,11 @@ class SettingsLoader(metaclass=Singleton):
             Options().meta_content_separator = '__________'
 
         try:
+            Options().include_drafts = settings_yaml['content']['include_drafts']
+        except KeyError:
+            Options().include_drafts = False
+
+        try:
             Options().daemon = settings_yaml['engine']['daemon']
         except KeyError:
             Options().daemon = False
@@ -189,6 +194,13 @@ class SettingsLoader(metaclass=Singleton):
             Options().caching = False
 
 ###
+#
+#   Version: 1.5.0
+#   Date: 2020-04-28
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       Handling missing keys and using defaults
 #
 #   Version: 1.4.0
 #   Date: 2020-04-23
