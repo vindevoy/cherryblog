@@ -2,12 +2,12 @@
 #
 #   Full history: see below
 #
-#   Version: 1.0.0
-#   Date: 2020-05-07
+#   Version: 1.1.0
+#   Date: 2020-05-08
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Features:
-#       - Build a sitemap
+#       - Added remapper
 #
 ###
 
@@ -20,6 +20,7 @@ from common.options import Options
 from common.content import Content
 from controller.data_loader import DataLoader
 from controller.logging_loader import LoggingLoader
+from controller.remapper import Remapper
 from controller.settings_loader import SettingsLoader
 
 environment = 'localhost'
@@ -33,6 +34,9 @@ settings = SettingsLoader(environment).parse()
 LoggingLoader().configure()
 
 logger = logging.getLogger('SITEMAP')
+
+Remapper().outgoing_content = DataLoader().mapping_outgoing()
+Remapper().incoming_content = DataLoader().mapping_incoming()
 
 # Override the drafts because Google will never find them in production most likely
 Options().include_drafts = False
@@ -51,12 +55,15 @@ for entry in DataLoader().posts_published:
     file = entry['file']
     stem = Path(file).stem
 
+    unmapped = '/posts/{0}'.format(stem)
+    remapped = Remapper().remap_document(unmapped)
+
     logger.info('Parsing {0}'.format(file))
 
     meta, _, _ = Content().read_content('posts', file)
 
     xml += '  <url>\n'
-    xml += '    <loc>https://cherryblog.org/posts/{0}</loc>\n'.format(stem)
+    xml += '    <loc>https://cherryblog.org{0}</loc>\n'.format(remapped)
     xml += '    <lastmod>{0}</lastmod>\n'.format(meta['date'])
     xml += '    <changefreq>never</changefreq>\n'
     xml += '    <priority>{0}</priority>\n'.format(round(priority, 2))
@@ -68,6 +75,9 @@ for entry in DataLoader().posts_published:
 for entry in DataLoader().pages_published:
     file = entry['file']
     stem = Path(file).stem
+
+    unmapped = '/pages/{0}'.format(stem)
+    remapped = Remapper().remap_document(unmapped)
 
     logger.info('Parsing {0}'.format(file))
 
@@ -84,7 +94,7 @@ for entry in DataLoader().pages_published:
         update = 'monthly'
 
     xml += '  <url>\n'
-    xml += '    <loc>https://cherryblog.org/pages/{0}</loc>\n'.format(stem)
+    xml += '    <loc>https://cherryblog.org{0}</loc>\n'.format(remapped)
     xml += '    <lastmod>{0}</lastmod>\n'.format(meta['date'])
     xml += '    <changefreq>{0}</changefreq>\n'.format(update)
     xml += '    <priority>{0}</priority>\n'.format(round(priority, 2))
@@ -96,3 +106,14 @@ xml += '</urlset>\n'
 sitemap_file = open(os.path.join(data_dir, 'sitemap', 'sitemap.xml'), 'w')
 sitemap_file.write(xml)
 sitemap_file.close()
+
+###
+#
+#   Version: 1.0.0
+#   Date: 2020-05-07
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Features:
+#       - Build a sitemap
+#
+###
