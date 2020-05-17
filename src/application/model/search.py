@@ -2,12 +2,13 @@
 #
 #   Full history: see below
 #
-#   Version: 1.1.1
-#   Date: 2020-05-06
+#   Version: 1.2.0
+#   Date: 2020-05-08
 #   Author: Yves Vindevogel (vindevoy)
 #
 #   Fixes:
-#       - The replace with the bold tags works, but it does not capture capital letters.  Introducing another method.
+#       - Support for drafts
+#       - Remapping of URLs to documents
 #
 ###
 
@@ -21,6 +22,7 @@ from common.options import Options
 from common.singleton import Singleton
 
 from controller.data_cacher import DataCacher
+from controller.remapper import Remapper
 
 
 class Search(metaclass=Singleton):
@@ -56,24 +58,28 @@ class Search(metaclass=Singleton):
             file = item['file']
             stem = Path(file).stem
 
+            unmapped = '/{0}/{1}'.format(directory, stem)
+            remapped = Remapper().remap_document(unmapped)
+
+            if unmapped != remapped:
+                stem = remapped.split('/')[2]
+
             # adding the stem to the object for the final url
             item['stem'] = stem
 
-            url = '/{0}/{1}'.format(directory, stem)
-
-            if url in excluded:
+            if remapped in excluded:
                 self.__logger.debug('data - excluded item: {0}'.format(item))
                 continue
 
-            cached_already = DataCacher().cached_already(url)
+            cached_already = DataCacher().cached_already(unmapped)
 
             if cached_already:
-                self.__logger.debug('data - cached: {0}'.format(url))
+                self.__logger.debug('data - cached: {0}'.format(unmapped))
 
-                meta = DataCacher().get_cached('{0}/meta'.format(url))
-                content = DataCacher().get_cached('{0}/content'.format(url))
+                meta = DataCacher().get_cached('{0}/meta'.format(unmapped))
+                content = DataCacher().get_cached('{0}/content'.format(unmapped))
             else:
-                self.__logger.debug('data - not cached: {0}'.format(url))
+                self.__logger.debug('data - not cached: {0}'.format(unmapped))
 
                 meta, content, _ = Content().read_content(directory, file)
 
@@ -177,6 +183,13 @@ class Search(metaclass=Singleton):
         return data
 
 ###
+#
+#   Version: 1.1.1
+#   Date: 2020-05-06
+#   Author: Yves Vindevogel (vindevoy)
+#
+#   Fixes:
+#       - The replace with the bold tags works, but it does not capture capital letters.  Introducing another method.
 #
 #   Version: 1.1.0
 #   Date: 2020-05-01

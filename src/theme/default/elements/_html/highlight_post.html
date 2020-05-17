@@ -1,14 +1,17 @@
 <!--
     Full history: see below
 
-    Version: 1.0.0
-    Date: 2020-04-30
+    Version: 1.1.0
+    Date: 2020-05-08
     Author: Yves Vindevogel (vindevoy)
 
     Usage: a highlighted post on the index page (6 columns with picture)
 
     Parameters:
         - post
+
+    Update:
+        - changes for remapping
 -->
 
 <div class="col-md-6 m-0 mb-3 p-0 px-2">
@@ -18,7 +21,7 @@
         <div class="card-body d-flex align-items-baseline flex-column">
             <h4 class="card-title">{{ post.title }}</h4>
             <p class="card-text">{{ post.summary}}</p>
-            <a href="/posts/{{ post.url }}" class="btn btn-primary mt-auto">{{ data.i8n.navigation.read_more_label }}</a>
+            <a href="{{ post.url }}" class="btn btn-primary mt-auto">{{ data.i8n.navigation.read_more_label }}</a>
         </div>
 
         {% with author = post.author, date = post.date %}
@@ -26,3 +29,9 @@
         {% endwith %}
     </div>
 </div>
+
+<!--
+    Version: 1.0.0
+    Date: 2020-04-30
+    Author: Yves Vindevogel (vindevoy)
+-->
