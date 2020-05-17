@@ -68,7 +68,7 @@ for entry in DataLoader().posts_published:
     meta, _, _ = Content().read_content('posts', file)
 
     xml += '  <url>\n'
-    xml += '    <loc>https://cherryblogger.org{0}</loc>\n'.format(remapped)
+    xml += '    <loc>https://cherryblog.org{0}</loc>\n'.format(remapped)
     xml += '    <lastmod>{0}</lastmod>\n'.format(meta['date'])
     xml += '    <changefreq>never</changefreq>\n'
     xml += '    <priority>{0}</priority>\n'.format(round(priority, 2))
