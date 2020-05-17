@@ -5,9 +5,70 @@ title: "Release notes"
 image: "blossom4.jpg"
 
 author: "Yves Vindevogel"
-date: "2020-05-01"
+date: "2020-05-17"
 
 ----------
+
+# Release v1.6.0
+
+
+- author: Yves Vindevogel (vindevoy)
+- date: 2020-05-17
+
+## New Features
+
+- URL rerouting has been implemented on the level of the posts, pages and tags.  This means that you can change the URL of the publication and through the rerouting, it will map the correct document(s).  This can be used to make URLs more readable.
+- Support for draft pages has been included.  If you are writing a new post or page, but you don't want it to be published yet, you can put it as draft in the meta data.  You can decide through the environment.yml if you want to show drafts or not (development vs. production).  
+
+## Enhancements
+
+- A sitemap.xml file can be generated from the Makefile.  This allows Google to crawl the website better.
+- The application controller class now uses htmlmin to remove all the comment in the HTML, remove double spaces and so on.  This results in a smaller HTML going over the wire, but it also results in a better memory footprint for caching.
+
+## Other
+
+- A Facebook page has been created for marketing reasons.  Why else ?
+
+### Github 
+
+For more information on this release, see the issues for this milestone:
+
+- [https://github.com/vindevoy/cherryblog/milestone/15](https://github.com/vindevoy/cherryblog/milestone/15)
+
+
+# Release v1.5.2
+
+
+- author: Yves Vindevogel (vindevoy)
+- date: 2020-05-08
+
+## Hotfix
+
+- There was a runtime-error on the posts and pages if they had to tags. This resulted in a TypeError, and in code the KeyError was captured.  
+
+### Github 
+
+For more information on this release, see the issues for this milestone:
+
+- [https://github.com/vindevoy/cherryblog/milestone/15](https://github.com/vindevoy/cherryblog/milestone/15)
+
+
+# Release v1.5.1
+
+
+- author: Yves Vindevogel (vindevoy)
+- date: 2020-05-07
+
+## Bug Fixes
+
+- There was a problem with the search results. The font weight (bold) of found text in the search results is now case-insensitive.  
+
+### Github 
+
+For more information on this release, see the issues for this milestone:
+
+- [https://github.com/vindevoy/cherryblog/milestone/14](https://github.com/vindevoy/cherryblog/milestone/14)
+
 
 # Release v1.5.0
 

@@ -35,6 +35,8 @@ LoggingLoader().configure()
 
 logger = logging.getLogger('SITEMAP')
 
+logger.debug('data_dir: {0}'.format(data_dir))
+
 Remapper().outgoing_content = DataLoader().mapping_outgoing()
 Remapper().incoming_content = DataLoader().mapping_incoming()
 
@@ -58,12 +60,15 @@ for entry in DataLoader().posts_published:
     unmapped = '/posts/{0}'.format(stem)
     remapped = Remapper().remap_document(unmapped)
 
+    logger.debug('unmapped: {0}'.format(unmapped))
+    logger.debug('remapped: {0}'.format(remapped))
+
     logger.info('Parsing {0}'.format(file))
 
     meta, _, _ = Content().read_content('posts', file)
 
     xml += '  <url>\n'
-    xml += '    <loc>https://cherryblog.org{0}</loc>\n'.format(remapped)
+    xml += '    <loc>https://cherryblogger.org{0}</loc>\n'.format(remapped)
     xml += '    <lastmod>{0}</lastmod>\n'.format(meta['date'])
     xml += '    <changefreq>never</changefreq>\n'
     xml += '    <priority>{0}</priority>\n'.format(round(priority, 2))
@@ -102,8 +107,12 @@ for entry in DataLoader().pages_published:
 
 xml += '</urlset>\n'
 
+logger.debug('xml:\n{0}'.format(xml))
 
-sitemap_file = open(os.path.join(data_dir, 'sitemap', 'sitemap.xml'), 'w')
+sitemap_path = os.path.join(data_dir, 'sitemap', 'sitemap.xml')
+logger.info('Writing file {0}'.format(sitemap_path))
+
+sitemap_file = open(sitemap_path, 'w')
 sitemap_file.write(xml)
 sitemap_file.close()
 
