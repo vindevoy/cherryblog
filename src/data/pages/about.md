@@ -20,7 +20,7 @@ CherryBlog implements a very simple blogging website.
 - Search: word based search in posts and pages
 - Caching: in memory caching of data and content
 - Drafts: drafts are pages that are not published yet, only visible in development
-- URL rewriting: the final URL is not necessarily the path to the file 
+- URL rerouting: the final URL is not necessarily the path to the file 
 
 At this moment, it has the basic news of the project where each article is a post about the new version that was released.
 
