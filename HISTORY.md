@@ -22,7 +22,7 @@
 
 For more information on this release, see the issues for this milestone:
 
-- [https://github.com/vindevoy/cherryblog/milestone/15](https://github.com/vindevoy/cherryblog/milestone/15)
+- [https://github.com/vindevoy/cherryblog/milestone/13](https://github.com/vindevoy/cherryblog/milestone/13)
 
 
 # Release v1.5.2

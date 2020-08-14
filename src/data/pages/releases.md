@@ -5,7 +5,7 @@ title: "Release notes"
 image: "blossom4.jpg"
 
 author: "Yves Vindevogel"
-date: "2020-05-17"
+date: "2020-08-14"
 
 ----------
 
@@ -33,7 +33,7 @@ date: "2020-05-17"
 
 For more information on this release, see the issues for this milestone:
 
-- [https://github.com/vindevoy/cherryblog/milestone/15](https://github.com/vindevoy/cherryblog/milestone/15)
+- [https://github.com/vindevoy/cherryblog/milestone/13](https://github.com/vindevoy/cherryblog/milestone/13)
 
 
 # Release v1.5.2
